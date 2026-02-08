@@ -570,3 +570,219 @@ footer {
   background: #f2f2f2;
   color: black;
 }
+/* ============================================
+   CHATBOT — PREMIUM CENTERED FLOATING DESIGN
+   ============================================ */
+
+/* Container that holds the Ask Me Anything bubble */
+#chatbot-container {
+  position: relative;
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  z-index: 20;
+}
+
+/* Ask Me Anything button */
+#chatbot-toggle {
+  background: var(--blue);
+  color: white;
+  padding: 14px 22px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: bold;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  transition: 0.25s ease;
+}
+
+#chatbot-toggle:hover {
+  transform: scale(1.07);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  background: var(--mint);
+  color: var(--navy);
+}
+
+/* Floating chatbox centered on screen */
+#chatbot-box {
+  position: fixed;
+  bottom: 110px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 340px;
+  max-height: 520px;
+  background: var(--slate);
+  color: var(--white);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 25px rgba(79, 255, 234, 0.35);
+  overflow: hidden;
+  z-index: 9999;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  animation: chatbotSlideUp 0.35s ease-out;
+}
+
+/* Slide-up animation when chatbox appears */
+@keyframes chatbotSlideUp {
+  from {
+    transform: translate(-50%, 20px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+/* Hidden state for minimized chatbox */
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(20px);
+}
+
+/* Chat header with bot icon and close button */
+#chatbot-header {
+  background: var(--blue);
+  padding: 10px 12px;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+}
+
+/* Bot icon + title wrapper */
+#chatbot-header-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Bot icon styling (cyber glow robot head) */
+.bot-icon {
+  fill: none;
+  stroke: var(--mint);
+  stroke-width: 1.6;
+  filter: drop-shadow(0 0 6px rgba(79, 255, 234, 0.7));
+}
+
+/* Minimize/close button */
+#chatbot-minimize {
+  cursor: pointer;
+  font-size: 18px;
+  color: white;
+  transition: 0.2s ease;
+}
+
+#chatbot-minimize:hover {
+  color: var(--mint);
+}
+
+/* Messages area */
+#chatbot-messages {
+  padding: 12px 14px;
+  height: 330px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+/* Generic message row */
+.chat-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+/* Icon next to each message */
+.chat-icon {
+  flex-shrink: 0;
+}
+
+/* User icon: cyber glow hacker laptop */
+.user-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: var(--mint);
+  stroke-width: 1.6;
+  filter: drop-shadow(0 0 6px rgba(79, 255, 234, 0.7));
+}
+
+/* Bot icon reused in messages */
+.bot-icon-message svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: var(--mint);
+  stroke-width: 1.6;
+  filter: drop-shadow(0 0 6px rgba(79, 255, 234, 0.7));
+}
+
+/* Message bubble base */
+.chat-bubble {
+  max-width: 80%;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Bot message bubble */
+.bot-bubble {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(79, 255, 234, 0.4);
+}
+
+/* User message bubble */
+.user-bubble {
+  background: rgba(58, 141, 255, 0.2);
+  border: 1px solid rgba(58, 141, 255, 0.6);
+}
+
+/* Typing indicator */
+#chatbot-typing {
+  padding: 6px 14px;
+  font-size: 13px;
+  opacity: 0.7;
+  font-style: italic;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 0.2; }
+  50% { opacity: 1; }
+  100% { opacity: 0.2; }
+}
+
+/* Input field */
+#chatbot-input {
+  border: none;
+  padding: 10px 12px;
+  font-size: 14px;
+  background: #2a2a2a;
+  color: white;
+  outline: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Light mode support */
+.light-mode #chatbot-box {
+  background: white;
+  color: black;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
+}
+
+.light-mode #chatbot-header {
+  background: var(--blue);
+  color: white;
+}
+
+.light-mode #chatbot-input {
+  background: #f2f2f2;
+  color: black;
+}

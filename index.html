@@ -51,15 +51,15 @@
          ============================ -->
     <section id="about" class="section">
         <h2>About Me</h2>
-        <p>
-            I’m Catherine Jason, a cybersecurity student pursuing an AAS in Cybersecurity with a 3.96 GPA and hands‑on experience across networking, Linux administration, Windows Server, digital forensics, scripting, and security operations. My work includes configuring Cisco Catalyst 2950, 2960 Plus, and 3560G switches; setting up Cisco 4331 routers; administering Ubuntu Server; and managing Active Directory environments. I’ve also carried out forensic investigations using tools like E3 Forensic Platform, FTK Imager, OSForensics, and ProDiscover.
-            <br><br>
-            I’ve gained practical cybersecurity experience with tools including Wireshark, Nmap, SNORT, Splunk, Nessus, Metasploit, Hashcat, Aircrack‑ng, Burp Suite, and Kali Linux, along with hands‑on work in encryption, access control, and Bash scripting. My training includes the BCR Cyber Series and CompTIA‑aligned A+, Network+, and Security+ labs, which strengthened my understanding of hardware, networking, and security fundamentals through both simulator environments and real classwork.
-            <br><br>
-            Outside of class, I enjoy building apps and websites in VS Code, experimenting with virtual machines, and learning through personal projects, cyber ranges, and platforms like TryHackMe. I’m driven by curiosity, problem‑solving, and continuous learning, and I’m preparing for roles in security operations, network defense, and digital forensics.
-            <b></b>
-            Check out my chatbox bellow:
-        </p>
+<p>
+    I’m Catherine Jason, a cybersecurity student pursuing an AAS in Cybersecurity with a 3.96 GPA and hands‑on experience across networking, Linux administration, Windows Server, digital forensics, scripting, and security operations. My work includes configuring Cisco Catalyst 2950, 2960 Plus, and 3560G switches; setting up Cisco 4331 routers; administering Ubuntu Server; and managing Active Directory environments. I’ve also carried out forensic investigations using tools like E3 Forensic Platform, FTK Imager, OSForensics, and ProDiscover.
+    <br><br>
+    I’ve gained practical cybersecurity experience with tools including Wireshark, Nmap, SNORT, Splunk, Nessus, Metasploit, Hashcat, Aircrack‑ng, Burp Suite, and Kali Linux, along with hands‑on work in encryption, access control, and Bash scripting. My training includes the BCR Cyber Series and CompTIA‑aligned A+, Network+, and Security+ labs, which strengthened my understanding of hardware, networking, and security fundamentals through both simulator environments and real classwork.
+    <br><br>
+    Outside of class, I enjoy building apps and websites in VS Code, experimenting with virtual machines, and learning through personal projects, cyber ranges, and platforms like TryHackMe. I’m driven by curiosity, problem‑solving, and continuous learning, and I’m preparing for roles in security operations, network defense, and digital forensics.
+</p>
+
+<p><strong>Check out my chatbox below:</strong></p>
     </section>
 <div id="chatbot-container">
   <button id="chatbot-toggle">💬 Ask Me Anything</button>
@@ -263,216 +263,304 @@
     </footer>
 
 <script>
-const chatbotToggle = document.getElementById("chatbot-toggle");
-const chatbotBox = document.getElementById("chatbot-box");
-const chatbotMessages = document.getElementById("chatbot-messages");
-const chatbotInput = document.getElementById("chatbot-input");
-const chatbotMinimize = document.getElementById("chatbot-minimize");
-const chatbotTyping = document.getElementById("chatbot-typing");
-const themeToggle = document.getElementById("chatbot-theme-toggle");
+// ============================================
+// CHATBOT CORE LOGIC + ICON RENDERING
+// ============================================
 
-/* Open chatbot + welcome message */
-chatbotToggle.addEventListener("click", () => {
-  chatbotBox.classList.toggle("hidden");
+// Helper: create a message row with icon + bubble
+function addMessage(sender, text) {
+  const messages = document.getElementById("chatbot-messages");
 
-  if (!chatbotBox.classList.contains("hidden")) {
-    addMessage("🤖", "Hi! Ask me anything about my skills, labs, tools, or experience.");
+  const row = document.createElement("div");
+  row.classList.add("chat-row");
+
+  const iconWrapper = document.createElement("div");
+  iconWrapper.classList.add("chat-icon");
+
+  // Bot icon SVG
+  const botSVG = `
+    <svg viewBox="0 0 24 24">
+      <rect x="4" y="6" width="16" height="12" rx="4" ry="4" />
+      <circle cx="9" cy="12" r="1.2" />
+      <circle cx="15" cy="12" r="1.2" />
+      <line x1="12" y1="4" x2="12" y2="6" />
+      <circle cx="12" cy="3" r="1" />
+    </svg>
+  `;
+
+  // User hacker laptop SVG
+  const userSVG = `
+    <svg viewBox="0 0 24 24">
+      <rect x="3" y="14" width="18" height="4" rx="1" ry="1" />
+      <rect x="5" y="6" width="14" height="8" rx="2" ry="2" />
+      <path d="M12 7.5c-2 0-3 1.5-3 3.2 0 1.3.7 2.3 1.8 2.8h2.4c1.1-.5 1.8-1.5 1.8-2.8 0-1.7-1-3.2-3-3.2z" />
+      <path d="M9.5 13.5c.6 1.2 1.6 2 2.5 2s1.9-.8 2.5-2" />
+    </svg>
+  `;
+
+  if (sender === "🤖") {
+    iconWrapper.classList.add("bot-icon-message");
+    iconWrapper.innerHTML = botSVG;
+  } else {
+    iconWrapper.classList.add("user-icon");
+    iconWrapper.innerHTML = userSVG;
   }
-});
 
-/* Minimize button */
-chatbotMinimize.addEventListener("click", () => {
-  chatbotBox.classList.add("hidden");
-});
+  const bubble = document.createElement("div");
+  bubble.classList.add("chat-bubble");
+  bubble.classList.add(sender === "🤖" ? "bot-bubble" : "user-bubble");
+  bubble.innerHTML = text;
 
-/* Theme toggle */
-themeToggle.addEventListener("click", () => {
-  document.body.classList.toggle("light-mode");
-  themeToggle.textContent =
-    document.body.classList.contains("light-mode") ? "🌙" : "☀️";
-});
+  row.appendChild(iconWrapper);
+  row.appendChild(bubble);
+  messages.appendChild(row);
 
-/* Add messages — UPDATED so HTML links work */
-function addMessage(prefix, text) {
-  const div = document.createElement("div");
-  div.innerHTML = prefix + " " + text;   /* ← THIS is the fix */
-  chatbotMessages.appendChild(div);
-  chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+  messages.scrollTop = messages.scrollHeight;
 }
 
-/* Typing indicator */
+// Typing indicator helpers
 function showTyping() {
-  chatbotTyping.classList.remove("hidden");
-  setTimeout(() => chatbotTyping.classList.add("hidden"), 800);
+  const typing = document.getElementById("chatbot-typing");
+  typing.style.display = "block";
 }
 
-/* Chatbot logic */
-chatbotInput.addEventListener("keypress", function(e) {
-  if (e.key === "Enter") {
-    const question = chatbotInput.value.toLowerCase().trim();
-    if (!question) return;
+function hideTyping() {
+  const typing = document.getElementById("chatbot-typing");
+  typing.style.display = "none";
+}
 
-    chatbotInput.value = "";
-    addMessage("🧑", question);
-    showTyping();
+// ============================================
+// Q&A LOGIC (your full Q&A stays exactly the same)
+// ============================================
 
-    setTimeout(() => {
-      handleQuestion(question);
-    }, 800);
-  }
-});
-
-/* Q&A responses */
 function handleQuestion(question) {
+  question = question.toLowerCase().trim();
 
   // Skills
   if (question.includes("skill") || question.includes("skills")) {
-    addMessage("🤖", "My core skills include networking, Linux administration, Windows Server, digital forensics, SIEM analysis, and hands-on cybersecurity labs. I learn quickly when I can work with something directly, and I put everything I have into understanding how systems work. You can also ask me about my strongest qualities.");
+    addMessage(
+      "🤖",
+      "My core skills include networking, Linux administration, Windows Server, digital forensics, SIEM analysis, and hands-on cybersecurity labs. I learn quickly when I can work with something directly, and I put everything I have into understanding how systems work. You can also ask me about my strongest qualities."
+    );
   }
 
   // Background
-  else if (question.includes("background") || question.includes("experience") || question.includes("beginner")) {
-    addMessage("🤖", "I still consider myself a beginner because there is always more to learn in IT, but that is what I love about this field. At Carroll Community College, I get a lot of hands-on experience that helps me grow and build confidence. You can also ask why I chose cybersecurity.");
+  else if (
+    question.includes("background") ||
+    question.includes("experience") ||
+    question.includes("beginner")
+  ) {
+    addMessage(
+      "🤖",
+      "I still consider myself a beginner because there is always more to learn in IT, but that is what I love about this field. At Carroll Community College, I get a lot of hands-on experience that helps me grow and build confidence. You can also ask why I chose cybersecurity."
+    );
   }
 
   // Why cybersecurity
-  else if ((question.includes("why") && question.includes("cyber")) || question.includes("choose")) {
-    addMessage("🤖", "I chose cybersecurity because I grew up around family in IT and was always amazed by how everything worked behind the scenes. Cyber fits me because I love investigating, problem solving, and doing things the right and ethical way. I want to help protect people who may not understand the risks in the digital world. You can also ask about my career goals.");
+  else if (
+    (question.includes("why") && question.includes("cyber")) ||
+    question.includes("choose")
+  ) {
+    addMessage(
+      "🤖",
+      "I chose cybersecurity because I grew up around family in IT and was always amazed by how everything worked behind the scenes. Cyber fits me because I love investigating, problem solving, and doing things the right and ethical way. I want to help protect people who may not understand the risks in the digital world. You can also ask about my career goals."
+    );
   }
 
   // Networking
   else if (question.includes("network")) {
-    addMessage("🤖", "I completed hands-on networking labs using Cisco routers and switches. I worked with VLANs, routing, NAT, DHCP, ACLs, and full network topologies. One of my favorite projects was building a multi-router network as a team and seeing everything come together at the end. You can also ask about my Linux experience.");
+    addMessage(
+      "🤖",
+      "I completed hands-on networking labs using Cisco routers and switches. I worked with VLANs, routing, NAT, DHCP, ACLs, and full network topologies. One of my favorite projects was building a multi-router network as a team and seeing everything come together at the end. You can also ask about my Linux experience."
+    );
   }
 
   // Linux
   else if (question.includes("linux")) {
-    addMessage("🤖", "In my Linux System Administration class, I worked with Ubuntu, user and permission management, SSH setup, networking, storage, and scripting. I used Vim to write scripts with loops and learned how to pull external scripts into the system. Linux helped me understand how systems operate at a deeper level. You can also ask about my Windows Server experience.");
+    addMessage(
+      "🤖",
+      "In my Linux System Administration class, I worked with Ubuntu, user and permission management, SSH setup, networking, storage, and scripting. I used Vim to write scripts with loops and learned how to pull external scripts into the system. Linux helped me understand how systems operate at a deeper level. You can also ask about my Windows Server experience."
+    );
   }
 
   // Windows Server
   else if (question.includes("windows") || question.includes("server")) {
-    addMessage("🤖", "I worked with Windows Server in full lab environments. I practiced Active Directory, Group Policy, user accounts, permissions, and system hardening. These labs helped me understand how enterprise environments are managed and secured. You can also ask about my forensics experience.");
+    addMessage(
+      "🤖",
+      "I worked with Windows Server in full lab environments. I practiced Active Directory, Group Policy, user accounts, permissions, and system hardening. These labs helped me understand how enterprise environments are managed and secured. You can also ask about my forensics experience."
+    );
   }
 
   // Forensics
   else if (question.includes("forensic") || question.includes("forensics")) {
-    addMessage("🤖", "I completed digital forensics labs using E3, FTK Imager, OSForensics, and ProDiscover. I practiced imaging, hashing, carving, registry analysis, email analysis, and evidence handling. I enjoy forensics because it feels like solving a puzzle. You can also ask about the tools I use.");
+    addMessage(
+      "🤖",
+      "I completed digital forensics labs using E3, FTK Imager, OSForensics, and ProDiscover. I practiced imaging, hashing, carving, registry analysis, email analysis, and evidence handling. I enjoy forensics because it feels like solving a puzzle. You can also ask about the tools I use."
+    );
   }
 
   // Tools
   else if (question.includes("tool") || question.includes("tools")) {
-    addMessage("🤖", "I have used Wireshark, Nmap, SNORT, Splunk, Nessus, Metasploit, Burp Suite, Hashcat, Aircrack-ng, and Kali Linux. I feel confident using any tool because I do not give up until I understand it. You can also ask about my labs or projects.");
+    addMessage(
+      "🤖",
+      "I have used Wireshark, Nmap, SNORT, Splunk, Nessus, Metasploit, Burp Suite, Hashcat, Aircrack-ng, and Kali Linux. I feel confident using any tool because I do not give up until I understand it. You can also ask about my labs or projects."
+    );
   }
 
   // Labs
   else if (question.includes("lab") || question.includes("labs")) {
-    addMessage("🤖", "My labs include networking, Linux, Windows Server, SIEM analysis, digital forensics, exploitation, and system hardening. Each lab helped me grow in a different way and understand how everything connects in IT. You can also ask about my favorite projects.");
+    addMessage(
+      "🤖",
+      "My labs include networking, Linux, Windows Server, SIEM analysis, digital forensics, exploitation, and system hardening. Each lab helped me grow in a different way and understand how everything connects in IT. You can also ask about my favorite projects."
+    );
   }
 
   // Projects
   else if (question.includes("project") || question.includes("projects")) {
-    addMessage("🤖", "I have built networks, configured servers, completed forensic investigations, analyzed SIEM logs, and worked on ethical hacking labs. I also work on personal projects like TryHackMe, Ubuntu VMs, Packet Tracer networks, this portfolio site, and an app I hope to publish one day. You can also ask what I am most proud of.");
+    addMessage(
+      "🤖",
+      "I have built networks, configured servers, completed forensic investigations, analyzed SIEM logs, and worked on ethical hacking labs. I also work on personal projects like TryHackMe, Ubuntu VMs, Packet Tracer networks, this portfolio site, and an app I hope to publish one day. You can also ask what I am most proud of."
+    );
   }
 
   // Strengths
   else if (question.includes("strongest") || question.includes("strength")) {
-    addMessage("🤖", "My strongest qualities are determination, problem solving, and attention to detail. I do not give up easily, and if I hit a roadblock, I find another way through it. I learn fast when I can work hands-on. You can also ask what I enjoy most in IT.");
+    addMessage(
+      "🤖",
+      "My strongest qualities are determination, problem solving, and attention to detail. I do not give up easily, and if I hit a roadblock, I find another way through it. I learn fast when I can work hands-on. You can also ask what I enjoy most in IT."
+    );
   }
 
   // Enjoy
   else if (question.includes("enjoy") || question.includes("like")) {
-    addMessage("🤖", "I enjoy all areas of IT because I love understanding how things work. I especially enjoy networking, Linux, forensics, and anything that lets me investigate or build something from the ground up. You can also ask about my career goals.");
+    addMessage(
+      "🤖",
+      "I enjoy all areas of IT because I love understanding how things work. I especially enjoy networking, Linux, forensics, and anything that lets me investigate or build something from the ground up. You can also ask about my career goals."
+    );
   }
 
   // Goals / Career
-  else if (question.includes("goal") || question.includes("career") || question.includes("role") || question.includes("future")) {
-    addMessage("🤖", "I am interested in becoming a SOC analyst because it exposes you to many areas of cybersecurity and helps you build a well-rounded skill set. I also enjoy networking, so that could be another direction for me. I am open to any IT role that helps me grow and find where I fit best. You can also ask how I learn best.");
+  else if (
+    question.includes("goal") ||
+    question.includes("career") ||
+    question.includes("role") ||
+    question.includes("future")
+  ) {
+    addMessage(
+      "🤖",
+      "I am interested in becoming a SOC analyst because it exposes you to many areas of cybersecurity and helps you build a well-rounded skill set. I also enjoy networking, so that could be another direction for me. I am open to any IT role that helps me grow and find where I fit best. You can also ask how I learn best."
+    );
   }
 
   // Learning style
   else if (question.includes("learn") || question.includes("learning")) {
-    addMessage("🤖", "I learn best by doing. I like trying things, breaking them, fixing them, and understanding how everything works. I stay curious and always look for ways to improve. You can also ask what I am currently working on.");
+    addMessage(
+      "🤖",
+      "I learn best by doing. I like trying things, breaking them, fixing them, and understanding how everything works. I stay curious and always look for ways to improve. You can also ask what I am currently working on."
+    );
   }
 
   // Working on
   else if (question.includes("work") || question.includes("working")) {
-    addMessage("🤖", "I am working on my cybersecurity portfolio, improving my Linux and networking skills, practicing on TryHackMe, and developing an app I hope to publish. I like staying busy and always learning something new. You can also ask about my certifications.");
+    addMessage(
+      "🤖",
+      "I am working on my cybersecurity portfolio, improving my Linux and networking skills, practicing on TryHackMe, and developing an app I hope to publish. I like staying busy and always learning something new. You can also ask about my certifications."
+    );
   }
 
   // Certifications
-  else if (question.includes("cert") || question.includes("certification") || question.includes("security+") || question.includes("comptia")) {
-    addMessage("🤖", "I am actively studying for the CompTIA Security Plus exam and already purchased the voucher. I want to feel fully prepared before taking it. I have completed CompTIA aligned training for A Plus, Network Plus, and Security Plus through my program, which gave me a strong foundation even though I have not taken those exams yet. You can also ask about my education or training.");
+  else if (
+    question.includes("cert") ||
+    question.includes("certification") ||
+    question.includes("security+") ||
+    question.includes("comptia")
+  ) {
+    addMessage(
+      "🤖",
+      "I am actively studying for the CompTIA Security Plus exam and already purchased the voucher. I want to feel fully prepared before taking it. I have completed CompTIA aligned training for A Plus, Network Plus, and Security Plus through my program, which gave me a strong foundation even though I have not taken those exams yet. You can also ask about my education or training."
+    );
   }
 
   // Training
-  else if (question.includes("training") || question.includes("classes") || question.includes("school") || question.includes("education")) {
-    addMessage("🤖", "I completed training aligned with A Plus, Network Plus, and Security Plus, and I also completed the BCR Cybersecurity program through Baltimore County. These programs helped me build hands-on experience across hardware, networking, security fundamentals, and real cyber scenarios. You can also ask about my interests outside of tech.");
+  else if (
+    question.includes("training") ||
+    question.includes("classes") ||
+    question.includes("school") ||
+    question.includes("education")
+  ) {
+    addMessage(
+      "🤖",
+      "I completed training aligned with A Plus, Network Plus, and Security Plus, and I also completed the BCR Cybersecurity program through Baltimore County. These programs helped me build hands-on experience across hardware, networking, security fundamentals, and real cyber scenarios. You can also ask about my interests outside of tech."
+    );
   }
 
   // Interests outside tech
-  else if (question.includes("hobby") || question.includes("interests") || question.includes("outside") || question.includes("life")) {
-    addMessage("🤖", "Outside of tech, I love being a mom. My children are my whole world, and I dedicate everything I do to giving them the best life. When I am not doing something hands-on with them, I am usually working on a project to improve my skills. I also enjoy hiking when the weather is nice. You can also ask to see my resume.");
+  else if (
+    question.includes("hobby") ||
+    question.includes("interests") ||
+    question.includes("outside") ||
+    question.includes("life")
+  ) {
+    addMessage(
+      "🤖",
+      "Outside of tech, I love being a mom. My children are my whole world, and I dedicate everything I do to giving them the best life. When I am not doing something hands-on with them, I am usually working on a project to improve my skills. I also enjoy hiking when the weather is nice. You can also ask to see my resume."
+    );
   }
 
   // Resume
   else if (question.includes("resume") || question.includes("résumé")) {
-    addMessage("🤖", "Here is my resume. <a href='Catherine_Jason_Resume.pdf' download style='color:#4a90e2;'>Download Resume</a> You can also ask me about my skills or projects.");
+    addMessage(
+      "🤖",
+      "Here is my resume. <a href='Catherine_Jason_Resume.pdf' download style='color:#4a90e2;'>Download Resume</a> You can also ask me about my skills or projects."
+    );
   }
 
   // Fallback
   else {
-    addMessage("🤖", "You can ask me about my skills, labs, tools, networking, Linux, Windows Server, forensics, projects, certifications, or career goals.");
+    addMessage(
+      "🤖",
+      "You can ask me about my skills, labs, tools, networking, Linux, Windows Server, forensics, projects, certifications, or career goals."
+    );
   }
 }
-<!-- END OF YOUR CHATBOT JAVASCRIPT -->
+
+// ============================================
+// EVENT WIRING: TOGGLE, INPUT, MINIMIZE
+// ============================================
+
+document.addEventListener("DOMContentLoaded", function () {
+  const toggle = document.getElementById("chatbot-toggle");
+  const box = document.getElementById("chatbot-box");
+  const input = document.getElementById("chatbot-input");
+  const minimize = document.getElementById("chatbot-minimize");
+
+  // Open chatbox
+  toggle.addEventListener("click", () => {
+    box.classList.remove("hidden");
+    input.focus();
+  });
+
+  // Minimize chatbox
+  minimize.addEventListener("click", () => {
+    box.classList.add("hidden");
+  });
+
+  // Handle Enter key for questions
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && input.value.trim() !== "") {
+      const question = input.value.trim();
+      addMessage("You", question); // user message
+      input.value = "";
+
+      showTyping();
+      setTimeout(() => {
+        hideTyping();
+        handleQuestion(question);
+      }, 500);
+    }
+  });
+});
 </script>
-
-<!-- ============================================
-     CHATBOT WIDGET (PLACE THIS UNDER YOUR LAST Q&A)
-     ============================================ -->
-
-<!-- Ask Me Anything bubble under your Q&A -->
-<div id="chatbot-container">
-  <button id="chatbot-toggle">
-    💬 Ask Me Anything
-  </button>
-</div>
-
-<!-- Floating Chatbox -->
-<div id="chatbot-box" class="hidden">
-
-  <!-- Chat Header with Bot Icon -->
-  <div id="chatbot-header">
-    <span id="chatbot-header-icon">
-      <!-- Cyber Glow Robot Head Icon -->
-      <svg width="22" height="22" viewBox="0 0 24 24" class="bot-icon">
-        <rect x="4" y="6" width="16" height="12" rx="4" ry="4" />
-        <circle cx="9" cy="12" r="1.2" />
-        <circle cx="15" cy="12" r="1.2" />
-        <line x1="12" y1="4" x2="12" y2="6" />
-        <circle cx="12" cy="3" r="1" />
-      </svg>
-      Cyber Assistant
-    </span>
-
-    <!-- Minimize Button -->
-    <span id="chatbot-minimize">✕</span>
-  </div>
-
-  <!-- Messages Area -->
-  <div id="chatbot-messages"></div>
-
-  <!-- Typing Indicator -->
-  <div id="chatbot-typing" style="display:none;">Assistant is typing...</div>
-
-  <!-- User Input -->
-  <input
-    type="text"
-    id="chatbot-input"
-    placeholder="Type your question and press Enter..."
-  />
-</div>
 
 </body>
 </html>
