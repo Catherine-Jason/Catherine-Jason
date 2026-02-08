@@ -348,3 +348,9 @@ footer {
 .light-mode #chatbot-typing {
   color: #ff9900;
 }
+@media (hover: none) {
+  .card:active {
+    transform: translateY(-10px);
+    box-shadow: 0 0 20px #00ffaa;
+  }
+}
