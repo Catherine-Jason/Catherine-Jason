@@ -326,95 +326,273 @@ function hideTyping() {
 function handleQuestion(question) {
   question = question.toLowerCase();
 
- // Introduction
-if (question.includes("hello") || question.includes("hi") || question.includes("hey") || question.includes("start") || question.includes("introduction")) {
-  addMessage(
-    "🤖",
-    "Hey there, my name is Catherine. Welcome to my interactive cybersecurity chatbot. I created this space so you can get to know me, explore my experience, and see the work I have done through hands-on labs and projects. I look forward to interacting with you and sharing my background, especially if you are interested in learning more about me for a potential interview or team opportunity. Feel free to ask me anything about my skills, training, or experience."
-  );
-  return;
-}
-
-  // Networking Experience
-  if (question.includes("networking") || question.includes("vlan") || question.includes("router") || question.includes("switch")) {
-    addMessage("🤖", "I have strong hands-on networking experience from building and troubleshooting real lab environments. I worked with Cisco routers and switches, configured VLANs, set up inter-VLAN communication, and practiced routing, NAT, DHCP, and ACLs. I learned how small misconfigurations can break an entire network, and I enjoyed the process of diagnosing issues, testing connectivity, and validating my configurations.<br><br>You can also ask about my Linux experience.");
+  // Introduction
+  if (
+    question.includes("hello") ||
+    question.includes("hi") ||
+    question.includes("hey") ||
+    question.includes("start") ||
+    question.includes("introduction")
+  ) {
+    addMessage(
+      "🤖",
+      "Hey there, my name is Catherine. Welcome to my interactive cybersecurity chatbot. I created this space so you can get to know me, explore my experience, and see the work I have done through hands-on labs and projects. I look forward to interacting with you and sharing my background, especially if you are interested in learning more about me for a potential interview or team opportunity. Feel free to ask me anything about my skills, training, or experience."
+    );
     return;
   }
 
-// Linux Experience
-if (question.includes("linux") || question.includes("ubuntu") || question.includes("bash") || question.includes("terminal")) {
-  addMessage(
-    "🤖",
-    "Linux became one of my favorite environments because it taught me how systems really work. I practiced user management, permissions, SSH, networking tools, and wrote simple Bash scripts to automate tasks in vim. I used Linux VMs for labs, troubleshooting, and cybersecurity exercises.<br><br>You can also ask about my Windows Server experience."
-  );
-  return;
-}
+  // Networking Experience
+  if (
+    question.includes("networking") ||
+    question.includes("vlan") ||
+    question.includes("router") ||
+    question.includes("switch")
+  ) {
+    addMessage(
+      "🤖",
+      "I have strong hands-on networking experience from building and troubleshooting real lab environments. I worked with Cisco routers and switches, configured VLANs, set up inter-VLAN communication, and practiced routing, NAT, DHCP, and ACLs. I learned how small misconfigurations can break an entire network, and I enjoyed the process of diagnosing issues, testing connectivity, and validating my configurations.<br><br>You can also ask about my Linux experience."
+    );
+    return;
+  }
 
-// Windows Server Experience
-if (question.includes("windows server") || question.includes("active directory") || question.includes("gpo") || question.includes("domain")) {
-  addMessage(
-    "🤖",
-    "I built Windows Server lab environments where I managed Active Directory from the ground up. I created and organized users, groups, and OUs, configured Group Policies to control settings across the domain, and practiced real troubleshooting like fixing login issues, permission problems, and authentication errors. Working with Windows Server helped me understand how enterprise environments stay secure and organized.<br><br>You can also ask about my digital forensics experience."
-  );
-  return;
-}
+  // Linux Experience
+  if (
+    question.includes("linux") ||
+    question.includes("ubuntu") ||
+    question.includes("bash") ||
+    question.includes("terminal")
+  ) {
+    addMessage(
+      "🤖",
+      "Linux became one of my favorite environments because it taught me how systems really work. I practiced user management, permissions, SSH, networking tools, and wrote simple Bash scripts to automate tasks in vim. I used Linux VMs for labs, troubleshooting, and cybersecurity exercises.<br><br>You can also ask about my Windows Server experience."
+    );
+    return;
+  }
 
-// Digital Forensics Experience
-if (question.includes("forensics") || question.includes("ftk") || question.includes("osforensics") || question.includes("evidence")) {
-  addMessage(
-    "🤖",
-    "I completed digital forensics labs where I acquired and preserved evidence using FTK Imager, verified integrity through hashing, and analyzed artifacts like registry hives, emails, and user activity. I also built timelines to understand what happened and when. I enjoy the investigative side of forensics because it feels like solving a puzzle and uncovering the story behind the data.<br><br>You can also ask about my SIEM experience."
-  );
-  return;
-}
+  // Windows Server Experience
+  if (
+    question.includes("windows server") ||
+    question.includes("active directory") ||
+    question.includes("gpo") ||
+    question.includes("domain")
+  ) {
+    addMessage(
+      "🤖",
+      "I built Windows Server lab environments where I managed Active Directory from the ground up. I created and organized users, groups, and OUs, configured Group Policies to control settings across the domain, and practiced real troubleshooting like fixing login issues, permission problems, and authentication errors. Working with Windows Server helped me understand how enterprise environments stay secure and organized.<br><br>You can also ask about my digital forensics experience."
+    );
+    return;
+  }
+
+  // Digital Forensics Experience
+  if (
+    question.includes("forensics") ||
+    question.includes("ftk") ||
+    question.includes("osforensics") ||
+    question.includes("evidence")
+  ) {
+    addMessage(
+      "🤖",
+      "I completed digital forensics labs where I acquired and preserved evidence using FTK Imager, verified integrity through hashing, and analyzed artifacts like registry hives, emails, and user activity. I also built timelines to understand what happened and when. I enjoy the investigative side of forensics because it feels like solving a puzzle and uncovering the story behind the data.<br><br>You can also ask about my SIEM experience."
+    );
+    return;
+  }
 
   // SIEM and Log Analysis
-  if (question.includes("siem") || question.includes("splunk") || question.includes("log analysis") || question.includes("events")) {
-    addMessage("🤖", "I practiced SIEM investigations using Splunk where I analyzed authentication logs, searched for suspicious login attempts, and learned how to correlate events to identify patterns. I enjoy SIEM work because it taught me how attackers behave and how to spot unusual activity.<br><br>You can also ask about my ethical hacking experience.");
+  if (
+    question.includes("siem") ||
+    question.includes("splunk") ||
+    question.includes("log analysis") ||
+    question.includes("events")
+  ) {
+    addMessage(
+      "🤖",
+      "I practiced SIEM investigations using Splunk where I analyzed authentication logs, searched for suspicious login attempts, and learned how to correlate events to identify patterns. I enjoy SIEM work because it taught me how attackers behave and how to spot unusual activity.<br><br>You can also ask about my ethical hacking experience."
+    );
     return;
   }
 
   // Ethical Hacking Experience
-  if (question.includes("ethical hacking") || question.includes("pentest") || question.includes("tryhackme") || question.includes("ctf")) {
-    addMessage("🤖", "I completed ethical hacking labs where I performed reconnaissance, scanning, enumeration, and exploitation in controlled environments. I practiced privilege escalation techniques and learned how vulnerabilities are discovered and abused. These labs helped me understand how to defend systems more effectively.<br><br>You can also ask about the tools I use.");
+  if (
+    question.includes("ethical hacking") ||
+    question.includes("pentest") ||
+    question.includes("tryhackme") ||
+    question.includes("ctf")
+  ) {
+    addMessage(
+      "🤖",
+      "I completed ethical hacking labs where I performed reconnaissance, scanning, enumeration, and exploitation in controlled environments. I practiced privilege escalation techniques and learned how vulnerabilities are discovered and abused. These labs helped me understand how to defend systems more effectively.<br><br>You can also ask about the tools I use."
+    );
     return;
   }
 
-// Tools I Use
-if (question.includes("tools") || question.includes("wireshark") || question.includes("nmap") || question.includes("nessus") || question.includes("burp")) {
+  // Tools I Use
+  if (
+    question.includes("tools") ||
+    question.includes("wireshark") ||
+    question.includes("nmap") ||
+    question.includes("nessus") ||
+    question.includes("burp")
+  ) {
+    addMessage(
+      "🤖",
+      "I work with a wide range of cybersecurity tools depending on the task. I use Wireshark for packet analysis, Nmap for network scanning, Splunk for log analysis, FTK Imager for forensic evidence collection, and Burp Suite for web application testing. Each tool gives me a different perspective on how systems behave, and I enjoy learning new ones because they sharpen my troubleshooting and investigative skills.<br><br>You can also ask about my labs."
+    );
+    return;
+  }
+
+  // Labs I Completed
+  if (
+    question.includes("labs") ||
+    question.includes("hands on") ||
+    question.includes("practice")
+  ) {
+    addMessage(
+      "🤖",
+      "I completed hands-on labs in networking, Linux, Windows Server, forensics, SIEM, and ethical hacking. These labs helped me build real confidence because I could experiment, break things, fix them, and see how systems behave in real situations.<br><br>You can also ask about my projects."
+    );
+    return;
+  }
+
+  // Projects I Worked On
+  if (
+    question.includes("projects") ||
+    question.includes("portfolio") ||
+    question.includes("build")
+  ) {
+    addMessage(
+      "🤖",
+      "I worked on projects like building multi-router networks, configuring Windows Server domains, performing forensic investigations, and developing a small application. I enjoy projects because they let me combine everything I’ve learned into something practical and real.<br><br>You can also ask about my troubleshooting style."
+    );
+    return;
+  }
+
+  // Troubleshooting Style
+  if (
+    question.includes("troubleshooting") ||
+    question.includes("problem solving") ||
+    question.includes("fix")
+  ) {
+    addMessage(
+      "🤖",
+      "Troubleshooting is one of my strongest skills because I like breaking problems down and testing one variable at a time. Networking labs taught me how a single ACL, DNS entry, or missing default gateway can break everything. I recreate the issue, gather clues, test solutions, and confirm the fix.<br><br>You can also ask about my learning style."
+    );
+    return;
+  }
+}
+
+// Additional Q&A Blocks
+if (question.includes("confidence") || question.includes("improve") || question.includes("growth")) {
   addMessage(
     "🤖",
-    "I work with a wide range of cybersecurity tools depending on the task. I use Wireshark for packet analysis, Nmap for network scanning, Splunk for log analysis, FTK Imager for forensic evidence collection, and Burp Suite for web application testing. Each tool gives me a different perspective on how systems behave, and I enjoy learning new ones because they sharpen my troubleshooting and investigative skills.<br><br>You can also ask about my labs."
+    "My confidence comes from hands-on practice. Every time I troubleshoot an issue, complete a lab, build something new, or study a topic in depth, I feel more prepared for real-world work. I enjoy learning, experimenting, and growing through experience.<br><br>You can also ask about my personality or work style."
   );
   return;
 }
 
-// Labs I Completed
-if (question.includes("labs") || question.includes("hands on") || question.includes("practice")) {
+// Personality and Work Style
+if (question.includes("personality") || question.includes("work style") || question.includes("describe yourself")) {
   addMessage(
     "🤖",
-    "I completed hands-on labs in networking, Linux, Windows Server, forensics, SIEM, and ethical hacking. These labs helped me build real confidence because I could experiment, break things, fix them, and see how systems behave in real situations.<br><br>You can also ask about my projects."
+    "I’m a curious, determined, and patient person. I enjoy solving problems, learning new tools, and helping others when needed. I stay calm when troubleshooting, and I like working in environments where I can grow, contribute, and support the team. I also work well independently, adapt quickly, and take pride in the quality of my work.<br><br>You can also ask about my experience with specific tools or systems."
   );
   return;
 }
 
-// Projects I Worked On
-if (question.includes("projects") || question.includes("portfolio") || question.includes("build")) {
+// Resume Overview
+if (question.includes("resume") || question.includes("cv") || question.includes("summary")) {
   addMessage(
     "🤖",
-    "I worked on projects like building multi-router networks, configuring Windows Server domains, performing forensic investigations, and developing a small application. I enjoy projects because they let me combine everything I’ve learned into something practical and real.<br><br>You can also ask about my troubleshooting style."
+    "My resume highlights my hands-on experience in networking, Linux, Windows Server, digital forensics, SIEM analysis, and ethical hacking labs. I focus on real skills I practiced, like configuring networks, analyzing logs, building domains, and investigating evidence. I also include my strengths, projects, and the tools I use.<br><br>Here is the link to my resume:<br><br><AttachedDocument filename=\"Catherine_Jason_Resume.pdf\" /><br><br>You can also ask about my background."
   );
   return;
 }
 
-// Troubleshooting Style
-if (question.includes("troubleshooting") || question.includes("problem solving") || question.includes("fix")) {
+// Tools I Use Most Often
+if (question.includes("favorite tool") || question.includes("tools you use most") || question.includes("most used tools")) {
   addMessage(
     "🤖",
-    "Troubleshooting is one of my strongest skills because I like breaking problems down and testing one variable at a time. Networking labs taught me how a single ACL, DNS entry, or missing default gateway can break everything. I recreate the issue, gather clues, test solutions, and confirm the fix.<br><br>You can also ask about my learning style."
+    "The tools I use most often are Wireshark for packet analysis, Nmap for scanning, Splunk for log analysis, FTK Imager for forensics, and Burp Suite for web testing. Each tool helps me understand a different part of cybersecurity. You can also ask about how I build confidence in my skills."
   );
   return;
 }
+
+// How I Build Confidence
+if (question.includes("build confidence") || question.includes("confidence building") || question.includes("feel confident")) {
+  addMessage(
+    "🤖",
+    "I build confidence through hands-on practice. Every time I complete a lab, troubleshoot an issue, or learn a new tool, I feel more prepared for real world work. I like to repeat tasks until they feel natural and document what I learn along the way. You can also ask what I enjoy most about cybersecurity."
+  );
+  return;
+}
+
+// What I Enjoy Most About Cybersecurity
+if (question.includes("enjoy most") || question.includes("favorite part") || question.includes("what do you like about cyber")) {
+  addMessage(
+    "🤖",
+    "What I enjoy most about cybersecurity is the mix of problem solving, investigation, and constant learning. I like understanding how systems work, how attackers think, and how to defend against threats. Every challenge teaches me something new. You can also ask about my experience with networking, Linux, or forensics."
+  );
+  return;
+}
+
+// Experience With Security Alerts
+if (question.includes("alerts") || question.includes("security alerts") || question.includes("investigate alerts")) {
+  addMessage(
+    "🤖",
+    "I practiced investigating security alerts through SIEM labs where I analyzed authentication logs, searched for unusual activity, and learned how to identify patterns that might indicate an attack. I enjoy alert investigation because it feels like solving a puzzle and helps me understand how attackers behave. You can also ask about my security mindset."
+  );
+  return;
+}
+
+// Security Mindset
+if (question.includes("security mindset") || question.includes("think like a defender") || question.includes("security approach")) {
+  addMessage(
+    "🤖",
+    "My security mindset is based on curiosity, awareness, and understanding how systems behave. I like to think about how attackers might approach a system and how defenders can detect or prevent those actions. This mindset helps me stay alert, ask the right questions, and look deeper into unusual activity. You can also ask about my endpoint security experience."
+  );
+  return;
+}
+
+// Endpoint Security Experience
+if (question.includes("endpoint") || question.includes("endpoint security") || question.includes("edr") || question.includes("defender")) {
+  addMessage(
+    "🤖",
+    "I practiced endpoint security concepts such as identifying suspicious processes, reviewing logs, and understanding how malware behaves. I also learned how endpoint tools help detect unusual activity and protect systems. This experience helped me understand how threats move across a network. You can also ask about my readiness for real world work."
+  );
+  return;
+}
+
+// Real World Readiness
+if (question.includes("ready for real world") || question.includes("job ready") || question.includes("real world experience")) {
+  addMessage(
+    "🤖",
+    "I feel ready for real world work because my training focused on hands-on labs, troubleshooting, and understanding how systems behave. I practiced networking, Linux, Windows Server, forensics, SIEM, and ethical hacking in environments that mimic real situations. I enjoy learning and adapting, which helps me grow quickly in professional settings. You can also ask why I am a good fit for cybersecurity roles."
+  );
+  return;
+}
+
+// Why I Am a Good Fit
+if (question.includes("good fit") || question.includes("why hire you") || question.includes("why you")) {
+  addMessage(
+    "🤖",
+    "I am a good fit for cybersecurity roles because I am curious, determined, and hands-on. I enjoy solving problems, learning new tools, and understanding systems. My labs gave me real experience with networking, Linux, Windows Server, forensics, SIEM analysis, and more. I stay calm under pressure, communicate clearly, and enjoy working in environments where I can grow and contribute. I am always willing to earn certifications companies require and keep up with new technology. I am not afraid of hard work or new experiences. You can also ask about any specific skill or experience you want to know more about."
+  );
+  return;
+}
+
+// Ask About Anything Else
+if (question.includes("anything else") || question.includes("what else") || question.includes("more about you")) {
+  addMessage(
+    "🤖",
+    "You can ask me about my networking experience, Linux skills, Windows Server labs, digital forensics work, SIEM investigations, ethical hacking practice, tools I use, projects I completed, troubleshooting style, learning approach, strengths, career goals, or anything else you want to know. I am here to help you understand my background and experience."
+  );
+  return;
+}
+
+// Catch All
+addMessage(
+  "🤖",
+  "I can tell you about my networking experience, Linux skills, Windows Server labs, digital forensics work, SIEM investigations, ethical hacking practice, tools I use, projects I completed, troubleshooting style, learning approach, strengths, career goals, and more. Feel free to ask anything you want to know about my experience."
+);
 
 // Learning Style
 if (question.includes("learning style") || question.includes("learn") || question.includes("study")) {
@@ -523,120 +701,6 @@ if (question.includes("certification") || question.includes("certifications") ||
   );
   return;
 }
-
-// Confidence and Growth
-if (question.includes("confidence") || question.includes("improve") || question.includes("growth")) {
-  addMessage(
-    "🤖",
-    "My confidence comes from hands-on practice. Every time I troubleshoot an issue, complete a lab, build something new, or study a topic in depth, I feel more prepared for real-world work. I enjoy learning, experimenting, and growing through experience.<br><br>You can also ask about my personality or work style."
-  );
-  return;
-}
-
-// Personality and Work Style
-if (question.includes("personality") || question.includes("work style") || question.includes("describe yourself")) {
-  addMessage(
-    "🤖",
-    "I’m a curious, determined, and patient person. I enjoy solving problems, learning new tools, and helping others when needed. I stay calm when troubleshooting, and I like working in environments where I can grow, contribute, and support the team. I also work well independently, adapt quickly, and take pride in the quality of my work.<br><br>You can also ask about my experience with specific tools or systems."
-  );
-  return;
-}
-}
-   // Resume Overview
-if (question.includes("resume") || question.includes("cv") || question.includes("summary")) {
-  addMessage(
-    "🤖",
-    "My resume highlights my hands-on experience in networking, Linux, Windows Server, digital forensics, SIEM analysis, and ethical hacking labs. I focus on real skills I practiced, like configuring networks, analyzing logs, building domains, and investigating evidence. I also include my strengths, projects, and the tools I use.<br><br>Here is the link to my resume:<br><br><AttachedDocument filename=\"Catherine_Jason_Resume.pdf\" /><br><br>You can also ask about my background."
-  );
-  return;
-}
-
-// Tools I Use Most Often
-if (question.includes("favorite tool") || question.includes("tools you use most") || question.includes("most used tools")) {
-  addMessage(
-    "🤖",
-    "The tools I use most often are Wireshark for packet analysis, Nmap for scanning, Splunk for log analysis, FTK Imager for forensics, and Burp Suite for web testing. Each tool helps me understand a different part of cybersecurity. You can also ask about how I build confidence in my skills."
-  );
-  return;
-}
-
-// How I Build Confidence
-if (question.includes("build confidence") || question.includes("confidence building") || question.includes("feel confident")) {
-  addMessage(
-    "🤖",
-    "I build confidence through hands-on practice. Every time I complete a lab, troubleshoot an issue, or learn a new tool, I feel more prepared for real world work. I like to repeat tasks until they feel natural and document what I learn along the way. You can also ask what I enjoy most about cybersecurity."
-  );
-  return;
-}
-
-// What I Enjoy Most About Cybersecurity
-if (question.includes("enjoy most") || question.includes("favorite part") || question.includes("what do you like about cyber")) {
-  addMessage(
-    "🤖",
-    "What I enjoy most about cybersecurity is the mix of problem solving, investigation, and constant learning. I like understanding how systems work, how attackers think, and how to defend against threats. Every challenge teaches me something new. You can also ask about my experience with networking, Linux, or forensics."
-  );
-  return;
-}
-
-// Experience With Security Alerts
-if (question.includes("alerts") || question.includes("security alerts") || question.includes("investigate alerts")) {
-  addMessage(
-    "🤖",
-    "I practiced investigating security alerts through SIEM labs where I analyzed authentication logs, searched for unusual activity, and learned how to identify patterns that might indicate an attack. I enjoy alert investigation because it feels like solving a puzzle and helps me understand how attackers behave. You can also ask about my security mindset."
-  );
-  return;
-}
-
-// Security Mindset
-if (question.includes("security mindset") || question.includes("think like a defender") || question.includes("security approach")) {
-  addMessage(
-    "🤖",
-    "My security mindset is based on curiosity, awareness, and understanding how systems behave. I like to think about how attackers might approach a system and how defenders can detect or prevent those actions. This mindset helps me stay alert, ask the right questions, and look deeper into unusual activity. You can also ask about my endpoint security experience."
-  );
-  return;
-}
-
-// Endpoint Security Experience
-if (question.includes("endpoint") || question.includes("endpoint security") || question.includes("edr") || question.includes("defender")) {
-  addMessage(
-    "🤖",
-    "I practiced endpoint security concepts such as identifying suspicious processes, reviewing logs, and understanding how malware behaves. I also learned how endpoint tools help detect unusual activity and protect systems. This experience helped me understand how threats move across a network. You can also ask about my readiness for real world work."
-  );
-  return;
-}
-
-// Real World Readiness
-if (question.includes("ready for real world") || question.includes("job ready") || question.includes("real world experience")) {
-  addMessage(
-    "🤖",
-    "I feel ready for real world work because my training focused on hands-on labs, troubleshooting, and understanding how systems behave. I practiced networking, Linux, Windows Server, forensics, SIEM, and ethical hacking in environments that mimic real situations. I enjoy learning and adapting, which helps me grow quickly in professional settings. You can also ask why I am a good fit for cybersecurity roles."
-  );
-  return;
-}
-
-// Why I Am a Good Fit
-if (question.includes("good fit") || question.includes("why hire you") || question.includes("why you")) {
-  addMessage(
-    "🤖",
-    "I am a good fit for cybersecurity roles because I am curious, determined, and hands-on. I enjoy solving problems, learning new tools, and understanding systems. My labs gave me real experience with networking, Linux, Windows Server, forensics, SIEM analysis, and more. I stay calm under pressure, communicate clearly, and enjoy working in environments where I can grow and contribute. I am always willing to earn certifications companies require and keep up with new technology. I am not afraid of hard work or new experiences. You can also ask about any specific skill or experience you want to know more about."
-  );
-  return;
-}
-
-// Ask About Anything Else
-if (question.includes("anything else") || question.includes("what else") || question.includes("more about you")) {
-  addMessage(
-    "🤖",
-    "You can ask me about my networking experience, Linux skills, Windows Server labs, digital forensics work, SIEM investigations, ethical hacking practice, tools I use, projects I completed, troubleshooting style, learning approach, strengths, career goals, or anything else you want to know. I am here to help you understand my background and experience."
-  );
-  return;
-}
-
-// Catch All
-addMessage(
-  "🤖",
-  "I can tell you about my networking experience, Linux skills, Windows Server labs, digital forensics work, SIEM investigations, ethical hacking practice, tools I use, projects I completed, troubleshooting style, learning approach, strengths, career goals, and more. Feel free to ask anything you want to know about my experience."
-);
 
 // ============================================
 // EVENT WIRING: TOGGLE, INPUT, MINIMIZE
