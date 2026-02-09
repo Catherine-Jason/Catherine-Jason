@@ -253,7 +253,7 @@
         <p>© 2026 Catherine Jason</p>
     </footer>
 
-<script>
+    <script>
 // ============================================
 // CHATBOT CORE LOGIC + ICON RENDERING
 // ============================================
@@ -261,14 +261,11 @@
 // Helper: create a message row with icon + bubble
 function addMessage(sender, text) {
   const messages = document.getElementById("chatbot-messages");
-
   const row = document.createElement("div");
   row.classList.add("chat-row");
-
   const iconWrapper = document.createElement("div");
   iconWrapper.classList.add("chat-icon");
 
-  // Bot icon SVG
   const botSVG = `
     <svg viewBox="0 0 24 24">
       <rect x="4" y="6" width="16" height="12" rx="4" ry="4" />
@@ -279,7 +276,6 @@ function addMessage(sender, text) {
     </svg>
   `;
 
-  // User hacker laptop SVG
   const userSVG = `
     <svg viewBox="0 0 24 24">
       <rect x="3" y="14" width="18" height="4" rx="1" ry="1" />
@@ -305,401 +301,157 @@ function addMessage(sender, text) {
   row.appendChild(iconWrapper);
   row.appendChild(bubble);
   messages.appendChild(row);
-
   messages.scrollTop = messages.scrollHeight;
 }
 
 // Typing indicator helpers
 function showTyping() {
   const typing = document.getElementById("chatbot-typing");
-  typing.style.display = "block";
+  if (typing) typing.style.display = "block";
 }
-
 function hideTyping() {
   const typing = document.getElementById("chatbot-typing");
-  typing.style.display = "none";
+  if (typing) typing.style.display = "none";
 }
 
 // ============================================
-// Q&A LOGIC (smooth, natural, spaced answers)
+// Q&A LOGIC
 // ============================================
 function handleQuestion(question) {
+  if (!question || typeof question !== 'string') {
+    addMessage("🤖", "Sorry, I didn't catch that — please ask again.");
+    return;
+  }
+
   question = question.toLowerCase();
 
-  // Introduction
-  if (
-    question.includes("hello") ||
-    question.includes("hi") ||
-    question.includes("hey") ||
-    question.includes("start") ||
-    question.includes("introduction")
-  ) {
-    addMessage(
-      "🤖",
-      "Hey there, my name is Catherine. Welcome to my interactive cybersecurity chatbot. I created this space so you can get to know me, explore my experience, and see the work I have done through hands-on labs and projects. I look forward to interacting with you and sharing my background, especially if you are interested in learning more about me for a potential interview or team opportunity. Feel free to ask me anything about my skills, training, or experience."
-    );
+  if (question.includes("hello") || question.includes("hi") || question.includes("hey") || question.includes("start") || question.includes("introduction")) {
+    addMessage("🤖", "Hey there, my name is Catherine. Welcome to my interactive cybersecurity chatbot. I created this space so you can get to know me, explore my experience, and see the work I have done through hands-on labs and projects. Feel free to ask me anything about my skills, training, or experience.");
     return;
   }
 
-  // Networking Experience
-  if (
-    question.includes("networking") ||
-    question.includes("vlan") ||
-    question.includes("router") ||
-    question.includes("switch")
-  ) {
-    addMessage(
-      "🤖",
-      "I have strong hands-on networking experience from building and troubleshooting real lab environments. I worked with Cisco routers and switches, configured VLANs, set up inter-VLAN communication, and practiced routing, NAT, DHCP, and ACLs. I learned how small misconfigurations can break an entire network, and I enjoyed the process of diagnosing issues, testing connectivity, and validating my configurations.<br><br>You can also ask about my Linux experience."
-    );
+  if (question.includes("networking") || question.includes("vlan") || question.includes("router") || question.includes("switch")) {
+    addMessage("🤖", "I have strong hands-on networking experience from building and troubleshooting real lab environments. I worked with Cisco routers and switches, configured VLANs, set up inter-VLAN communication, and practiced routing, NAT, DHCP, and ACLs. You can also ask about my Linux experience.");
     return;
   }
 
-  // Linux Experience
-  if (
-    question.includes("linux") ||
-    question.includes("ubuntu") ||
-    question.includes("bash") ||
-    question.includes("terminal")
-  ) {
-    addMessage(
-      "🤖",
-      "Linux became one of my favorite environments because it taught me how systems really work. I practiced user management, permissions, SSH, networking tools, and wrote simple Bash scripts to automate tasks in vim. I used Linux VMs for labs, troubleshooting, and cybersecurity exercises.<br><br>You can also ask about my Windows Server experience."
-    );
+  if (question.includes("linux") || question.includes("ubuntu") || question.includes("bash") || question.includes("terminal")) {
+    addMessage("🤖", "Linux became one of my favorite environments because it taught me how systems really work. I practiced user management, permissions, SSH, networking tools, and wrote simple Bash scripts. You can also ask about my Windows Server experience.");
     return;
   }
 
-  // Windows Server Experience
-  if (
-    question.includes("windows server") ||
-    question.includes("active directory") ||
-    question.includes("gpo") ||
-    question.includes("domain")
-  ) {
-    addMessage(
-      "🤖",
-      "I built Windows Server lab environments where I managed Active Directory from the ground up. I created and organized users, groups, and OUs, configured Group Policies to control settings across the domain, and practiced real troubleshooting like fixing login issues, permission problems, and authentication errors. Working with Windows Server helped me understand how enterprise environments stay secure and organized.<br><br>You can also ask about my digital forensics experience."
-    );
+  if (question.includes("windows server") || question.includes("active directory") || question.includes("gpo") || question.includes("domain")) {
+    addMessage("🤖", "I built Windows Server lab environments where I managed Active Directory, created users/groups/OUs, and configured Group Policies. You can also ask about my digital forensics experience.");
     return;
   }
 
-  // Digital Forensics Experience
-  if (
-    question.includes("forensics") ||
-    question.includes("ftk") ||
-    question.includes("osforensics") ||
-    question.includes("evidence")
-  ) {
-    addMessage(
-      "🤖",
-      "I completed digital forensics labs where I acquired and preserved evidence using FTK Imager, verified integrity through hashing, and analyzed artifacts like registry hives, emails, and user activity. I also built timelines to understand what happened and when. I enjoy the investigative side of forensics because it feels like solving a puzzle and uncovering the story behind the data.<br><br>You can also ask about my SIEM experience."
-    );
+  if (question.includes("forensics") || question.includes("ftk") || question.includes("osforensics") || question.includes("evidence")) {
+    addMessage("🤖", "I completed digital forensics labs using FTK Imager and OSForensics, verified integrity with hashing, and analyzed registry and file artifacts. You can also ask about SIEM.");
     return;
   }
 
-  // SIEM and Log Analysis
-  if (
-    question.includes("siem") ||
-    question.includes("splunk") ||
-    question.includes("log analysis") ||
-    question.includes("events")
-  ) {
-    addMessage(
-      "🤖",
-      "I practiced SIEM investigations using Splunk where I analyzed authentication logs, searched for suspicious login attempts, and learned how to correlate events to identify patterns. I enjoy SIEM work because it taught me how attackers behave and how to spot unusual activity.<br><br>You can also ask about my ethical hacking experience."
-    );
+  if (question.includes("siem") || question.includes("splunk") || question.includes("log analysis") || question.includes("events")) {
+    addMessage("🤖", "I practiced SIEM investigations with Splunk, analyzing authentication logs and correlating events to identify suspicious activity.");
     return;
   }
 
-  // Ethical Hacking Experience
-  if (
-    question.includes("ethical hacking") ||
-    question.includes("pentest") ||
-    question.includes("tryhackme") ||
-    question.includes("ctf")
-  ) {
-    addMessage(
-      "🤖",
-      "I completed ethical hacking labs where I performed reconnaissance, scanning, enumeration, and exploitation in controlled environments. I practiced privilege escalation techniques and learned how vulnerabilities are discovered and abused. These labs helped me understand how to defend systems more effectively.<br><br>You can also ask about the tools I use."
-    );
+  if (question.includes("ethical hacking") || question.includes("pentest") || question.includes("tryhackme") || question.includes("ctf")) {
+    addMessage("🤖", "I completed ethical hacking labs including reconnaissance, scanning, enumeration, exploitation, and privilege escalation in controlled environments.");
     return;
   }
 
-  // Tools I Use
-  if (
-    question.includes("tools") ||
-    question.includes("wireshark") ||
-    question.includes("nmap") ||
-    question.includes("nessus") ||
-    question.includes("burp")
-  ) {
-    addMessage(
-      "🤖",
-      "I work with a wide range of cybersecurity tools depending on the task. I use Wireshark for packet analysis, Nmap for network scanning, Splunk for log analysis, FTK Imager for forensic evidence collection, and Burp Suite for web application testing. Each tool gives me a different perspective on how systems behave, and I enjoy learning new ones because they sharpen my troubleshooting and investigative skills.<br><br>You can also ask about my labs."
-    );
+  if (question.includes("tools") || question.includes("wireshark") || question.includes("nmap") || question.includes("nessus") || question.includes("burp")) {
+    addMessage("🤖", "I use tools like Wireshark, Nmap, Splunk, FTK Imager, Burp Suite, Nessus and more depending on the task.");
     return;
   }
 
-  // Labs I Completed
-  if (
-    question.includes("labs") ||
-    question.includes("hands on") ||
-    question.includes("practice")
-  ) {
-    addMessage(
-      "🤖",
-      "I completed hands-on labs in networking, Linux, Windows Server, forensics, SIEM, and ethical hacking. These labs helped me build real confidence because I could experiment, break things, fix them, and see how systems behave in real situations.<br><br>You can also ask about my projects."
-    );
+  if (question.includes("labs") || question.includes("hands on") || question.includes("practice")) {
+    addMessage("🤖", "I completed hands-on labs across networking, Linux, Windows Server, forensics, SIEM, and ethical hacking — I learn by doing.");
     return;
   }
 
-  // Projects I Worked On
-  if (
-    question.includes("projects") ||
-    question.includes("portfolio") ||
-    question.includes("build")
-  ) {
-    addMessage(
-      "🤖",
-      "I worked on projects like building multi-router networks, configuring Windows Server domains, performing forensic investigations, and developing a small application. I enjoy projects because they let me combine everything I’ve learned into something practical and real.<br><br>You can also ask about my troubleshooting style."
-    );
+  if (question.includes("projects") || question.includes("portfolio") || question.includes("build")) {
+    addMessage("🤖", "I worked on projects such as multi-router networks, Windows Server domains, forensic investigations, and small app/web builds.");
     return;
   }
 
-  // Troubleshooting Style
-  if (
-    question.includes("troubleshooting") ||
-    question.includes("problem solving") ||
-    question.includes("fix")
-  ) {
-    addMessage(
-      "🤖",
-      "Troubleshooting is one of my strongest skills because I like breaking problems down and testing one variable at a time. Networking labs taught me how a single ACL, DNS entry, or missing default gateway can break everything. I recreate the issue, gather clues, test solutions, and confirm the fix.<br><br>You can also ask about my learning style."
-    );
+  if (question.includes("troubleshooting") || question.includes("problem solving") || question.includes("fix")) {
+    addMessage("🤖", "I break problems down, test one variable at a time, gather clues, and confirm fixes; networking labs taught me that small misconfigurations can have big effects.");
     return;
   }
 
-// Additional Q&A Blocks
-if (question.includes("confidence") || question.includes("improve") || question.includes("growth")) {
-  addMessage(
-    "🤖",
-    "My confidence comes from hands-on practice. Every time I troubleshoot an issue, complete a lab, build something new, or study a topic in depth, I feel more prepared for real-world work. I enjoy learning, experimenting, and growing through experience.<br><br>You can also ask about my personality or work style."
-  );
-  return;
-}
+  if (question.includes("confidence") || question.includes("improve") || question.includes("growth")) {
+    addMessage("🤖", "I build confidence through repeated hands-on practice, labs, and documenting what I learn.");
+    return;
+  }
 
-// Personality and Work Style
-if (question.includes("personality") || question.includes("work style") || question.includes("describe yourself")) {
-  addMessage(
-    "🤖",
-    "I’m a curious, determined, and patient person. I enjoy solving problems, learning new tools, and helping others when needed. I stay calm when troubleshooting, and I like working in environments where I can grow, contribute, and support the team. I also work well independently, adapt quickly, and take pride in the quality of my work.<br><br>You can also ask about my experience with specific tools or systems."
-  );
-  return;
-}
+  if (question.includes("personality") || question.includes("work style") || question.includes("describe yourself")) {
+    addMessage("🤖", "I’m curious, determined, patient, and I work well both independently and in teams.");
+    return;
+  }
 
-// Resume Overview
-if (question.includes("resume") || question.includes("cv") || question.includes("summary")) {
-  addMessage(
-    "🤖",
-    "My resume highlights my hands-on experience in networking, Linux, Windows Server, digital forensics, SIEM analysis, and ethical hacking labs. I focus on real skills I practiced, like configuring networks, analyzing logs, building domains, and investigating evidence. I also include my strengths, projects, and the tools I use.<br><br>Here is the link to my resume:<br><br><AttachedDocument filename=\"Catherine_Jason_Resume.pdf\" /><br><br>You can also ask about my background."
-  );
-  return;
-}
+  if (question.includes("resume") || question.includes("cv") || question.includes("summary")) {
+    addMessage("🤖", "My resume highlights hands-on experience in networking, Linux, Windows Server, digital forensics, SIEM analysis, and ethical hacking. You can download my resume from the site.");
+    return;
+  }
 
-// Tools I Use Most Often
-if (question.includes("favorite tool") || question.includes("tools you use most") || question.includes("most used tools")) {
-  addMessage(
-    "🤖",
-    "The tools I use most often are Wireshark for packet analysis, Nmap for scanning, Splunk for log analysis, FTK Imager for forensics, and Burp Suite for web testing. Each tool helps me understand a different part of cybersecurity. You can also ask about how I build confidence in my skills."
-  );
-  return;
-}
+  if (question.includes("learning style") || question.includes("learn") || question.includes("study")) {
+    addMessage("🤖", "I learn best by doing — hands-on labs, breaking and fixing, and repeating tasks until they stick.");
+    return;
+  }
 
-// How I Build Confidence
-if (question.includes("build confidence") || question.includes("confidence building") || question.includes("feel confident")) {
-  addMessage(
-    "🤖",
-    "I build confidence through hands-on practice. Every time I complete a lab, troubleshoot an issue, or learn a new tool, I feel more prepared for real world work. I like to repeat tasks until they feel natural and document what I learn along the way. You can also ask what I enjoy most about cybersecurity."
-  );
-  return;
-}
+  if (question.includes("strengths") || question.includes("good at") || question.includes("strong at")) {
+    addMessage("🤖", "My strengths include hands-on troubleshooting, clear communication, curiosity, and staying calm under pressure.");
+    return;
+  }
 
-// What I Enjoy Most About Cybersecurity
-if (question.includes("enjoy most") || question.includes("favorite part") || question.includes("what do you like about cyber")) {
-  addMessage(
-    "🤖",
-    "What I enjoy most about cybersecurity is the mix of problem solving, investigation, and constant learning. I like understanding how systems work, how attackers think, and how to defend against threats. Every challenge teaches me something new. You can also ask about my experience with networking, Linux, or forensics."
-  );
-  return;
-}
+  if (question.includes("career goals") || question.includes("future") || question.includes("plans")) {
+    addMessage("🤖", "I aim to grow into roles focused on incident investigation, log analysis, and network defense while continuing learning and earning certifications.");
+    return;
+  }
 
-// Experience With Security Alerts
-if (question.includes("alerts") || question.includes("security alerts") || question.includes("investigate alerts")) {
-  addMessage(
-    "🤖",
-    "I practiced investigating security alerts through SIEM labs where I analyzed authentication logs, searched for unusual activity, and learned how to identify patterns that might indicate an attack. I enjoy alert investigation because it feels like solving a puzzle and helps me understand how attackers behave. You can also ask about my security mindset."
-  );
-  return;
-}
+  if (question.includes("motivation") || question.includes("why cyber") || question.includes("why this field")) {
+    addMessage("🤖", "I enjoy problem solving, investigation, and helping make systems safer — cybersecurity combines those things.");
+    return;
+  }
 
-// Security Mindset
-if (question.includes("security mindset") || question.includes("think like a defender") || question.includes("security approach")) {
-  addMessage(
-    "🤖",
-    "My security mindset is based on curiosity, awareness, and understanding how systems behave. I like to think about how attackers might approach a system and how defenders can detect or prevent those actions. This mindset helps me stay alert, ask the right questions, and look deeper into unusual activity. You can also ask about my endpoint security experience."
-  );
-  return;
-}
+  if (question.includes("virtualization") || question.includes("vm") || question.includes("virtual machine") || question.includes("hypervisor")) {
+    addMessage("🤖", "I use virtual machines for isolated labs, snapshots, and safe testing environments.");
+    return;
+  }
 
-// Endpoint Security Experience
-if (question.includes("endpoint") || question.includes("endpoint security") || question.includes("edr") || question.includes("defender")) {
-  addMessage(
-    "🤖",
-    "I practiced endpoint security concepts such as identifying suspicious processes, reviewing logs, and understanding how malware behaves. I also learned how endpoint tools help detect unusual activity and protect systems. This experience helped me understand how threats move across a network. You can also ask about my readiness for real world work."
-  );
-  return;
-}
+  if (question.includes("cloud") || question.includes("azure") || question.includes("aws") || question.includes("cloud computing")) {
+    addMessage("🤖", "I have cloud fundamentals experience: VMs, identity concepts, and basic cloud security principles.");
+    return;
+  }
 
-// Real World Readiness
-if (question.includes("ready for real world") || question.includes("job ready") || question.includes("real world experience")) {
-  addMessage(
-    "🤖",
-    "I feel ready for real world work because my training focused on hands-on labs, troubleshooting, and understanding how systems behave. I practiced networking, Linux, Windows Server, forensics, SIEM, and ethical hacking in environments that mimic real situations. I enjoy learning and adapting, which helps me grow quickly in professional settings. You can also ask why I am a good fit for cybersecurity roles."
-  );
-  return;
-}
+  if (question.includes("scripting") || question.includes("bash script") || question.includes("powershell") || question.includes("automation")) {
+    addMessage("🤖", "I’ve written Bash scripts for automation and used basic PowerShell for Windows tasks.");
+    return;
+  }
 
-// Why I Am a Good Fit
-if (question.includes("good fit") || question.includes("why hire you") || question.includes("why you")) {
-  addMessage(
-    "🤖",
-    "I am a good fit for cybersecurity roles because I am curious, determined, and hands-on. I enjoy solving problems, learning new tools, and understanding systems. My labs gave me real experience with networking, Linux, Windows Server, forensics, SIEM analysis, and more. I stay calm under pressure, communicate clearly, and enjoy working in environments where I can grow and contribute. I am always willing to earn certifications companies require and keep up with new technology. I am not afraid of hard work or new experiences. You can also ask about any specific skill or experience you want to know more about."
-  );
-  return;
-}
+  if (question.includes("soft skills") || question.includes("communication") || question.includes("teamwork") || question.includes("work style")) {
+    addMessage("🤖", "I communicate clearly, collaborate well, and stay composed when troubleshooting.");
+    return;
+  }
 
-// Ask About Anything Else
-if (question.includes("anything else") || question.includes("what else") || question.includes("more about you")) {
-  addMessage(
-    "🤖",
-    "You can ask me about my networking experience, Linux skills, Windows Server labs, digital forensics work, SIEM investigations, ethical hacking practice, tools I use, projects I completed, troubleshooting style, learning approach, strengths, career goals, or anything else you want to know. I am here to help you understand my background and experience."
-  );
-  return;
-}
+  if (question.includes("interests") || question.includes("hobbies") || question.includes("outside tech") || question.includes("free time")) {
+    addMessage("🤖", "Outside tech I enjoy hiking and spending time with my children.");
+    return;
+  }
 
-// Catch All
-addMessage(
-  "🤖",
-  "I can tell you about my networking experience, Linux skills, Windows Server labs, digital forensics work, SIEM investigations, ethical hacking practice, tools I use, projects I completed, troubleshooting style, learning approach, strengths, career goals, and more. Feel free to ask anything you want to know about my experience."
-);
-return;
+  if (question.includes("background") || question.includes("about you") || question.includes("who are you")) {
+    addMessage("🤖", "My interest in tech started young; since then I’ve built hands-on skills in networking, Linux, Windows Server, forensics, and security tools.");
+    return;
+  }
 
-// Learning Style
-if (question.includes("learning style") || question.includes("learn") || question.includes("study")) {
-  addMessage(
-    "🤖",
-    "I learn best through personal experience. Hands-on labs help me understand concepts in a way that reading alone never could. I like to experiment, break things, fix them, and repeat the process until it makes sense. I do enjoy reading, but I learn the most by doing.<br><br>You can also ask about my strengths."
-  );
-  return;
-}
+  if (question.includes("certification") || question.includes("certifications") || question.includes("training") || question.includes("courses")) {
+    addMessage("🤖", "I’m studying for Security+ and working toward an AAS in Cybersecurity; I’ve completed courses covering A+, Network+, and hands-on labs.");
+    return;
+  }
 
-// Strengths
-if (question.includes("strengths") || question.includes("good at") || question.includes("strong at")) {
-  addMessage(
-    "🤖",
-    "My strengths include hands-on troubleshooting, clear communication, curiosity, and staying calm when something breaks. I work well both independently and as part of a team, and I enjoy figuring out how systems work behind the scenes.<br><br>You can also ask about my career goals."
-  );
-  return;
-}
-
-// Career Goals
-if (question.includes("career goals") || question.includes("future") || question.includes("plans")) {
-  addMessage(
-    "🤖",
-    "My career goal is to grow into a cybersecurity role where I can investigate alerts, analyze logs, and help protect systems. I also enjoy the excitement of ethical hacking and the mix of technical work and problem solving. I want to continue building my skills in networking, Linux, and digital forensics.<br><br>You can also ask what motivates me."
-  );
-  return;
-}
-
-// Motivation
-if (question.includes("motivation") || question.includes("why cyber") || question.includes("why this field")) {
-  addMessage(
-    "🤖",
-    "Cybersecurity motivates me because it combines curiosity, problem solving, and protecting people. I enjoy learning how systems work, how attackers think, and how to defend against threats. I also like ethical hacking and how it can help strengthen systems. I like the idea of making technology safer for everyone.<br><br>You can also ask about my virtualization experience."
-  );
-  return;
-}
-
-// Virtualization Experience
-if (question.includes("virtualization") || question.includes("vm") || question.includes("virtual machine") || question.includes("hypervisor")) {
-  addMessage(
-    "🤖",
-    "I used virtual machines throughout my labs to build isolated environments for networking, Linux, Windows Server, and cybersecurity exercises. I learned how to take snapshots, revert systems, and create safe testing environments where I could experiment without risking anything important.<br><br>You can also ask about my cloud experience."
-  );
-  return;
-}
-
-// Cloud Basics
-if (question.includes("cloud") || question.includes("azure") || question.includes("aws") || question.includes("cloud computing")) {
-  addMessage(
-    "🤖",
-    "I have experience with cloud fundamentals such as virtual machines, identity concepts, and basic security principles. I learned how cloud environments differ from on-prem systems and how identity and access management plays a major role in security. I enjoy learning cloud because it connects directly to modern cybersecurity.<br><br>You can also ask about my scripting experience."
-  );
-  return;
-}
-
-// Scripting Experience
-if (question.includes("scripting") || question.includes("bash script") || question.includes("powershell") || question.includes("automation")) {
-  addMessage(
-    "🤖",
-    "I’ve practiced writing simple Bash scripts to automate tasks like user creation, permission changes, and log collection. I also explored basic PowerShell commands for Windows environments. I scripted this entire profile page, including the chatbot, because I enjoy building things that are both functional and helpful. Scripting is fun for me because it improves systems, saves time, and lets me create tools that help others.<br><br>You can also ask about my soft skills."
-  );
-  return;
-}
-
-// Soft Skills
-if (question.includes("soft skills") || question.includes("communication") || question.includes("teamwork") || question.includes("work style")) {
-  addMessage(
-    "🤖",
-    "My soft skills include clear communication, patience, teamwork, and staying calm when troubleshooting. I enjoy learning and growing, and I work well in collaborative environments as well as independently when I need to research and solve problems on my own.<br><br>You can also ask about my interests outside of technology."
-  );
-  return;
-}
-
-// Interests Outside Technology
-if (question.includes("interests") || question.includes("hobbies") || question.includes("outside tech") || question.includes("free time")) {
-  addMessage(
-    "🤖",
-    "Outside of technology, I enjoy hiking and spending time doing activities my children love. My kids are my world, and I take pride in being a very hands-on and involved parent.<br><br>You can also ask about my resume or background."
-  );
-  return;
-}
-
-// Resume Overview
-if (question.includes("resume") || question.includes("cv") || question.includes("summary")) {
-  addMessage(
-    "🤖",
-    "My resume highlights my hands-on experience in networking, Linux, Windows Server, digital forensics, SIEM analysis, and ethical hacking labs. I focus on real skills I practiced, like configuring networks, analyzing logs, building domains, and investigating evidence. I also include my strengths, projects, and the tools I use.<br><br>Here is the link to my resume:<br><br><AttachedDocument filename=\"Catherine_Jason_Resume.pdf\" /><br><br>You can also ask about my background."
-  );
-  return;
-}
-
-// Background
-if (question.includes("background") || question.includes("about you") || question.includes("who are you")) {
-  addMessage(
-    "🤖",
-    "My interest in technology started when I was young. My grandmother worked at Social Security in Woodlawn, and seeing her work environment sparked my curiosity about computers and IT. That early inspiration grew into real hands-on experience—configuring Cisco routers and switches, managing Linux and Windows Server environments, analyzing forensic evidence, and working with cybersecurity tools like Wireshark, Splunk, FTK Imager, and Nessus. I enjoy solving problems, understanding how systems behave, and learning through real practice.<br><br>You can also ask about my certifications or training."
-  );
-  return;
-}
-
-// Certifications and Training
-if (question.includes("certification") || question.includes("certifications") || question.includes("training") || question.includes("courses")) {
-  addMessage(
-    "🤖",
-    "I’m currently studying for the CompTIA Security+ exam, and I’m working toward my AAS in Cybersecurity, graduating in Fall 2026. I’ve completed training in networking, Linux, Windows Server, digital forensics, SIEM analysis, and ethical hacking. I’ve also worked with tools like Wireshark, Nmap, Splunk, FTK Imager, and Burp Suite. My coursework includes CompTIA A+, Network Essentials, Security Pro, and multiple hands-on classes at Carroll Community College that helped me build real technical skills.<br><br>You can also ask about my confidence or work style."
-  );
-  return;
+  // Catch-all (must be last)
+  addMessage("🤖", "I can tell you about my networking experience, Linux skills, Windows Server labs, digital forensics work, SIEM investigations, ethical hacking practice, tools I use, projects I completed, troubleshooting style, learning approach, strengths, career goals, and more. Feel free to ask anything you want to know about my experience.");
 }
 
 // ============================================
@@ -711,31 +463,33 @@ document.addEventListener("DOMContentLoaded", function () {
   const input = document.getElementById("chatbot-input");
   const minimize = document.getElementById("chatbot-minimize");
 
-  // Open chatbox
-  toggle.addEventListener("click", () => {
-    box.classList.remove("hidden");
-    input.focus();
-  });
+  if (toggle) {
+    toggle.addEventListener("click", () => {
+      if (box) box.classList.remove("hidden");
+      if (input) input.focus();
+    });
+  }
 
-  // Minimize chatbox
-  minimize.addEventListener("click", () => {
-    box.classList.add("hidden");
-  });
+  if (minimize) {
+    minimize.addEventListener("click", () => {
+      if (box) box.classList.add("hidden");
+    });
+  }
 
-  // Handle Enter key for questions
-  input.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && input.value.trim() !== "") {
-      const question = input.value.trim();
-      addMessage("You", question); // user message
-      input.value = "";
-
-      showTyping();
-      setTimeout(() => {
-        hideTyping();
-        handleQuestion(question);
-      }, 500);
-    }
-  });
+  if (input) {
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && input.value.trim() !== "") {
+        const question = input.value.trim();
+        addMessage("You", question);
+        input.value = "";
+        showTyping();
+        setTimeout(() => {
+          hideTyping();
+          handleQuestion(question);
+        }, 500);
+      }
+    });
+  }
 });
 </script>
 
