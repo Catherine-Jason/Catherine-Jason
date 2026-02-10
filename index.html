@@ -1,239 +1,3 @@
-Windows PowerShell
-Copyright (C) Microsoft Corporation. All rights reserved.
-
-Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
-
-PS C:\WINDOWS\system32> cd 'C:\Users\Catherine\OneDrive\Catherine-Portfolio'
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> Copy-Item index.html index.html.bak
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> (Get-Content index.html -Raw) -replace 'bubble\.innerHTML\s*=\s*text\s*;','if (sender === "🤖") {`r`n  bubble.innerHTML = text;`r`n} else {`r`n  bubble.textContent = text;`r`n}' | Set-Content index.html -Encoding UTF8
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> git status --porcelain
- M index.html
-?? index.html.bak
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> git add index.html
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> git commit -m "Sanitize user messages: use textContent for user input"
-[main 6496ad6] Sanitize user messages: use textContent for user input
- 1 file changed, 22 insertions(+), 22 deletions(-)
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> git format-patch -1 HEAD --stdout > fix-user-text.patch
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> copy-Item index.html index.html.bak
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> $content = Get-Content index.html -Raw
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> $enc = New-Oject System.Text.UTF8Encoding($false)
-New-Oject : The term 'New-Oject' is not recognized as the name
-of a cmdlet, function, script file, or operable program. Check
-the spelling of the name, or if a path was included, verify
-that the path is correct and try again.
-At line:1 char:8
-+ $enc = New-Oject System.Text.UTF8Encoding($false)
-+        ~~~~~~~~~
-    + CategoryInfo          : ObjectNotFound: (New-Oject:Strin
-   g) [], CommandNotFoundException
-    + FullyQualifiedErrorId : CommandNotFoundException
-
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> $enc = New-Object System.Text.UTF8Encoding($false)   # no BOM
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> [System.IO.File]::WriteAllText('index.html', $content, $enc)
-Exception calling "WriteAllText" with "3" argument(s): "Access
-to the path 'C:\WINDOWS\system32\index.html' is denied."
-At line:1 char:1
-+ [System.IO.File]::WriteAllText('index.html', $content, $enc)
-+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : NotSpecified: (:) [], MethodInvo
-   cationException
-    + FullyQualifiedErrorId : UnauthorizedAccessException
-
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> Get-Location
-
-
-Path
-----
-C:\Users\Catherine\OneDrive\Catherine-Portfolio
-
-
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> Get-ChildItem -Path 'C:\Users\Catherine\OneDrive\Catherine-Portfolio' -Filter 'index.html*' -Force
-
-
-    Directory: C:\Users\Catherine\OneDrive\Catherine-Portfolio
-
-
-Mode                 LastWriteTime         Length Name
-----                 -------------         ------ ----
--a---l          2/9/2026  10:13 PM          22475 index.html
--a---l          2/9/2026  10:13 PM          22475 index.html.ba
-                                                  k
-
-
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> $content = Get-Content -Path 'index.html' -Raw
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> $new = $content -replace 'bubble\.innerHTML\s*=\s*text\s*;','if (sender === "🤖") {`r`n  bubble.innerHTML = text;`r`n} else {`r`n  bubble.textContent = text;`r`n}'
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> [System.IO.File]::WriteAllText((Join-Path $PWD.Path 'index.html'), $new, (New-Object System.Text.UTF8Encoding($false)))
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> Select-String -Pattern 'bubble.textContent|bubble.innerHTML' -Path index.html
-
-index.html:299:  if (sender === "🤖") {`r`n  if (sender ===
-"🤖") {`r`n  bubble.innerHTML = text;`r`n} else {`r`n
-bubble.textContent = text;`r`n}`r`n} else {`r`n
-bubble.textContent = text;`r`n}
-
-
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> Write-Host "Done — open index.html in your editor and confirm encoding shows UTF-8, then hard-refresh the browser (Ctrl+F5)."
-Done — open index.html in your editor and confirm encoding shows UTF-8, then hard-refresh the browser (Ctrl+F5).
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> Set-Location 'C:\Users\Catherine\OneDrive\Catherine-Portfolio'
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> if (Test-Path 'index.html.bak') { Copy-Item index.html.bak index.html -Force; Write-Host 'Restored index.html from index.html.bak' } else { Write-Host 'No index.html.bak found' }
-Restored index.html from index.html.bak
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> Set-Location 'C:\Users\Catherine\OneDrive\Catherine-Portfolio'
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> Copy-Item index.html index.html.corrupted -Force
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> git log --oneline -- index.html
-6496ad6 Sanitize user messages: use textContent for user input
-398b00e final chatbot
-7b1b1e3 finally fix
-756ae90 f
-685fbfc fix bot
-a34d308 fix
-6e4b5cd fix error
-be97dd1 bot error
-8a20b36 bot error
-d56b233 update bots and emails
-54ea0d4 updated chatbot questions
-147acde uodated chatbot questions
-e4f14d0 update chatbox and about me
-0d20f6f update chatbox and CSS
-de2a159 Initial commit
-dfd59e9 Initial commit
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> git checkout HEAD~1 -- index.html
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> $content = Get-Content -Raw index.html
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> [System.IO.File]::WriteAllText((Join-Path $PWD.Path 'index.html'), $content, (New-Object System.Text.UTF8Encoding($false)))
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> Set-Location 'C:\Users\Catherine\OneDrive\Catherine-Portfolio'
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> Copy-Item index.html index.html.corrupted -Force
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> git restore --source=HEAD --worktree -- index.html
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> $path = 'C:\Users\Catherine\OneDrive\Catherine-Portfolio\index.html'
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> Copy-Item -Path $path -Destination ($path + '.bak') -Force
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> $text = Get-Content -Path $path -Raw
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> $text = $text -replace '\`r\`n', [Environment]::NewLine
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> $map = @{
->>  'â€¢' = '•'
->>  'RÃ©sumÃ©' = 'Résumé'
->>  'Ã©' = 'é'
->>  'â€™' = '’'
->>  'â€“' = '–'
->>  'â€¦' = '…'
->>  'Â©' = '©'
->>  'â€‘' = '-'
->>  'â€˜' = "'"
->>  'ðŸ’¬' = '≡'
-At line:6 char:3
-+  'â€“' = '–'
-+   ~~~~~~~~~~
-Unexpected token 'â€“' = '–'
- 'â€¦' = '…'
- 'Â©' = '©'
- 'â€‘' = '-'
- 'â€˜' = "'"
- 'ðŸ’¬'' in expression or statement.
-At line:6 char:3
-+  'â€“' = '–'
-+   ~
-The hash literal was incomplete.
-    + CategoryInfo          : ParserError: (:) [], ParentConta
-   insErrorRecordException
-    + FullyQualifiedErrorId : UnexpectedToken
-
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio>  'ðŸ¤–' = '🤖'
-At line:1 char:2
-+  'ðŸ¤–' = '🤖'
-+  ~~~~~~
-The assignment expression is not valid. The input to an
-assignment operator must be an object that is able to accept
-assignments, such as a variable or a property.
-    + CategoryInfo          : ParserError: (:) [], ParentConta
-   insErrorRecordException
-    + FullyQualifiedErrorId : InvalidLeftHandSide
-
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio>  'â˜€ï¸' = '⚙'
-At line:1 char:2
-+  'â˜€ï¸' = '⚙'
-+  ~~~~~~~
-The assignment expression is not valid. The input to an
-assignment operator must be an object that is able to accept
-assignments, such as a variable or a property.
-    + CategoryInfo          : ParserError: (:) [], ParentConta
-   insErrorRecordException
-    + FullyQualifiedErrorId : InvalidLeftHandSide
-
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> $map = @{
->>  'â€¢' = '•'
->>  'RÃ©sumÃ©' = 'Résumé'
->>  'Ã©' = 'é'
->>  'â€™' = '’'
->>  'â€“' = '–'
->>  'â€¦' = '…'
->>  'Â©' = '©'
->>  'â€‘' = '-'
->>  'â€˜' = "'"
->>  'ðŸ’¬' = '≡'
-At line:6 char:3
-+  'â€“' = '–'
-+   ~~~~~~~~~~
-Unexpected token 'â€“' = '–'
- 'â€¦' = '…'
- 'Â©' = '©'
- 'â€‘' = '-'
- 'â€˜' = "'"
- 'ðŸ’¬'' in expression or statement.
-At line:6 char:3
-+  'â€“' = '–'
-+   ~
-The hash literal was incomplete.
-    + CategoryInfo          : ParserError: (:) [], ParentConta
-   insErrorRecordException
-    + FullyQualifiedErrorId : UnexpectedToken
-
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio>  'ðŸ¤–' = '🤖'
-At line:1 char:2
-+  'ðŸ¤–' = '🤖'
-+  ~~~~~~
-The assignment expression is not valid. The input to an
-assignment operator must be an object that is able to accept
-assignments, such as a variable or a property.
-    + CategoryInfo          : ParserError: (:) [], ParentConta
-   insErrorRecordException
-    + FullyQualifiedErrorId : InvalidLeftHandSide
-
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio>  'â˜€ï¸' = '⚙'
-At line:1 char:2
-+  'â˜€ï¸' = '⚙'
-+  ~~~~~~~
-The assignment expression is not valid. The input to an
-assignment operator must be an object that is able to accept
-assignments, such as a variable or a property.
-    + CategoryInfo          : ParserError: (:) [], ParentConta
-   insErrorRecordException
-    + FullyQualifiedErrorId : InvalidLeftHandSide
-
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> }
-At line:1 char:1
-+ }
-+ ~
-Unexpected token '}' in expression or statement.
-    + CategoryInfo          : ParserError: (:) [], ParentConta
-   insErrorRecordException
-    + FullyQualifiedErrorId : UnexpectedToken
-
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio>
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> foreach ($k in $map.Keys) {
->>   $text = $text -replace [regex]::Escape($k), $map[$k]
->> }
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio>
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> $text = $text -replace 'ðŸ’¬', '≡'
->> $text = $text -replace 'ðŸ¤–', '🤖'
->>
->>
->>
->>
->>
->>
->> ^C
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> cd 'C:\Users\Catherine\OneDrive\Catherine-Portfolio'
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> $ts = (Get-Date).ToString('yyyyMMdd-HHmmss')
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> Copy-Item index.html ("index.html.pre_restore.$ts.bak") -Force
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio> Copy-Item index.html.bak index.html -Force
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio>
->> Get-Content index.html -TotalCount 40
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -267,55 +31,477 @@ PS C:\Users\Catherine\OneDrive\Catherine-Portfolio>
         <div class="hero-right">
             <h1 class="hero-name">Catherine Jason</h1>
             <p class="hero-tagline">
-                Cybersecurity Student Ã¢â‚¬Â¢ Networking Ã¢â‚¬Â¢ Digital Forensics Ã¢â‚¬Â¢ Security Operations
+                Cybersecurity Student • Networking • Digital Forensics • Security Operations
             </p>
 
             <nav class="hero-nav">
                 <a href="#about">About</a>
                 <a href="#skills">Skills</a>
                 <a href="#projects">Projects</a>
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio>
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio>
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio>
->> Get-Content index.html -TotalCount 40
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catherine Jason | Cybersecurity Portfolio</title>
-
-    <!-- ============================
-         CSS STYLESHEET
-         ============================ -->
-    <link rel="stylesheet" href="styles.css">
-
-    <!-- ============================
-         ICON LIBRARY (Font Awesome)
-         ============================ -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-</head>
-
-<body>
-
-<!-- ============================
-     HERO BANNER (UPGRADED)
-     ============================ -->
-<header class="hero-header">
-    <div class="hero-container">
-
-        <div class="hero-left">
-            <img src="catherine.jpg" alt="Catherine Jason" class="profile-photo">
+                <a href="#contact">Contact</a>
+                <a href="Catherine_Jason_Resume.pdf" download class="resume-btn">Résumé</a>
+            </nav>
         </div>
 
-        <div class="hero-right">
-            <h1 class="hero-name">Catherine Jason</h1>
-            <p class="hero-tagline">
-                Cybersecurity Student Ã¢â‚¬Â¢ Networking Ã¢â‚¬Â¢ Digital Forensics Ã¢â‚¬Â¢ Security Operations
-            </p>
+    </div>
+</header>
 
-            <nav class="hero-nav">
-                <a href="#about">About</a>
-                <a href="#skills">Skills</a>
-                <a href="#projects">Projects</a>
-PS C:\Users\Catherine\OneDrive\Catherine-Portfolio>
+    <!-- ============================
+         ABOUT ME SECTION
+         ============================ -->
+    <section id="about" class="section">
+        <h2>About Me</h2>
+<p>
+    I’m Catherine Jason, a cybersecurity student pursuing an AAS in Cybersecurity with a 3.96 GPA and hands‑on experience across networking, Linux administration, Windows Server, digital forensics, scripting, and security operations. My work includes configuring Cisco Catalyst 2950, 2960 Plus, and 3560G switches; setting up Cisco 4331 routers; administering Ubuntu Server; and managing Active Directory environments. I’ve also carried out forensic investigations using tools like E3 Forensic Platform, FTK Imager, OSForensics, and ProDiscover.
+    <br><br>
+    I’ve gained practical cybersecurity experience with tools including Wireshark, Nmap, SNORT, Splunk, Nessus, Metasploit, Hashcat, Aircrack‑ng, Burp Suite, and Kali Linux, along with hands‑on work in encryption, access control, and Bash scripting. My training includes the BCR Cyber Series and CompTIA‑aligned A+, Network+, and Security+ labs, which strengthened my understanding of hardware, networking, and security fundamentals through both simulator environments and real classwork.
+    <br><br>
+    Outside of class, I enjoy building apps and websites in VS Code, experimenting with virtual machines, and learning through personal projects, cyber ranges, and platforms like TryHackMe. I’m driven by curiosity, problem‑solving, and continuous learning, and I’m preparing for roles in security operations, network defense, and digital forensics.
+</p>
+
+<p><strong>Check out my chatbox below:</strong></p>
+    </section>
+<div id="chatbot-container">
+  <button id="chatbot-toggle">💬 Ask Me Anything</button>
+
+  <div id="chatbot-box" class="hidden">
+    <div id="chatbot-header">
+      Catherine's Chatbot
+      <span id="chatbot-minimize">–</span>
+      <span id="chatbot-theme-toggle">☀️</span>
+    </div>
+
+    <div id="chatbot-messages"></div>
+    <div id="chatbot-typing" class="hidden">Catherine is typing…</div>
+
+    <input 
+      type="text" 
+      id="chatbot-input" 
+      placeholder="Ask me about my skills, labs, tools, or experience..."
+    />
+  </div>
+</div>
+
+    <!-- ============================
+         SKILLS SECTION (CARDS)
+         ============================ -->
+<section id="skills" class="section">
+    <h2>Skills</h2>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3><i class="fa-solid fa-network-wired"></i> Networking</h3>
+            <ul>
+                <li>Cisco Catalyst 2950, 2960 Plus, 3560G</li>
+                <li>Cisco 4331 ISR</li>
+                <li>VLANs, Routing, ACLs, NAT, DHCP</li>
+                <li>Wireshark, Nmap, SNORT</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3><i class="fa-brands fa-linux"></i> Linux & Windows</h3>
+            <ul>
+                <li>Ubuntu Server & Desktop</li>
+                <li>Active Directory & Group Policy</li>
+                <li>Permissions & Access Control</li>
+                <li>Bash Scripting</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3><i class="fa-solid fa-shield-halved"></i> Cybersecurity</h3>
+            <ul>
+                <li>Nessus, Metasploit, Burp Suite</li>
+                <li>Hashcat, Aircrack‑ng</li>
+                <li>Splunk, SIEM Analysis</li>
+                <li>Incident Response</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3><i class="fa-solid fa-magnifying-glass"></i> Digital Forensics</h3>
+            <ul>
+                <li>E3 Forensic Platform</li>
+                <li>FTK Imager, OSForensics</li>
+                <li>Data Carving & Registry Analysis</li>
+                <li>Chain of Custody</li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+    <!-- ============================
+         PROJECTS & LABS (ICON CARDS)
+         ============================ -->
+    <section id="projects" class="section">
+        <h2>Projects & Labs</h2>
+
+        <div class="grid">
+
+            <!-- Network Infrastructure Build -->
+            <div class="card">
+                <h3><i class="fa-solid fa-network-wired"></i> Network Infrastructure Build</h3>
+                <ul>
+                    <li>Configured Cisco Catalyst 2950, 2960 Plus, and 3560G switches</li>
+                    <li>Deployed Cisco 4331 ISR router with routing, NAT, and DHCP</li>
+                    <li>Implemented VLAN segmentation and inter‑VLAN routing</li>
+                    <li>Performed packet analysis using Wireshark and SNORT</li>
+                </ul>
+
+                <div class="tags">
+                    <span>Cisco</span>
+                    <span>VLANs</span>
+                    <span>Routing</span>
+                    <span>Wireshark</span>
+                    <span>SNORT</span>
+                </div>
+            </div>
+
+            <!-- Linux & Windows Administration -->
+            <div class="card">
+                <h3><i class="fa-brands fa-linux"></i> Linux & Windows Administration</h3>
+                <ul>
+                    <li>Managed Ubuntu Server and Desktop environments</li>
+                    <li>Configured Active Directory, Group Policy, and user permissions</li>
+                    <li>Performed system hardening and access control configuration</li>
+                    <li>Automated tasks using Bash scripting</li>
+                </ul>
+
+                <div class="tags">
+                    <span>Ubuntu</span>
+                    <span>Active Directory</span>
+                    <span>GPO</span>
+                    <span>Bash</span>
+                    <span>Hardening</span>
+                </div>
+            </div>
+
+            <!-- Digital Forensics Investigation -->
+            <div class="card">
+                <h3><i class="fa-solid fa-magnifying-glass"></i> Digital Forensics Investigation</h3>
+                <ul>
+                    <li>Conducted forensic imaging using FTK Imager and OSForensics</li>
+                    <li>Analyzed registry artifacts, email data, and file metadata</li>
+                    <li>Performed data carving and evidence recovery</li>
+                    <li>Documented findings following chain‑of‑custody standards</li>
+                </ul>
+
+                <div class="tags">
+                    <span>FTK Imager</span>
+                    <span>OSForensics</span>
+                    <span>Data Carving</span>
+                    <span>Registry Analysis</span>
+                </div>
+            </div>
+
+            <!-- Cybersecurity Tools & Threat Analysis -->
+            <div class="card">
+                <h3><i class="fa-solid fa-shield-halved"></i> Cybersecurity Tools & Threat Analysis</h3>
+                <ul>
+                    <li>Executed vulnerability scans using Nessus</li>
+                    <li>Performed exploitation labs with Metasploit and Burp Suite</li>
+                    <li>Cracked password hashes using Hashcat</li>
+                    <li>Analyzed SIEM logs and alerts in Splunk</li>
+                </ul>
+
+                <div class="tags">
+                    <span>Nessus</span>
+                    <span>Metasploit</span>
+                    <span>Burp Suite</span>
+                    <span>Hashcat</span>
+                    <span>Splunk</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ============================
+     CONTACT SECTION
+     ============================ -->
+<section id="contact" class="section">
+    <h2>Contact</h2>
+
+    <p>You can reach me through the following platforms:</p>
+
+    <ul>
+        <li>
+            <i class="fa-solid fa-envelope"></i>
+            <strong>Email:</strong>
+            <a href="mailto:recruitment.alias@icloud.com">recruitment.alias@icloud.com</a>
+        </li>
+
+        <li>
+            <i class="fa-brands fa-linkedin"></i>
+            <strong>LinkedIn:</strong>
+            <a href="https://www.linkedin.com/in/catherine-jason" target="_blank">
+                linkedin.com/in/catherine-jason
+            </a>
+        </li>
+    </ul>
+
+    <p>I am always open to connecting with cybersecurity professionals and IT professionals.</p>
+</section>
+
+    <!-- ============================
+         FOOTER
+         ============================ -->
+    <footer>
+        <p>© 2026 Catherine Jason</p>
+    </footer>
+
+ <script>
+// ============================================
+// CHATBOT CORE LOGIC + ICON RENDERING
+// ============================================
+
+// Helper: create a message row with icon + bubble
+function addMessage(sender, text) {
+  const messages = document.getElementById("chatbot-messages");
+  const row = document.createElement("div");
+  row.classList.add("chat-row");
+  const iconWrapper = document.createElement("div");
+  iconWrapper.classList.add("chat-icon");
+
+  const botSVG = `
+    <svg viewBox="0 0 24 24">
+      <rect x="4" y="6" width="16" height="12" rx="4" ry="4" />
+      <circle cx="9" cy="12" r="1.2" />
+      <circle cx="15" cy="12" r="1.2" />
+      <line x1="12" y1="4" x2="12" y2="6" />
+      <circle cx="12" cy="3" r="1" />
+    </svg>
+  `;
+
+  const userSVG = `
+    <svg viewBox="0 0 24 24">
+      <rect x="3" y="14" width="18" height="4" rx="1" ry="1" />
+      <rect x="5" y="6" width="14" height="8" rx="2" ry="2" />
+      <path d="M12 7.5c-2 0-3 1.5-3 3.2 0 1.3.7 2.3 1.8 2.8h2.4c1.1-.5 1.8-1.5 1.8-2.8 0-1.7-1-3.2-3-3.2z" />
+      <path d="M9.5 13.5c.6 1.2 1.6 2 2.5 2s1.9-.8 2.5-2" />
+    </svg>
+  `;
+
+  if (sender === "🤖") {
+    iconWrapper.classList.add("bot-icon-message");
+    iconWrapper.innerHTML = botSVG;
+  } else {
+    iconWrapper.classList.add("user-icon");
+    iconWrapper.innerHTML = userSVG;
+  }
+
+  const bubble = document.createElement("div");
+  bubble.classList.add("chat-bubble");
+  bubble.classList.add(sender === "🤖" ? "bot-bubble" : "user-bubble");
+  bubble.innerHTML = text;
+
+  row.appendChild(iconWrapper);
+  row.appendChild(bubble);
+  messages.appendChild(row);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+// Typing indicator helpers
+function showTyping() {
+  const typing = document.getElementById("chatbot-typing");
+  if (typing) typing.style.display = "block";
+}
+function hideTyping() {
+  const typing = document.getElementById("chatbot-typing");
+  if (typing) typing.style.display = "none";
+}
+
+// ============================================
+// CLEAN Q&A ARRAY (REPLACES ALL OLD IF STATEMENTS)
+// ============================================
+
+const qa = [
+  {
+    keywords: ["networking", "vlan", "router", "switch"],
+    answer:
+      "I have strong hands on networking experience from building and troubleshooting real lab environments. I worked with Cisco routers and switches, configured VLANs, set up inter VLAN communication, and practiced routing, NAT, DHCP, and ACLs."
+  },
+  {
+    keywords: ["systems", "operating system", "os experience"],
+    answer:
+      "I have worked with Ubuntu Server, Ubuntu Desktop, Windows Server, and Active Directory environments. I have experience with user and group management, permissions, Group Policy, Linux file systems, SSH, and Bash scripting. I also used virtual machines for most of my labs which helped me understand how systems behave in different environments."
+  },
+  {
+    keywords: ["forensics", "ftk", "osforensics", "evidence"],
+    answer:
+      "I completed digital forensics labs where I used FTK Imager, OSForensics, E3 Forensic Platform, and ProDiscover. I practiced imaging drives, verifying evidence with hashing, analyzing registry artifacts, reviewing email data, and building timelines. I enjoy forensics because it feels like solving a puzzle and uncovering the story behind the data."
+  },
+  {
+    keywords: ["siem", "splunk", "log analysis"],
+    answer:
+      "I worked with Splunk to analyze authentication logs, investigate suspicious activity, and identify patterns that might indicate an attack. These labs helped me understand how attackers behave and how defenders use logs to detect unusual behavior."
+  },
+  {
+    keywords: ["ethical hacking", "pentest", "tryhackme", "ctf"],
+    answer:
+      "I completed ethical hacking labs that covered reconnaissance, scanning, enumeration, exploitation, and privilege escalation. I used tools like Nmap, Metasploit, Burp Suite, and Hashcat. These labs helped me understand how vulnerabilities are discovered and how to defend systems more effectively."
+  },
+  {
+    keywords: ["tools", "wireshark", "nmap", "nessus", "burp"],
+    answer:
+      "I use Wireshark for packet analysis, Nmap for scanning, Splunk for log analysis, FTK Imager for forensics, and Burp Suite for web testing. Each tool gives me a different perspective on how systems behave and how to identify issues."
+  },
+  {
+    keywords: ["labs", "hands on", "practice"],
+    answer:
+      "I completed labs in networking, Linux administration, Windows Server, digital forensics, SIEM analysis, and ethical hacking. These labs helped me build confidence because I could experiment, break things, fix them, and see how everything works in real situations."
+  },
+  {
+    keywords: ["projects", "portfolio", "build"],
+    answer:
+      "I am proud of the projects I completed in class like building a network infrastructure, setting up a Windows Server domain, and completing a digital forensics investigation. I also enjoy the personal projects I work on in my free time. I build small apps and websites in VS Code, experiment with virtual machines, and create tools that help me learn. My portfolio and this chatbot are examples of projects I built on my own because I enjoy exploring how things behave and improving my skills through hands on practice."
+  },
+  {
+    keywords: ["troubleshooting", "problem solving", "fix"],
+    answer:
+      "I approach troubleshooting by slowing things down and looking at one piece at a time. I recreate the issue, check the obvious causes first, and then work through each possibility until I find the root of the problem. Networking labs taught me how a single setting can affect everything, so I learned to stay calm, pay attention to details, and confirm each fix before moving on."
+  },
+  {
+    keywords: ["group", "team", "collaborative"],
+    answer:
+      "Yes, I have worked in group labs where we shared responsibilities, compared results, and helped each other troubleshoot. These experiences taught me how important communication is and how much you can learn by working with others."
+  },
+  {
+    keywords: ["learning style", "learn", "study"],
+    answer:
+      "I learn best through hands on practice. I like to experiment, break things, fix them, and repeat the process until it makes sense. Writing and documenting what I learn also helps me understand concepts more deeply."
+  },
+  {
+    keywords: ["strengths", "good at", "strong at"],
+    answer:
+      "My strengths include troubleshooting, clear communication, patience, curiosity, and the ability to stay calm when something breaks. I enjoy exploring how different parts of technology connect and finding solutions that make sense."
+  },
+  {
+    keywords: ["weakness", "improve", "growth"],
+    answer:
+      "One area I am working on is becoming more fluent with technical terminology and tool names. I understand the concepts well, and I am strong at writing and documenting because it helps me organize my thoughts, but answering quickly on the spot can be challenging. I am improving this by practicing real time explanations and reviewing terminology more often."
+  },
+  {
+    keywords: ["certification", "training", "degree", "courses"],
+    answer:
+      "I am pursuing an AAS in Cybersecurity and completed the BCR Cyber Series. I have hands on experience with CompTIA aligned A plus, Network plus, and Security plus labs. My coursework and labs covered hardware, networking, security fundamentals, and real world scenarios."
+  },
+  {
+    keywords: ["career goals", "future", "plans"],
+    answer:
+      "My goal is to grow into a cybersecurity role where I can investigate alerts, analyze logs, and help protect systems. I enjoy the mix of technical work, problem solving, and continuous learning."
+  },
+  {
+    keywords: ["motivation", "why cyber", "why this field"],
+    answer:
+      "I am motivated by curiosity and the challenge of understanding what is happening behind the scenes. I enjoy learning how attackers think and how defenders can stay ahead. Every lab teaches me something new."
+  },
+  {
+    keywords: ["virtualization", "vm", "virtual machine"],
+    answer:
+      "I used virtual machines throughout my labs to build safe testing environments. I learned how to take snapshots, revert systems, and create isolated setups for networking, Linux, Windows Server, and cybersecurity exercises."
+  },
+  {
+    keywords: ["cloud", "azure", "aws"],
+    answer:
+      "I have experience with cloud fundamentals such as virtual machines, identity concepts, and basic security principles. I learned how cloud environments differ from on premise systems and how identity and access management plays a major role in security."
+  },
+  {
+    keywords: ["scripting", "bash", "powershell"],
+    answer:
+      "I have written simple Bash scripts to automate tasks like user creation, permission changes, and log collection. I also used basic PowerShell commands for Windows environments. I enjoy scripting because it helps me work more efficiently."
+  },
+  {
+    keywords: ["soft skills", "communication", "work style"],
+    answer:
+      "I communicate clearly, stay patient when troubleshooting, and work well both independently and in groups. I enjoy learning, helping others, and contributing to a positive team environment."
+  }
+];
+
+// ============================================
+// HANDLE QUESTION USING CLEAN Q&A ARRAY
+// ============================================
+
+function handleQuestion(question) {
+  if (!question || typeof question !== "string") {
+    addMessage("🤖", "Sorry, I did not catch that. Please ask again.");
+    return;
+  }
+
+  question = question.toLowerCase();
+
+  // Greeting
+  if (
+    question.includes("hello") ||
+    question.includes("hi") ||
+    question.includes("hey") ||
+    question.includes("start") ||
+    question.includes("introduction")
+  ) {
+    addMessage(
+      "🤖",
+      "Hi, I am Catherine. I created this chatbot to share my cybersecurity experience in a simple and interactive way. Feel free to ask about my labs, tools, projects, or anything you are curious about."
+    );
+    return;
+  }
+
+  // Loop through Q&A list
+  for (const item of qa) {
+    if (item.keywords.some((k) => question.includes(k))) {
+      addMessage("🤖", item.answer);
+      return;
+    }
+  }
+
+  // Catch-all
+  addMessage(
+    "🤖",
+    "I can tell you about my networking experience, systems I worked with, digital forensics labs, SIEM investigations, ethical hacking practice, tools I use, projects I completed, troubleshooting style, learning approach, strengths, weaknesses, certifications, career goals, and more. Feel free to ask anything you want to know about my experience."
+  );
+}
+
+// ============================================
+// EVENT WIRING: TOGGLE, INPUT, MINIMIZE
+// ============================================
+
+document.addEventListener("DOMContentLoaded", function () {
+  const toggle = document.getElementById("chatbot-toggle");
+  const box = document.getElementById("chatbot-box");
+  const input = document.getElementById("chatbot-input");
+  const minimize = document.getElementById("chatbot-minimize");
+
+  if (toggle) {
+    toggle.addEventListener("click", () => {
+      if (box) box.classList.remove("hidden");
+      if (input) input.focus();
+    });
+  }
+
+  if (minimize) {
+    minimize.addEventListener("click", () => {
+      if (box) box.classList.add("hidden");
+    });
+  }
+
+  if (input) {
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && input.value.trim() !== "") {
+        const question = input.value.trim();
+        addMessage("You", question);
+        input.value = "";
+        showTyping();
+        setTimeout(() => {
+          hideTyping();
+          handleQuestion(question);
+        }, 500);
+      }
+    });
+  }
+});
+</script>
+
+</body>
+</html>
