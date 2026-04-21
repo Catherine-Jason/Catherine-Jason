@@ -1,16 +1,21 @@
-## Hi there 👋
+🌐 **Portfolio Website:** https://www.catherinejason.com
+🔗 **LinkedIn:** https://www.linkedin.com/in/catherine-jason/
 
-<!--
-**Catherine-Jason/Catherine-Jason** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+Cybersecurity and IT student with hands-on experience in networking,
+security operations, Linux and Windows administration, and threat analysis.
 
-Here are some ideas to get you started:
+### 🛡️ Core Skills
+- Security operations and threat analysis (SIEM, IDS)
+- Network configuration and troubleshooting (VLANs, ACLs, TCP/IP)
+- Linux and Windows administration (Ubuntu CLI/GUI, Active Directory)
+- Investigative and forensic fundamentals
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+### 🧰 Tools & Technologies
+- Splunk, SNORT, Nessus
+- Wireshark, Metasploit, Burp Suite
+- Kali Linux, Parrot OS
+- Cisco Catalyst switches
+
+### 🎓 Honors & Affiliations
+- Phi Theta Kappa Honor Society — Alpha Psi Psi Chapter
+- Member, Cybersecurity Association, Inc.
