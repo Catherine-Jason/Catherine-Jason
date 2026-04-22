@@ -452,6 +452,57 @@ function hideTyping() {
   if (typing) typing.style.display = "none";
 }
 
+   // ============================================
+// VOICE FEATURES: SPEECH-TO-TEXT + TEXT-TO-SPEECH
+// ============================================
+let voiceEnabled = false;
+let recognizing = false;
+let recognition = null;
+
+if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SpeechRecognition();
+  recognition.lang = "en-US";
+  recognition.continuous = false;
+  recognition.interimResults = false;
+
+  recognition.onstart = () => recognizing = true;
+  recognition.onend = () => recognizing = false;
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    const input = document.getElementById("chatbot-input");
+    input.value = transcript;
+
+    const question = transcript.trim();
+    if (question) {
+      addMessage("You", question);
+      showTyping();
+      setTimeout(() => {
+        hideTyping();
+        handleQuestion(question);
+      }, 500);
+    }
+  };
+}
+
+function speak(text) {
+  if (!voiceEnabled) return;
+  if (!("speechSynthesis" in window)) return;
+
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = "en-US";
+
+  const voices = speechSynthesis.getVoices();
+  const preferred = voices.find(v =>
+    v.lang.startsWith("en") &&
+    /female|samantha|us/i.test(v.name)
+  );
+  if (preferred) utterance.voice = preferred;
+
+  speechSynthesis.speak(utterance);
+}
+
 // ============================================
 // CLEAN Q&A ARRAY (REPLACE
 // ============================================
@@ -585,7 +636,9 @@ function handleQuestion(question) {
   // Loop through Q&A list
   for (const item of qa) {
     if (item.keywords.some((k) => question.includes(k))) {
-      addMessage("🤖", item.answer);
+     addMessage("🤖", item.answer);
+     speak(item.answer);
+
       return;
     }
   }
@@ -602,6 +655,43 @@ function handleQuestion(question) {
 // ============================================
 
 document.addEventListener("DOMContentLoaded", function () {
+const micBtn = document.getElementById("chatbot-mic");
+const voiceToggle = document.getElementById("chatbot-voice-toggle");
+const sendBtn = document.getElementById("chatbot-send");
+
+if (micBtn) {
+  micBtn.addEventListener("click", () => {
+    if (!recognition) {
+      alert("Speech recognition is not supported in this browser.");
+      return;
+    }
+    recognizing ? recognition.stop() : recognition.start();
+  });
+}
+
+if (voiceToggle) {
+  voiceToggle.addEventListener("click", () => {
+    voiceEnabled = !voiceEnabled;
+    voiceToggle.classList.toggle("active", voiceEnabled);
+  });
+}
+
+if (sendBtn) {
+  sendBtn.addEventListener("click", () => {
+    const input = document.getElementById("chatbot-input");
+    const question = input.value.trim();
+    if (!question) return;
+
+    addMessage("You", question);
+    input.value = "";
+    showTyping();
+    setTimeout(() => {
+      hideTyping();
+      handleQuestion(question);
+    }, 500);
+  });
+}
+
   const toggle = document.getElementById("chatbot-toggle");
   const box = document.getElementById("chatbot-box");
   const input = document.getElementById("chatbot-input");
