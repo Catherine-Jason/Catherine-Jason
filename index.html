@@ -450,112 +450,111 @@ function hideTyping() {
 }
 
 // ============================================
-// CLEAN Q&A ARRAY (REPLACES ALL OLD IF STATEMENTS)
+// CLEAN Q&A ARRAY (REPLACE
 // ============================================
 
 const qa = [
   {
-    keywords: ["networking", "vlan", "router", "switch"],
-    answer:
-      "I have strong hands on networking experience from building and troubleshooting real lab environments. I worked with Cisco routers and switches, configured VLANs, set up inter VLAN communication, and practiced routing, NAT, DHCP, and ACLs."
+    keywords: ["tell me about yourself", "about you", "who are you"],
+    answer: "I am someone who enjoys learning how things work, especially in cybersecurity. I am working through my AAS in Cybersecurity and I spend a lot of time doing hands on labs with networking, Linux, Windows, penetration testing, and digital forensics. I like breaking things down, troubleshooting, and figuring out why something is not working. I am also a single parent, so balancing school, labs, and life has made me good at staying organized and adapting quickly."
   },
   {
-    keywords: ["systems", "operating system", "os experience"],
-    answer:
-      "I have worked with Ubuntu Server, Ubuntu Desktop, Windows Server, and Active Directory environments. I have experience with user and group management, permissions, Group Policy, Linux file systems, SSH, and Bash scripting. I also used virtual machines for most of my labs which helped me understand how systems behave in different environments."
+    keywords: ["why cybersecurity", "why cyber", "why this field"],
+    answer: "Cybersecurity clicked for me because I enjoy problem solving, investigating issues, and working hands on. There is always something new to learn and the field moves fast which keeps me motivated. I also like the idea of protecting systems and people from threats because it feels meaningful."
   },
   {
-    keywords: ["forensics", "ftk", "osforensics", "evidence"],
-    answer:
-      "I completed digital forensics labs where I used FTK Imager, OSForensics, E3 Forensic Platform, and ProDiscover. I practiced imaging drives, verifying evidence with hashing, analyzing registry artifacts, reviewing email data, and building timelines. I enjoy forensics because it feels like solving a puzzle and uncovering the story behind the data."
+    keywords: ["technical skills", "skills", "experience"],
+    answer: "I have experience with Linux, Windows, networking fundamentals, Wireshark, Nmap, Active Directory, virtualization, SIEM concepts, and basic scripting. I completed penetration testing labs, privilege escalation practice, and packet analysis. I am also comfortable with HTML, CSS, JavaScript, and Java."
+  },
+  {
+    keywords: ["networking", "router", "switch", "vlan"],
+    answer: "I have hands on networking experience from building and troubleshooting lab environments. I worked with Cisco routers and switches, configured VLANs, set up inter VLAN communication, and practiced routing, NAT, DHCP, and ACLs. These labs helped me understand how networks communicate and how small settings can affect everything."
+  },
+  {
+    keywords: ["linux", "ubuntu", "kali", "parrot"],
+    answer: "I use Linux constantly in my labs. I am comfortable with permissions, file systems, user management, networking commands, and troubleshooting. I worked in Ubuntu, Kali, and Parrot Security. Linux helped me understand how systems behave behind the scenes and how to work efficiently from the command line."
+  },
+  {
+    keywords: ["windows server", "active directory", "ad"],
+    answer: "I worked with Windows Server and Active Directory in my labs. I created users and groups, managed permissions, configured Group Policy, and practiced authentication concepts. These labs helped me understand how organizations manage identity and access."
+  },
+  {
+    keywords: ["forensics", "ftk", "osforensics", "e3", "prodiscover"],
+    answer: "I completed digital forensics labs using FTK Imager, OSForensics, E3 Forensic Platform, and ProDiscover. I practiced imaging drives, verifying evidence with hashing, analyzing registry artifacts, reviewing email data, and building timelines. I enjoy forensics because it feels like solving a puzzle and uncovering the story behind the data."
   },
   {
     keywords: ["siem", "splunk", "log analysis"],
-    answer:
-      "I worked with Splunk to analyze authentication logs, investigate suspicious activity, and identify patterns that might indicate an attack. These labs helped me understand how attackers behave and how defenders use logs to detect unusual behavior."
+    answer: "I worked with Splunk to analyze authentication logs, investigate suspicious activity, and identify patterns that might indicate an attack. These labs helped me understand how attackers behave and how defenders use logs to detect unusual behavior."
   },
   {
-    keywords: ["ethical hacking", "pentest", "tryhackme", "ctf"],
-    answer:
-      "I completed ethical hacking labs that covered reconnaissance, scanning, enumeration, exploitation, and privilege escalation. I used tools like Nmap, Metasploit, Burp Suite, and Hashcat. These labs helped me understand how vulnerabilities are discovered and how to defend systems more effectively."
+    keywords: ["ethical hacking", "pentest", "penetration testing", "ctf"],
+    answer: "I completed penetration testing labs that covered reconnaissance, scanning, enumeration, exploitation, and privilege escalation. I used tools like Nmap, Metasploit, Burp Suite, Hydra, and Hashcat. These labs helped me understand how vulnerabilities are discovered and how to defend systems more effectively."
   },
   {
-    keywords: ["tools", "wireshark", "nmap", "nessus", "burp"],
-    answer:
-      "I use Wireshark for packet analysis, Nmap for scanning, Splunk for log analysis, FTK Imager for forensics, and Burp Suite for web testing. Each tool gives me a different perspective on how systems behave and how to identify issues."
+    keywords: ["tools", "wireshark", "nmap", "burp", "nessus"],
+    answer: "I use Wireshark for packet analysis, Nmap for scanning, Splunk for log analysis, FTK Imager for forensics, and Burp Suite for web testing. Each tool gives me a different perspective on how systems behave and how to identify issues."
+  },
+  {
+    keywords: ["projects", "portfolio", "website"],
+    answer: "I built my own portfolio website and coded this chatbot to share my experience. I also completed projects like building a network infrastructure, setting up a Windows Server domain, and completing a digital forensics investigation. I enjoy creating things in VS Code, experimenting with virtual machines, and building tools that help me learn."
   },
   {
     keywords: ["labs", "hands on", "practice"],
-    answer:
-      "I completed labs in networking, Linux administration, Windows Server, digital forensics, SIEM analysis, and ethical hacking. These labs helped me build confidence because I could experiment, break things, fix them, and see how everything works in real situations."
-  },
-  {
-    keywords: ["projects", "portfolio", "build"],
-    answer:
-      "I am proud of the projects I completed in class like building a network infrastructure, setting up a Windows Server domain, and completing a digital forensics investigation. I also enjoy the personal projects I work on in my free time. I build small apps and websites in VS Code, experiment with virtual machines, and create tools that help me learn. My portfolio and this chatbot are examples of projects I built on my own because I enjoy exploring how things behave and improving my skills through hands on practice."
+    answer: "I completed labs in networking, Linux administration, Windows Server, digital forensics, SIEM analysis, and ethical hacking. These labs helped me build confidence because I could experiment, break things, fix them, and see how everything works in real situations."
   },
   {
     keywords: ["troubleshooting", "problem solving", "fix"],
-    answer:
-      "I approach troubleshooting by slowing things down and looking at one piece at a time. I recreate the issue, check the obvious causes first, and then work through each possibility until I find the root of the problem. Networking labs taught me how a single setting can affect everything, so I learned to stay calm, pay attention to details, and confirm each fix before moving on."
-  },
-  {
-    keywords: ["group", "team", "collaborative"],
-    answer:
-      "Yes, I have worked in group labs where we shared responsibilities, compared results, and helped each other troubleshoot. These experiences taught me how important communication is and how much you can learn by working with others."
+    answer: "I approach troubleshooting by slowing things down and looking at one piece at a time. I recreate the issue, check the obvious causes first, and then work through each possibility until I find the root of the problem. Networking labs taught me how a single setting can affect everything, so I learned to stay calm, pay attention to details, and confirm each fix before moving on."
   },
   {
     keywords: ["learning style", "learn", "study"],
-    answer:
-      "I learn best through hands on practice. I like to experiment, break things, fix them, and repeat the process until it makes sense. Writing and documenting what I learn also helps me understand concepts more deeply."
+    answer: "I learn best through hands on practice. I like to experiment, break things, fix them, and repeat the process until it makes sense. Writing and documenting what I learn also helps me understand concepts more deeply."
   },
   {
-    keywords: ["strengths", "good at", "strong at"],
-    answer:
-      "My strengths include troubleshooting, clear communication, patience, curiosity, and the ability to stay calm when something breaks. I enjoy exploring how different parts of technology connect and finding solutions that make sense."
+    keywords: ["strengths", "good at"],
+    answer: "My strengths include troubleshooting, clear communication, patience, curiosity, and the ability to stay calm when something breaks. I enjoy exploring how different parts of technology connect and finding solutions that make sense."
   },
   {
-    keywords: ["weakness", "improve", "growth"],
-    answer:
-      "One area I am working on is becoming more fluent with technical terminology and tool names. I understand the concepts well, and I am strong at writing and documenting because it helps me organize my thoughts, but answering quickly on the spot can be challenging. I am improving this by practicing real time explanations and reviewing terminology more often."
+    keywords: ["weakness", "improve"],
+    answer: "One area I am working on is becoming more fluent with technical terminology and tool names. I understand the concepts well and I am strong at writing and documenting, but answering quickly on the spot can be challenging. I am improving this by practicing real time explanations and reviewing terminology more often."
   },
   {
-    keywords: ["certification", "training", "degree", "courses"],
-    answer:
-      "I am pursuing an AAS in Cybersecurity and completed the BCR Cyber Series. I have hands on experience with CompTIA aligned A plus, Network plus, and Security plus labs. My coursework and labs covered hardware, networking, security fundamentals, and real world scenarios."
+    keywords: ["certification", "degree", "courses"],
+    answer: "I am pursuing an AAS in Cybersecurity and completed the BCR Cyber Series. I have hands on experience with CompTIA aligned A plus, Network plus, and Security plus labs. My coursework covered hardware, networking, security fundamentals, and real world scenarios."
   },
   {
     keywords: ["career goals", "future", "plans"],
-    answer:
-      "My goal is to grow into a cybersecurity role where I can investigate alerts, analyze logs, and help protect systems. I enjoy the mix of technical work, problem solving, and continuous learning."
+    answer: "My goal is to grow into a cybersecurity role where I can investigate alerts, analyze logs, and help protect systems. I enjoy the mix of technical work, problem solving, and continuous learning."
   },
   {
-    keywords: ["motivation", "why cyber", "why this field"],
-    answer:
-      "I am motivated by curiosity and the challenge of understanding what is happening behind the scenes. I enjoy learning how attackers think and how defenders can stay ahead. Every lab teaches me something new."
+    keywords: ["motivation", "motivates you"],
+    answer: "I am motivated by curiosity and the challenge of understanding what is happening behind the scenes. I enjoy learning how attackers think and how defenders can stay ahead. Every lab teaches me something new."
   },
   {
     keywords: ["virtualization", "vm", "virtual machine"],
-    answer:
-      "I used virtual machines throughout my labs to build safe testing environments. I learned how to take snapshots, revert systems, and create isolated setups for networking, Linux, Windows Server, and cybersecurity exercises."
+    answer: "I used virtual machines throughout my labs to build safe testing environments. I learned how to take snapshots, revert systems, and create isolated setups for networking, Linux, Windows Server, and cybersecurity exercises."
   },
   {
     keywords: ["cloud", "azure", "aws"],
-    answer:
-      "I have experience with cloud fundamentals such as virtual machines, identity concepts, and basic security principles. I learned how cloud environments differ from on premise systems and how identity and access management plays a major role in security."
+    answer: "I have experience with cloud fundamentals such as virtual machines, identity concepts, and basic security principles. I learned how cloud environments differ from on premise systems and how identity and access management plays a major role in security."
   },
   {
     keywords: ["scripting", "bash", "powershell"],
-    answer:
-      "I have written simple Bash scripts to automate tasks like user creation, permission changes, and log collection. I also used basic PowerShell commands for Windows environments. I enjoy scripting because it helps me work more efficiently."
+    answer: "I wrote simple Bash scripts to automate tasks like user creation, permission changes, and log collection. I also used basic PowerShell commands for Windows environments. I enjoy scripting because it helps me work more efficiently."
+  },
+  {
+    keywords: ["java", "java programming", "object oriented", "oop"],
+    answer: "I learned Java in my programming course where I wrote programs using object oriented concepts. I worked with classes, methods, loops, arrays, and logic based problem solving. Java helped me understand how structured programming works and how to break problems into smaller pieces. It also made it easier for me to learn other languages like JavaScript because I already understood the fundamentals of how code flows and how programs are built."
   },
   {
     keywords: ["soft skills", "communication", "work style"],
-    answer:
-      "I communicate clearly, stay patient when troubleshooting, and work well both independently and in groups. I enjoy learning, helping others, and contributing to a positive team environment."
+    answer: "I communicate clearly, stay patient when troubleshooting, and work well both independently and in groups. I enjoy learning, helping others, and contributing to a positive team environment."
   }
 ];
 
+  {
+    ]; 
+    
 // ============================================
 // HANDLE QUESTION USING CLEAN Q&A ARRAY
 // ============================================
@@ -598,6 +597,7 @@ function handleQuestion(question) {
   );
 }
 
+
 // ============================================
 // EVENT WIRING: TOGGLE, INPUT, MINIMIZE
 // ============================================
@@ -636,7 +636,3 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
-</script>
-
-</body>
-</html>
