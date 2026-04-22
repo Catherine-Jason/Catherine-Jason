@@ -903,3 +903,143 @@ footer {
 .project-tools span:last-child::after {
   content: "";
 }
+
+/* ============================================
+   CHATBOT — VOICE INPUT + VOICE OUTPUT CONTROLS
+   ============================================ */
+
+/* Input row layout */
+#chatbot-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 6px 0;
+}
+
+/* Input field expands properly */
+#chatbot-input {
+  flex: 1;
+  border-radius: 8px;
+  background: #2a2a2a;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: 0.25s ease;
+}
+
+#chatbot-input:focus {
+  border-color: var(--mint);
+  box-shadow: 0 0 8px rgba(79,255,234,0.4);
+}
+
+/* ============================================
+   MICROPHONE BUTTON (VOICE INPUT)
+   ============================================ */
+
+#chatbot-mic {
+  background: var(--blue);
+  color: white;
+  border: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.25s ease;
+  box-shadow: 0 0 10px rgba(58, 141, 255, 0.4);
+}
+
+#chatbot-mic:hover {
+  background: var(--mint);
+  color: var(--navy);
+  box-shadow: 0 0 12px rgba(79, 255, 234, 0.6);
+}
+
+/* Microphone active (listening) state */
+#chatbot-mic.listening {
+  background: #ff4f6a;
+  box-shadow: 0 0 14px rgba(255, 79, 106, 0.8);
+  animation: micPulse 1s infinite ease-in-out;
+}
+
+@keyframes micPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+/* ============================================
+   VOICE TOGGLE BUTTON (VOICE OUTPUT)
+   ============================================ */
+
+#chatbot-voice-toggle {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 6px;
+  transition: 0.25s ease;
+}
+
+#chatbot-voice-toggle:hover {
+  color: var(--mint);
+  text-shadow: 0 0 6px var(--mint);
+}
+
+/* ============================================
+   PREMIUM AI ENHANCEMENTS
+   ============================================ */
+
+/* Smooth fade-in for new messages */
+.chat-row {
+  animation: fadeInMessage 0.25s ease-out;
+}
+
+@keyframes fadeInMessage {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Typing indicator glow */
+#chatbot-typing {
+  color: var(--mint);
+  text-shadow: 0 0 6px rgba(79,255,234,0.6);
+}
+
+/* Chatbox subtle neon border animation */
+#chatbot-box {
+  animation: borderGlow 4s infinite alternate ease-in-out;
+}
+
+@keyframes borderGlow {
+  0% { box-shadow: 0 0 18px rgba(79,255,234,0.25); }
+  100% { box-shadow: 0 0 28px rgba(79,255,234,0.45); }
+}
+
+/* Bot bubble glow upgrade */
+.bot-bubble {
+  border: 1px solid rgba(79,255,234,0.45);
+  background: rgba(0,0,0,0.35);
+  box-shadow: 0 0 6px rgba(79,255,234,0.25);
+}
+
+/* User bubble glow upgrade */
+.user-bubble {
+  border: 1px solid rgba(58,141,255,0.6);
+  background: rgba(58,141,255,0.2);
+  box-shadow: 0 0 6px rgba(58,141,255,0.25);
+}
+
+/* Bot icon glow enhancement */
+.bot-icon-message svg {
+  filter: drop-shadow(0 0 8px rgba(79,255,234,0.8));
+}
+
+/* User icon glow enhancement */
+.user-icon svg {
+  filter: drop-shadow(0 0 8px rgba(79,255,234,0.8));
+}
