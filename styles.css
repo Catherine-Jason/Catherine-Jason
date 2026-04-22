@@ -887,3 +887,19 @@ footer {
   border: 1px solid rgba(79, 255, 234, 0.35);
   color: var(--mint);
 }
+
+.project-tools {
+  margin-top: 10px;
+  font-size: 0.75rem;
+  color: #88c4ff;
+}
+
+.project-tools span::after {
+  content: "•";
+  margin: 0 6px;
+  opacity: 0.4;
+}
+
+.project-tools span:last-child::after {
+  content: "";
+}
