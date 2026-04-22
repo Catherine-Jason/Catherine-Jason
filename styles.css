@@ -757,8 +757,46 @@ footer {
   padding-top: 32px;
 }
 
+#about {
+  padding-bottom: 24px;
+}
+
+#skills {
+  padding-top: 24px;
+  padding-bottom: 32px;
+}
+
+#projects {
+  padding-top: 32px;
+}
+
+#honors .card {
+  max-width: 700px;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.04);
+}
+
+#honors h2 {
+  font-size: 1.7rem;
+}
+
+#contact {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+}
+
+#contact ul li {
+  font-size: 1rem;
+}
+
+
 #honors .card:hover {
   transform: none;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.35);
   background-color: rgba(255, 255, 255, 0.06);
+}
+
+.section-intro {
+  opacity: 0.8;
+  margin-bottom: 16px;
 }
