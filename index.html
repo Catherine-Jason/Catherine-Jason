@@ -626,7 +626,13 @@ if (micBtn) {
       alert("Speech recognition is not supported in this browser.");
       return;
     }
-    recognizing ? recognition.stop() : recognition.start();
+       if (recognizing) {
+  recognition.stop();
+} else {
+  try {
+    recognition.start();
+  } catch(e) {
+    console.log(e); 
   });
 }
 
