@@ -635,50 +635,53 @@ speak(fallback);
 // ============================================
 // EVENT WIRING: TOGGLE, INPUT, MINIMIZE
 // ============================================
-
+<script>
 document.addEventListener("DOMContentLoaded", function () {
-const micBtn = document.getElementById("chatbot-mic");
-const voiceToggle = document.getElementById("chatbot-voice-toggle");
-const sendBtn = document.getElementById("chatbot-send");
+  const micBtn = document.getElementById("chatbot-mic");
+  const voiceToggle = document.getElementById("chatbot-voice-toggle");
+  const sendBtn = document.getElementById("chatbot-send");
 
-if (micBtn) {
-  micBtn.addEventListener("click", () => {
-    if (!recognition) {
-      alert("Speech recognition is not supported in this browser.");
-      return;
-    }
-       if (recognizing) {
-  recognition.stop();
-} else {
-  try {
-    recognition.start();
-  } catch(e) {
-    console.log(e); 
-  });
-}
+  if (micBtn) {
+    micBtn.addEventListener("click", () => {
+      if (!recognition) {
+        alert("Speech recognition is not supported in this browser.");
+        return;
+      }
 
-if (voiceToggle) {
-  voiceToggle.addEventListener("click", () => {
-    voiceEnabled = !voiceEnabled;
-    voiceToggle.classList.toggle("active", voiceEnabled);
-  });
-}
+      if (recognizing) {
+        recognition.stop();
+      } else {
+        try {
+          recognition.start();
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    });
+  }
 
-if (sendBtn) {
-  sendBtn.addEventListener("click", () => {
-    const input = document.getElementById("chatbot-input");
-    const question = input.value.trim();
-    if (!question) return;
+  if (voiceToggle) {
+    voiceToggle.addEventListener("click", () => {
+      voiceEnabled = !voiceEnabled;
+      voiceToggle.classList.toggle("active", voiceEnabled);
+    });
+  }
 
-    addMessage("You", question);
-    input.value = "";
-    showTyping();
-    setTimeout(() => {
-      hideTyping();
-      handleQuestion(question);
-    }, 500);
-  });
-}
+  if (sendBtn) {
+    sendBtn.addEventListener("click", () => {
+      const input = document.getElementById("chatbot-input");
+      const question = input.value.trim();
+      if (!question) return;
+
+      addMessage("You", question);
+      input.value = "";
+      showTyping();
+      setTimeout(() => {
+        hideTyping();
+        handleQuestion(question);
+      }, 500);
+    });
+  }
 
   const toggle = document.getElementById("chatbot-toggle");
   const box = document.getElementById("chatbot-box");
@@ -713,5 +716,4 @@ if (sendBtn) {
     });
   }
 });
-   </script>
-
+</script>
