@@ -643,12 +643,12 @@ function handleQuestion(question) {
     }
   }
 
-  // Catch-all
-  addMessage(
-    "🤖",
-    "I can tell you about my networking experience, systems I worked with, digital forensics labs, SIEM investigations, ethical hacking practice, tools I use, projects I completed, troubleshooting style, learning approach, strengths, weaknesses, certifications, career goals, and more. Feel free to ask anything you want to know about my experience."
-  );
-}
+// Catch-all
+const fallback =
+  "I can tell you about my networking experience, systems I worked with, digital forensics labs, SIEM investigations, ethical hacking practice, tools I use, projects I completed, troubleshooting style, learning approach, strengths, weaknesses, certifications, career goals, and more. Feel free to ask anything you want to know about my experience.";
+
+addMessage("🤖", fallback);
+speak(fallback);
 
 // ============================================
 // EVENT WIRING: TOGGLE, INPUT, MINIMIZE
