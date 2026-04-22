@@ -842,6 +842,16 @@ footer {
 }
 
 /* ============================
+   SKILL LINE TEXT (Skills only)
+   ============================ */
+.skill-line {
+  margin: 6px 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+/* ============================
    HONORS & DISTINCTIONS (PTK)
    ============================ */
 
