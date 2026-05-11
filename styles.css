@@ -400,9 +400,12 @@ footer {
 }
 
 .qr-image {
-    width: 180px;
+    width: 160px;        
+    max-width: 160px;    
     height: auto;
     border-radius: 10px;
+    display: block;
+    margin: 0 auto;
 }
 
 .qr-label {
