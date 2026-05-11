@@ -418,3 +418,13 @@ footer {
     font-size: 12px;
     opacity: 0.8;
 }
+.qr-badge {
+    text-align: center;
+    margin: 30px auto;
+    padding: 20px;
+    width: fit-content;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    backdrop-filter: blur(6px);
+}
+
