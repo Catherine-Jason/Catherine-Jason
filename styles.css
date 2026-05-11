@@ -394,3 +394,24 @@ footer {
 #chatbot-voice-toggle:hover {
   color: var(--mint);
 }
+.qr-badge {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.qr-image {
+    width: 180px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.qr-label {
+    font-size: 14px;
+    margin-top: 10px;
+    color: #ccc;
+}
+
+.qr-label span {
+    font-size: 12px;
+    opacity: 0.8;
+}
