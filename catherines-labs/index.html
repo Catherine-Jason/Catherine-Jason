@@ -1,72 +1,105 @@
-<style>
-    .labs-container {
-        display: flex;
-        flex-direction: column;
-        gap: 40px;
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 20px;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Catherine's Labs</title>
 
-    .lab-item {
-        background: linear-gradient(135deg, #7A4FFF, #4F8BFF);
-        padding: 30px;
-        border-radius: 20px;
-        color: white;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4ff;
+            margin: 0;
+            padding: 0;
+        }
 
-    .lab-item img {
-        width: 100%;
-        border-radius: 15px;
-        margin-bottom: 15px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
+        h1 {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #7A4FFF, #4F8BFF);
+            color: white;
+            margin: 0;
+            font-size: 2.5rem;
+        }
 
-    .lab-item a {
-        background: white;
-        color: #4F3FFF;
-        padding: 12px 20px;
-        border-radius: 10px;
-        text-align: center;
-        font-weight: bold;
-        text-decoration: none;
-        width: fit-content;
-        transition: 0.2s;
-    }
+        .labs-container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
 
-    .lab-item a:hover {
-        background: #e7e7ff;
-    }
-</style>
+        .lab-item {
+            background: linear-gradient(135deg, #7A4FFF, #4F8BFF);
+            padding: 30px;
+            border-radius: 20px;
+            color: white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .lab-item img {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .lab-item a {
+            background: white;
+            color: #4F3FFF;
+            padding: 12px 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            text-decoration: none;
+            width: fit-content;
+            transition: 0.2s;
+        }
+
+        .lab-item a:hover {
+            background: #e7e7ff;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Catherine's Labs</h1>
 
 <div class="labs-container">
 
+    <!-- Game One -->
     <div class="lab-item">
         <img src="https://via.placeholder.com/900x300/4F3FFF/FFFFFF?text=SOC+Alert+Triage+Dashboard" alt="SOC Dashboard Graphic">
-        <h2>Game One — SOC Alert Triage Demo</h2>
-        <p>Cyber Adventure — Interactive Mini‑Game.</p>
+        <h2>Game One - SOC Alert Triage Demo</h2>
+        <p>Cyber Adventure - Interactive Mini‑Game.</p>
         <a href="https://catherine-jason.github.io/soc-alert-triage-demo/" target="_blank">
             Play Game One
         </a>
     </div>
 
+    <!-- Game Two -->
     <div class="lab-item">
         <img src="https://via.placeholder.com/900x300/7A4FFF/FFFFFF?text=Network+Topology+Simulator" alt="Network Topology Graphic">
-        <h2>Game Two — Network Infrastructure Simulator</h2>
+        <h2>Game Two - Network Infrastructure Simulator</h2>
         <p>Interactive Networking & WAN/LAN Configuration Training Game.</p>
         <a href="https://catherine-jason.github.io/network-infrastructure-sim/" target="_blank">
             Play Game Two
         </a>
     </div>
 
+    <!-- Game Three -->
     <div class="lab-item">
         <img src="https://via.placeholder.com/900x300/4F8BFF/FFFFFF?text=Coming+Soon" alt="Coming Soon Graphic">
         <h2>Game Three</h2>
-        <p>Future game description goes here.</p>
+        <p>Future game... coming soon!</p>
     </div>
 
 </div>
+
+</body>
+</html>
