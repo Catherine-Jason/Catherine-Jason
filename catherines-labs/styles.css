@@ -467,3 +467,21 @@ body {
         color: black;
     }
 }
+
+.linkedin-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
+    gap: 20px;
+}
+
+.linkedin-post iframe {
+    width: 100%;
+    border: none;
+}
+
+.linkedin-post {
+    background: #2B2B2B;
+    padding: 15px;
+    border-radius: 8px;
+    overflow: visible;
+}
