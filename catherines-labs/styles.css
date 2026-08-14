@@ -514,27 +514,27 @@ body {
     border-radius: 10px;
 }
 
+/* Replaced lab-scroll css per user request */
 .lab-scroll {
     display: flex;
-    gap: 30px;
+    gap: 20px;
     overflow-x: auto;
-    padding: 20px 0;
+    padding-bottom: 10px;
     scroll-behavior: smooth;
+    white-space: nowrap;
 }
-
-/* Horizontal scrollbar styling */
+.lab-scroll .lab-card {
+    flex: 0 0 260px;
+}
 .lab-scroll::-webkit-scrollbar {
     height: 10px;
 }
-
 .lab-scroll::-webkit-scrollbar-track {
     background: #1f1f1f;
-    border-radius: 10px;
 }
-
 .lab-scroll::-webkit-scrollbar-thumb {
-    background: linear-gradient(90deg, #4a4a4a, #6f6f6f);
-    border-radius: 10px;
+    background: #555;
+    border-radius: 5px;
 }
 
 /* Each lab card inside the scroll */
