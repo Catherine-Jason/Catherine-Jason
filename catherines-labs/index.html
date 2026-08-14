@@ -2,107 +2,263 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Catherine's Labs</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catherine's Labs | Hands-On Cybersecurity & IT Labs</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Catherine's Labs - hands-on cybersecurity, networking, and IT support labs showcasing practical security projects and automation scripts.">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Catherine's Labs | Hands-On Cybersecurity & IT Labs">
+    <meta property="og:description" content="Explore practical labs in networking, cybersecurity, IT support, and automation.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://catherine-jason.github.io/Catherine-Jason/catherines-labs/">
+    
     <!-- Font Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f4ff;
-            margin: 0;
-            padding: 0;
-        }
-
-        h1 {
-            text-align: center;
-            padding: 40px 20px;
-            background: linear-gradient(135deg, #7A4FFF, #4F8BFF);
-            color: white;
-            margin: 0;
-            font-size: 2.5rem;
-        }
-
-        .labs-container {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 20px;
-        }
-
-        .lab-item {
-            background: linear-gradient(135deg, #7A4FFF, #4F8BFF);
-            padding: 30px;
-            border-radius: 20px;
-            color: white;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .lab-icon {
-            font-size: 60px;
-            margin-bottom: 15px;
-            color: white;
-            opacity: 0.9;
-        }
-
-        .lab-item a {
-            background: white;
-            color: #4F3FFF;
-            padding: 12px 20px;
-            border-radius: 10px;
-            text-align: center;
-            font-weight: bold;
-            text-decoration: none;
-            width: fit-content;
-            transition: 0.2s;
-        }
-
-        .lab-item a:hover {
-            background: #e7e7ff;
-        }
-    </style>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-<h1>Catherine's Labs</h1>
-
-<div class="labs-container">
-
-    <!-- Game One -->
-    <div class="lab-item">
-        <i class="fa-solid fa-shield-halved lab-icon"></i>
-        <h2>Game One - SOC Alert Triage Demo</h2>
-        <p>Cyber Adventure - Interactive Mini‑Game.</p>
-        <a href="https://catherine-jason.github.io/soc-alert-triage-demo/" target="_blank">
-            Play Game One
-        </a>
+<!-- Hero Header -->
+<header class="hero-header">
+    <div class="hero-container">
+        <div class="hero-content">
+            <h1 class="hero-title">Catherine's Labs</h1>
+            <p class="hero-subtitle">Hands-On Cybersecurity & IT Infrastructure Projects</p>
+            <p class="hero-description">
+                Explore practical labs and projects demonstrating real-world application of networking, 
+                cybersecurity, systems administration, and automation concepts.
+            </p>
+            <nav class="hero-nav">
+                <a href="#networking">Networking</a>
+                <a href="#cybersecurity">Cybersecurity</a>
+                <a href="#itsupport">IT Support</a>
+                <a href="#automation">Automation</a>
+                <a href="#github">GitHub</a>
+                <a href="#professional">Professional</a>
+            </nav>
+        </div>
     </div>
+</header>
 
-    <!-- Game Two -->
-    <div class="lab-item">
-        <i class="fa-solid fa-network-wired lab-icon"></i>
-        <h2>Game Two - Network Infrastructure Simulator</h2>
-        <p>Interactive Networking & WAN/LAN Configuration Training Game.</p>
-        <a href="https://catherine-jason.github.io/network-infrastructure-sim/" target="_blank">
-            Play Game Two
-        </a>
-    </div>
+<!-- Main Content -->
+<main class="labs-container">
 
-    <!-- Game Three -->
-    <div class="lab-item">
-        <i class="fa-solid fa-hourglass-half lab-icon"></i>
-        <h2>Game Three</h2>
-        <p>Future game... Coming soon!</p>
-    </div>
+    <!-- Networking Projects Section -->
+    <section id="networking" class="labs-section">
+        <div class="section-header">
+            <i class="fa-solid fa-network-wired section-icon"></i>
+            <h2>Networking Projects</h2>
+        </div>
+        <p class="section-description">
+            Build and configure network infrastructure, learn routing, VLANs, and network security fundamentals.
+        </p>
+        <div class="cards-grid">
+            <div class="card-placeholder">
+                <div class="card-icon">
+                    <i class="fa-solid fa-router"></i>
+                </div>
+                <h3>Lab 1</h3>
+                <p class="card-status">Coming Soon</p>
+            </div>
+            <div class="card-placeholder">
+                <div class="card-icon">
+                    <i class="fa-solid fa-router"></i>
+                </div>
+                <h3>Lab 2</h3>
+                <p class="card-status">Coming Soon</p>
+            </div>
+            <div class="card-placeholder">
+                <div class="card-icon">
+                    <i class="fa-solid fa-router"></i>
+                </div>
+                <h3>Lab 3</h3>
+                <p class="card-status">Coming Soon</p>
+            </div>
+        </div>
+    </section>
 
-</div>
+    <!-- Cybersecurity Labs Section -->
+    <section id="cybersecurity" class="labs-section">
+        <div class="section-header">
+            <i class="fa-solid fa-shield-halved section-icon"></i>
+            <h2>Cybersecurity Labs</h2>
+        </div>
+        <p class="section-description">
+            Explore security operations, threat analysis, forensics, and defensive security concepts.
+        </p>
+        <div class="cards-grid">
+            <div class="card-placeholder">
+                <div class="card-icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <h3>Lab 1</h3>
+                <p class="card-status">Coming Soon</p>
+            </div>
+            <div class="card-placeholder">
+                <div class="card-icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <h3>Lab 2</h3>
+                <p class="card-status">Coming Soon</p>
+            </div>
+            <div class="card-placeholder">
+                <div class="card-icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <h3>Lab 3</h3>
+                <p class="card-status">Coming Soon</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- IT Support Labs Section -->
+    <section id="itsupport" class="labs-section">
+        <div class="section-header">
+            <i class="fa-solid fa-laptop section-icon"></i>
+            <h2>IT Support Labs</h2>
+        </div>
+        <p class="section-description">
+            Systems administration, user support, device deployment, and enterprise IT operations.
+        </p>
+        <div class="cards-grid">
+            <div class="card-placeholder">
+                <div class="card-icon">
+                    <i class="fa-solid fa-server"></i>
+                </div>
+                <h3>Lab 1</h3>
+                <p class="card-status">Coming Soon</p>
+            </div>
+            <div class="card-placeholder">
+                <div class="card-icon">
+                    <i class="fa-solid fa-server"></i>
+                </div>
+                <h3>Lab 2</h3>
+                <p class="card-status">Coming Soon</p>
+            </div>
+            <div class="card-placeholder">
+                <div class="card-icon">
+                    <i class="fa-solid fa-server"></i>
+                </div>
+                <h3>Lab 3</h3>
+                <p class="card-status">Coming Soon</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Automation Scripts Section -->
+    <section id="automation" class="labs-section">
+        <div class="section-header">
+            <i class="fa-solid fa-code section-icon"></i>
+            <h2>Automation Scripts</h2>
+        </div>
+        <p class="section-description">
+            PowerShell, Bash, and Python scripts for system automation and security tasks.
+        </p>
+        <div class="cards-grid">
+            <div class="card-placeholder">
+                <div class="card-icon">
+                    <i class="fa-solid fa-terminal"></i>
+                </div>
+                <h3>Lab 1</h3>
+                <p class="card-status">Coming Soon</p>
+            </div>
+            <div class="card-placeholder">
+                <div class="card-icon">
+                    <i class="fa-solid fa-terminal"></i>
+                </div>
+                <h3>Lab 2</h3>
+                <p class="card-status">Coming Soon</p>
+            </div>
+            <div class="card-placeholder">
+                <div class="card-icon">
+                    <i class="fa-solid fa-terminal"></i>
+                </div>
+                <h3>Lab 3</h3>
+                <p class="card-status">Coming Soon</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- GitHub Projects Section -->
+    <section id="github" class="labs-section">
+        <div class="section-header">
+            <i class="fa-brands fa-github section-icon"></i>
+            <h2>GitHub Projects</h2>
+        </div>
+        <p class="section-description">
+            Open-source labs, interactive demos, and collaborative security projects.
+        </p>
+        <div class="cards-grid">
+            <div class="card-placeholder">
+                <div class="card-icon">
+                    <i class="fa-solid fa-code-branch"></i>
+                </div>
+                <h3>Lab 1</h3>
+                <p class="card-status">Coming Soon</p>
+            </div>
+            <div class="card-placeholder">
+                <div class="card-icon">
+                    <i class="fa-solid fa-code-branch"></i>
+                </div>
+                <h3>Lab 2</h3>
+                <p class="card-status">Coming Soon</p>
+            </div>
+            <div class="card-placeholder">
+                <div class="card-icon">
+                    <i class="fa-solid fa-code-branch"></i>
+                </div>
+                <h3>Lab 3</h3>
+                <p class="card-status">Coming Soon</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Professional Development Section -->
+    <section id="professional" class="labs-section">
+        <div class="section-header">
+            <i class="fa-solid fa-graduation-cap section-icon"></i>
+            <h2>Professional Development</h2>
+        </div>
+        <p class="section-description">
+            Certifications, training labs, and professional skill-building resources.
+        </p>
+        <div class="cards-grid">
+            <div class="card-placeholder">
+                <div class="card-icon">
+                    <i class="fa-solid fa-award"></i>
+                </div>
+                <h3>Lab 1</h3>
+                <p class="card-status">Coming Soon</p>
+            </div>
+            <div class="card-placeholder">
+                <div class="card-icon">
+                    <i class="fa-solid fa-award"></i>
+                </div>
+                <h3>Lab 2</h3>
+                <p class="card-status">Coming Soon</p>
+            </div>
+            <div class="card-placeholder">
+                <div class="card-icon">
+                    <i class="fa-solid fa-award"></i>
+                </div>
+                <h3>Lab 3</h3>
+                <p class="card-status">Coming Soon</p>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="labs-footer">
+    <p>&copy; 2026 Catherine Jason | All Labs Coming Soon</p>
+</footer>
 
 </body>
 </html>
