@@ -487,3 +487,37 @@ body {
     border-radius: 8px;
     overflow: visible;
 }
+
+/* Clean Horizontal LinkedIn Scroll */
+.linkedin-horizontal-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 30px;
+    padding: 20px 0;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+.linkedin-horizontal-scroll::-webkit-scrollbar {
+    height: 6px;
+}
+
+.linkedin-horizontal-scroll::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 3px;
+}
+
+.linkedin-post {
+    min-width: 520px;
+    background: #2B2B2B;
+    padding: 20px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    box-shadow: 0 0 10px rgba(0,0,0,0.35);
+}
+
+.linkedin-post iframe {
+    width: 100%;
+    border: none;
+    border-radius: 6px;
+}
