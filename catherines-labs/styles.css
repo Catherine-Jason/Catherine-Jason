@@ -466,7 +466,7 @@ body {
 
 /* Horizontal scrollbar styling */
 .linkedin-horizontal-scroll::-webkit-scrollbar {
-    height: 12px; /* slightly bigger */
+    height: 12px; /* slightly more */
 }
 
 .linkedin-horizontal-scroll::-webkit-scrollbar-track {
@@ -481,8 +481,8 @@ body {
 
 /* Individual LinkedIn post card */
 .linkedin-post {
-    width: 620px;      /* ⭐ wider card */
-    height: 700px;     /* ⭐ taller card */
+    width: 620px;
+    height: 700px;
     background: #2B2B2B;
     border-radius: 14px;
     padding: 15px;
@@ -491,9 +491,8 @@ body {
     box-shadow: 0 0 14px rgba(0,0,0,0.45);
 }
 
-/* Vertical scrollbar inside each post */
 .linkedin-post::-webkit-scrollbar {
-    width: 10px; /* slightly bigger */
+    width: 10px;
 }
 
 .linkedin-post::-webkit-scrollbar-track {
@@ -506,7 +505,6 @@ body {
     border-radius: 10px;
 }
 
-/* Make iframe fill the card */
 .linkedin-post iframe {
     width: 100%;
     height: 100%;
@@ -514,7 +512,9 @@ body {
     border-radius: 10px;
 }
 
-/* Replaced lab-scroll css per user request */
+/* ============================================
+   LAB SCROLL (kept exactly as requested)
+   ============================================ */
 .lab-scroll {
     display: flex;
     gap: 20px;
@@ -537,9 +537,9 @@ body {
     border-radius: 5px;
 }
 
-/* Each lab card inside the scroll */
+/* Each lab card inside the scroll - adjusted min-width to match requested 260px */
 .lab-card {
-    min-width: 500px;
+    min-width: 260px;
     background: #2B2B2B;
     padding: 20px;
     border-radius: 12px;
