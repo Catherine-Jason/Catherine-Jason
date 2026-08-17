@@ -521,7 +521,15 @@ if (speechSupported) {
     recognizing = false;
     const micButton = document.getElementById("chatbot-mic");
     if (micButton) micButton.classList.remove("active");
-    updateChatStatus(`Voice input error: ${event.error}.`);
+    if (event.error === "not-allowed") {
+      updateChatStatus("Microphone access denied. Please allow mic permissions in your browser settings and try again.");
+    } else if (event.error === "no-speech") {
+      updateChatStatus("No speech detected. Please try speaking again.");
+    } else if (event.error === "network") {
+      updateChatStatus("Network error during voice input. Please check your connection.");
+    } else {
+      updateChatStatus(`Voice input error: ${event.error}. Please try again.`);
+    }
   };
 
   recognition.onresult = (event) => {
@@ -556,11 +564,32 @@ function speak(text) {
 
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = "en-US";
+  utterance.rate = 0.92;
+  utterance.pitch = 1.05;
 
-  const preferred = availableVoices.find(v =>
-    v.lang.startsWith("en") &&
-    /female|samantha|us/i.test(v.name)
-  );
+  // Prefer more natural/human-sounding voices in priority order
+  const voicePriority = [
+    /google us english/i,
+    /google english/i,
+    /microsoft aria/i,
+    /microsoft jenny/i,
+    /microsoft zira/i,
+    /samantha/i,
+    /karen/i,
+    /moira/i,
+  ];
+
+  let preferred = null;
+  for (const pattern of voicePriority) {
+    preferred = availableVoices.find(v => v.lang.startsWith("en") && pattern.test(v.name));
+    if (preferred) break;
+  }
+
+  // Fallback: any English voice
+  if (!preferred) {
+    preferred = availableVoices.find(v => v.lang.startsWith("en"));
+  }
+
   if (preferred) utterance.voice = preferred;
 
   window.speechSynthesis.cancel();
@@ -728,10 +757,11 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!voiceToggle) return;
     voiceToggle.textContent = voiceEnabled ? "🔊 Listen: On" : "🔇 Listen: Off";
     voiceToggle.classList.toggle("active", voiceEnabled);
+    voiceToggle.classList.toggle("muted", !voiceEnabled);
     updateChatStatus(
       voiceEnabled
-        ? "Voice replies are ON. Click Listen to toggle."
-        : "Voice replies are OFF. Click Listen to enable."
+        ? "Voice replies are ON. Click Listen to mute."
+        : "Voice replies are OFF. Click Listen to unmute."
     );
   }
 
