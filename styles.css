@@ -252,7 +252,8 @@ footer {
 }
 
 .back-to-top-section,
-.back-to-top {
+.back-to-top,
+.back-to-bottom {
   display: inline-block;
   margin-top: 18px;
   padding: 8px 14px;
@@ -266,16 +267,25 @@ footer {
 }
 
 .back-to-top-section:hover,
-.back-to-top:hover {
+.back-to-top:hover,
+.back-to-bottom:hover {
   box-shadow: 0 0 16px rgba(0, 217, 255, 0.55);
   transform: translateY(-2px);
 }
 
-.back-to-top {
+.page-jump-controls {
   position: fixed;
   right: 20px;
   bottom: 20px;
   z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.page-jump-controls .back-to-top,
+.page-jump-controls .back-to-bottom {
+  margin-top: 0;
 }
 
 /* Chatbot */
@@ -525,9 +535,14 @@ footer {
     justify-content: center;
   }
 
-  .back-to-top {
+  .page-jump-controls {
     right: 12px;
     bottom: 12px;
+    gap: 6px;
+  }
+
+  .page-jump-controls .back-to-top,
+  .page-jump-controls .back-to-bottom {
     padding: 8px 10px;
   }
 
