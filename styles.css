@@ -779,3 +779,85 @@ footer {
   color: var(--accent-teal);
   margin-right: 6px;
 }
+
+/* ── Résumé Modal ── */
+.resume-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.resume-modal-overlay[hidden] {
+  display: none;
+}
+
+.resume-modal {
+  background: var(--card-bg, #1e2a38);
+  border: 1px solid var(--accent-teal, #00d4ff);
+  border-radius: 12px;
+  padding: 2rem 2.5rem;
+  max-width: 420px;
+  width: 90%;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.resume-modal h2 {
+  margin: 0 0 0.25rem;
+  color: var(--accent-teal, #00d4ff);
+  font-size: 1.6rem;
+}
+
+.resume-modal-subtitle {
+  color: var(--text-secondary, #a0aec0);
+  margin: 0 0 1.5rem;
+  font-size: 0.95rem;
+}
+
+.resume-modal-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--text-secondary, #a0aec0);
+  font-size: 1.6rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.resume-modal-close:hover {
+  color: var(--accent-teal, #00d4ff);
+}
+
+.resume-modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.resume-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  background: transparent;
+  border: 1px solid var(--accent-teal, #00d4ff);
+  color: var(--accent-teal, #00d4ff);
+  font-size: 0.95rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.resume-action-btn:hover {
+  background: var(--accent-teal, #00d4ff);
+  color: #0a0f1e;
+}

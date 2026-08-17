@@ -81,8 +81,7 @@
         <a href="#projects">Projects</a>
         <a href="#honors">Honors</a>
         <a href="#contact">Contact</a>
-        <a href="Catherine_Jason_Resume.pdf" download class="resume-btn">Résumé (Download)</a>
-        <a href="Catherine_Jason_Resume.pdf" target="_blank" rel="noopener noreferrer" class="resume-btn">View Résumé</a>
+        <a href="#" class="resume-btn" id="resumeNavBtn" aria-haspopup="dialog">Résumé</a>
         <a href="certifications.html">Certifications</a>
         <a href="catherines-labs/">Catherine’s Labs</a>
       </nav>
@@ -789,6 +788,73 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+</script>
+
+<!-- Résumé Modal -->
+<div id="resumeModal" class="resume-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="resumeModalTitle" hidden>
+  <div class="resume-modal">
+    <button class="resume-modal-close" id="resumeModalClose" aria-label="Close">&times;</button>
+    <h2 id="resumeModalTitle">Résumé</h2>
+    <p class="resume-modal-subtitle">Choose an option below:</p>
+    <div class="resume-modal-actions">
+      <a href="Catherine_Jason_Resume.pdf" target="_blank" rel="noopener noreferrer" class="resume-action-btn">
+        <i class="fa-regular fa-eye"></i> View
+      </a>
+      <a href="Catherine_Jason_Resume.pdf" download class="resume-action-btn">
+        <i class="fa-solid fa-download"></i> Download
+      </a>
+      <button class="resume-action-btn" id="resumePrintBtn">
+        <i class="fa-solid fa-print"></i> Print
+      </button>
+      <a href="mailto:?subject=Catherine%20Jason%20R%C3%A9sum%C3%A9&body=Please%20find%20Catherine%20Jason%27s%20r%C3%A9sum%C3%A9%20at%3A%20https%3A%2F%2Fcatherine-jason.github.io%2FCatherine-Jason%2FCatherine_Jason_Resume.pdf" class="resume-action-btn">
+        <i class="fa-solid fa-envelope"></i> Send
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var btn = document.getElementById('resumeNavBtn');
+  var modal = document.getElementById('resumeModal');
+  var closeBtn = document.getElementById('resumeModalClose');
+  var printBtn = document.getElementById('resumePrintBtn');
+
+  function openModal(e) {
+    e.preventDefault();
+    modal.removeAttribute('hidden');
+    closeBtn.focus();
+  }
+
+  function closeModal() {
+    modal.setAttribute('hidden', '');
+    btn.focus();
+  }
+
+  if (btn) btn.addEventListener('click', openModal);
+
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+  if (modal) {
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) closeModal();
+    });
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modal && !modal.hasAttribute('hidden')) closeModal();
+  });
+
+  if (printBtn) {
+    printBtn.addEventListener('click', function () {
+      var iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.src = 'Catherine_Jason_Resume.pdf';
+      document.body.appendChild(iframe);
+      iframe.onload = function () { iframe.contentWindow.print(); };
+    });
+  }
+}());
 </script>
 
 </body>
