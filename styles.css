@@ -278,6 +278,101 @@ footer {
   z-index: 999;
 }
 
+body.media-preview-open {
+  overflow: hidden;
+}
+
+.media-preview {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(10, 16, 24, 0.88);
+}
+
+.media-preview[hidden] {
+  display: none;
+}
+
+.media-preview-dialog {
+  width: min(960px, 100%);
+  max-height: min(90vh, 900px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(0, 217, 255, 0.35);
+  background: linear-gradient(135deg, rgba(43, 43, 43, 0.98), rgba(30, 30, 30, 0.98));
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+}
+
+.media-preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.media-preview-header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--accent-teal);
+}
+
+.media-preview-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.media-preview-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 10px 16px;
+  border: 1px solid rgba(58, 141, 255, 0.45);
+  border-radius: 10px;
+  background: rgba(58, 141, 255, 0.12);
+  color: var(--text-light);
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.media-preview-btn:hover {
+  color: var(--accent-teal);
+  border-color: rgba(0, 217, 255, 0.75);
+  box-shadow: 0 0 16px rgba(0, 217, 255, 0.35);
+}
+
+.media-preview-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+}
+
+.media-preview-content img,
+.media-preview-content iframe {
+  width: 100%;
+  max-width: 100%;
+  max-height: calc(90vh - 170px);
+  border: 0;
+  border-radius: 12px;
+  background: #111;
+}
+
+.media-preview-content img {
+  object-fit: contain;
+}
+
 /* Chatbot */
 #chatbot-container {
   position: fixed;
@@ -539,6 +634,27 @@ footer {
   #chatbot-box {
     right: 12px;
     bottom: 118px;
+  }
+
+  .media-preview {
+    padding: 16px;
+  }
+
+  .media-preview-dialog {
+    padding: 16px;
+  }
+
+  .media-preview-header {
+    align-items: flex-start;
+  }
+
+  .media-preview-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .media-preview-btn {
+    width: 100%;
   }
 }
 
