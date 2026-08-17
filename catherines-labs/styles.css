@@ -301,23 +301,12 @@ body {
   color: var(--text-muted);
 }
 
-.breadcrumb-link,
-.breadcrumb-button {
+.breadcrumb-link {
   color: var(--accent-blue);
   font-weight: 600;
 }
 
-.breadcrumb-button {
-  font: inherit;
-  cursor: pointer;
-  border: 1px solid rgba(58, 141, 255, 0.35);
-  background: rgba(58, 141, 255, 0.08);
-  border-radius: 999px;
-  padding: 4px 10px;
-}
-
-.breadcrumb-link:hover,
-.breadcrumb-button:hover {
+.breadcrumb-link:hover {
   color: var(--accent-teal);
 }
 
@@ -373,6 +362,11 @@ body {
   gap: 10px;
   flex-wrap: wrap;
   margin-top: 22px;
+}
+
+.quick-nav {
+  margin-top: 0;
+  margin-bottom: 24px;
 }
 
 .back-to-top {
