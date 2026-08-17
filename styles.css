@@ -629,6 +629,15 @@ footer {
   color: var(--accent-teal);
 }
 
+.cert-tile-media {
+  width: 100%;
+  max-width: 240px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 217, 255, 0.25);
+  box-shadow: 0 0 16px rgba(0, 217, 255, 0.18);
+  object-fit: cover;
+}
+
 .cert-tile h2 {
   font-size: 1.3rem;
   margin: 0;
@@ -720,6 +729,16 @@ footer {
   border: 2px solid rgba(0, 217, 255, 0.3);
   box-shadow: 0 0 24px rgba(0, 217, 255, 0.2);
   background: white;
+}
+
+.cert-image-wrap img {
+  max-width: 100%;
+  width: 680px;
+  border-radius: 10px;
+  border: 2px solid rgba(0, 217, 255, 0.3);
+  box-shadow: 0 0 24px rgba(0, 217, 255, 0.2);
+  display: block;
+  margin: 0 auto;
 }
 
 .cert-pdf-fallback {
