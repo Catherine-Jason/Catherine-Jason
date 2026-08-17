@@ -18,7 +18,7 @@
   <p>A polished overview of my cybersecurity, networking, and IT experience.</p>
   <nav class="cert-nav-row">
     <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
-    <a href="index.html" onclick="if (window.history.length > 1) { window.history.back(); return false; }"><i class="fa-solid fa-arrow-left"></i> Back</a>
+    <a href="index.html" id="resume-back-link"><i class="fa-solid fa-arrow-left"></i> Back</a>
   </nav>
 </header>
 
@@ -41,7 +41,7 @@
   </section>
 
   <section class="resume-viewer-card">
-    <h2><i class="fa-solid fa-image"></i> Resume Preview</h2>
+    <h2><i class="fa-solid fa-image"></i> Résumé Preview</h2>
     <div class="resume-frame-wrap">
       <iframe
         class="resume-frame"
@@ -61,6 +61,20 @@
 <footer>
   <p>© 2026 Catherine Jason</p>
 </footer>
+
+<script>
+  const resumeBackLink = document.getElementById('resume-back-link');
+
+  resumeBackLink.addEventListener('click', (event) => {
+    const hasSameOriginReferrer = document.referrer &&
+      new URL(document.referrer).origin === window.location.origin;
+
+    if (hasSameOriginReferrer) {
+      event.preventDefault();
+      window.history.back();
+    }
+  });
+</script>
 
 </body>
 </html>
