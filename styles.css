@@ -193,6 +193,30 @@ body {
   margin-top: 8px;
 }
 
+.cert-preview-link {
+  display: inline-block;
+  width: 100%;
+}
+
+.certificate-page {
+  padding-top: 30px;
+}
+
+.certificate-embed {
+  width: 100%;
+  min-height: 720px;
+  border: 1px solid rgba(79, 255, 234, 0.35);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.certificate-image {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid rgba(79, 255, 234, 0.35);
+  background: #fff;
+}
+
 #contact ul {
   list-style: none;
   padding: 0;
@@ -269,6 +293,11 @@ footer {
 .back-to-top:hover {
   box-shadow: 0 0 16px rgba(79, 255, 234, 0.55);
   transform: translateY(-2px);
+}
+
+button.back-to-top-section {
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .back-to-top {
