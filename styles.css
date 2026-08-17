@@ -576,7 +576,8 @@ footer {
   flex-wrap: wrap;
 }
 
-.cert-nav-row a {
+.cert-nav-row a,
+.cert-nav-row .history-back-btn {
   text-decoration: none;
   font-weight: 600;
   color: var(--accent-teal);
@@ -587,7 +588,13 @@ footer {
   transition: all 0.25s ease;
 }
 
-.cert-nav-row a:hover {
+.cert-nav-row .history-back-btn {
+  font: inherit;
+  cursor: pointer;
+}
+
+.cert-nav-row a:hover,
+.cert-nav-row .history-back-btn:hover {
   box-shadow: 0 0 16px rgba(0, 217, 255, 0.5);
   transform: translateY(-2px);
 }

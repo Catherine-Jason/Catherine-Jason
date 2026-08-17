@@ -80,7 +80,8 @@ body {
   text-decoration: none;
 }
 
-.hero-nav a {
+.hero-nav a,
+.hero-nav .hero-nav-button {
   color: var(--accent-blue);
   font-weight: 600;
   font-size: 0.94rem;
@@ -91,7 +92,13 @@ body {
   transition: all 0.25s ease;
 }
 
-.hero-nav a:hover {
+.hero-nav .hero-nav-button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.hero-nav a:hover,
+.hero-nav .hero-nav-button:hover {
   color: var(--accent-teal);
   border-color: rgba(0, 217, 255, 0.8);
   box-shadow: 0 0 16px rgba(0, 217, 255, 0.45);
@@ -287,12 +294,23 @@ body {
   color: var(--text-muted);
 }
 
-.breadcrumb-link {
+.breadcrumb-link,
+.breadcrumb-button {
   color: var(--accent-blue);
   font-weight: 600;
 }
 
-.breadcrumb-link:hover {
+.breadcrumb-button {
+  font: inherit;
+  cursor: pointer;
+  border: 1px solid rgba(58, 141, 255, 0.35);
+  background: rgba(58, 141, 255, 0.08);
+  border-radius: 999px;
+  padding: 4px 10px;
+}
+
+.breadcrumb-link:hover,
+.breadcrumb-button:hover {
   color: var(--accent-teal);
 }
 
