@@ -587,7 +587,25 @@ footer {
   transition: all 0.25s ease;
 }
 
+.cert-nav-row button {
+  font: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--accent-teal);
+  border: 1px solid rgba(0, 217, 255, 0.45);
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: rgba(0, 217, 255, 0.08);
+  transition: all 0.25s ease;
+}
+
 .cert-nav-row a:hover {
+  box-shadow: 0 0 16px rgba(0, 217, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.cert-nav-row button:hover {
   box-shadow: 0 0 16px rgba(0, 217, 255, 0.5);
   transform: translateY(-2px);
 }
