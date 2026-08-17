@@ -70,10 +70,10 @@
     <section class="case-study-section">
         <h3>Supporting Screenshots (Clickable)</h3>
         <div class="image-grid">
-            <a href="img/mfa.png" target="_blank" rel="noopener noreferrer" class="image-link">
+            <a href="#" class="image-link" data-lightbox="img/mfa.png" data-caption="MFA reset workflow screenshot">
                 <img src="img/mfa.png" alt="MFA reset workflow screenshot">
             </a>
-            <a href="img/ums.png" target="_blank" rel="noopener noreferrer" class="image-link">
+            <a href="#" class="image-link" data-lightbox="img/ums.png" data-caption="User management system screenshot">
                 <img src="img/ums.png" alt="User management system screenshot">
             </a>
         </div>
@@ -84,6 +84,57 @@
     </div>
 </main>
 
+<!-- Lightbox Modal -->
+<div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <div class="lightbox-toolbar">
+        <a href="../index.html" class="lightbox-btn-home">🏠 Home</a>
+        <button class="lightbox-btn-back" id="lightbox-back">← Back</button>
+        <button class="lightbox-btn-close" id="lightbox-close" aria-label="Close">✕ Close</button>
+    </div>
+    <div class="lightbox-img-wrap">
+        <img id="lightbox-img" src="" alt="">
+    </div>
+    <p class="lightbox-caption" id="lightbox-caption"></p>
+</div>
+
 <a class="back-to-top" href="#top" aria-label="Back to top">↑ Top</a>
+
+<script>
+(function () {
+    const overlay = document.getElementById('lightbox');
+    const img     = document.getElementById('lightbox-img');
+    const caption = document.getElementById('lightbox-caption');
+
+    function openLightbox(src, alt) {
+        img.src = src;
+        img.alt = alt || '';
+        caption.textContent = alt || '';
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+        img.src = '';
+    }
+
+    document.querySelectorAll('[data-lightbox]').forEach(function (el) {
+        el.addEventListener('click', function (e) {
+            e.preventDefault();
+            openLightbox(el.dataset.lightbox, el.dataset.caption || el.querySelector('img')?.alt);
+        });
+    });
+
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.getElementById('lightbox-back').addEventListener('click', closeLightbox);
+    overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) closeLightbox();
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeLightbox();
+    });
+}());
+</script>
 </body>
 </html>

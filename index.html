@@ -89,7 +89,7 @@
   </div>
 </header>
   <div class="qr-badge">
-    <a href="IMG_4440.jpeg" target="_blank" rel="noopener noreferrer" class="image-link">
+    <a href="#" class="image-link" data-lightbox="IMG_4440.jpeg" data-caption="Cybersecurity Association QR Code">
       <img src="IMG_4440.jpeg?raw=true" alt="Cybersecurity Association QR Code" class="qr-image">
     </a>
     <p class="qr-label">
@@ -788,6 +788,58 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+</script>
+
+<!-- Lightbox Modal -->
+<div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <div class="lightbox-toolbar">
+    <button class="lightbox-btn-back" id="lightbox-back">← Back</button>
+    <button class="lightbox-btn-close" id="lightbox-close" aria-label="Close">✕ Close</button>
+  </div>
+  <div class="lightbox-img-wrap">
+    <img id="lightbox-img" src="" alt="">
+  </div>
+  <p class="lightbox-caption" id="lightbox-caption"></p>
+</div>
+
+<script>
+(function () {
+  var overlay = document.getElementById('lightbox');
+  var img     = document.getElementById('lightbox-img');
+  var caption = document.getElementById('lightbox-caption');
+
+  function openLightbox(src, alt) {
+    img.src = src;
+    img.alt = alt || '';
+    caption.textContent = alt || '';
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    img.src = '';
+  }
+
+  document.querySelectorAll('[data-lightbox]').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      var src = el.dataset.lightbox;
+      var alt = el.dataset.caption || (el.querySelector('img') && el.querySelector('img').alt) || '';
+      openLightbox(src, alt);
+    });
+  });
+
+  document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+  document.getElementById('lightbox-back').addEventListener('click', closeLightbox);
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) closeLightbox();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+}());
 </script>
 
 </body>

@@ -779,3 +779,108 @@ footer {
   color: var(--accent-teal);
   margin-right: 6px;
 }
+
+/* =============================================
+   LIGHTBOX MODAL
+   ============================================= */
+.lightbox-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(4px);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.lightbox-overlay.active {
+  display: flex;
+}
+
+.lightbox-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  width: 100%;
+  max-width: 1100px;
+  justify-content: flex-end;
+}
+
+.lightbox-toolbar a,
+.lightbox-toolbar button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.lightbox-btn-home {
+  background: rgba(0, 217, 255, 0.12);
+  border-color: rgba(0, 217, 255, 0.55) !important;
+  color: var(--accent-teal) !important;
+}
+
+.lightbox-btn-home:hover {
+  background: rgba(0, 217, 255, 0.25) !important;
+  box-shadow: 0 0 14px rgba(0, 217, 255, 0.4);
+}
+
+.lightbox-btn-back {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  color: #f5f7fa !important;
+}
+
+.lightbox-btn-back:hover {
+  background: rgba(255, 255, 255, 0.14) !important;
+}
+
+.lightbox-btn-close {
+  background: rgba(255, 80, 80, 0.12);
+  border-color: rgba(255, 80, 80, 0.45) !important;
+  color: #ff6b6b !important;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.lightbox-btn-close:hover {
+  background: rgba(255, 80, 80, 0.25) !important;
+  box-shadow: 0 0 14px rgba(255, 80, 80, 0.35);
+}
+
+.lightbox-img-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 100%;
+  max-width: 1100px;
+  padding: 0 20px 20px;
+}
+
+.lightbox-img-wrap img {
+  max-width: 100%;
+  max-height: 78vh;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 217, 255, 0.3);
+  box-shadow: 0 8px 48px rgba(0, 0, 0, 0.7);
+  object-fit: contain;
+}
+
+.lightbox-caption {
+  color: #e5e5e5;
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 10px 20px 18px;
+  max-width: 800px;
+}
