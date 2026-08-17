@@ -5,7 +5,7 @@
   --text-light: #F5F7FA;
   --text-muted: #E5E5E5;
   --accent-blue: #3A8DFF;
-  --accent-teal: #4FFFEA;
+  --accent-teal: #00D9FF;
 }
 
 * {
@@ -28,7 +28,7 @@ body {
 .hero-header {
   background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-medium) 100%);
   padding: 70px 20px;
-  border-bottom: 1px solid rgba(79, 255, 234, 0.3);
+  border-bottom: 1px solid rgba(0, 217, 255, 0.3);
 }
 
 .hero-container {
@@ -44,7 +44,7 @@ body {
   font-size: 3rem;
   color: var(--text-light);
   margin-bottom: 12px;
-  text-shadow: 0 0 12px rgba(79, 255, 234, 0.25);
+  text-shadow: 0 0 12px rgba(0, 217, 255, 0.25);
 }
 
 .hero-subtitle {
@@ -93,8 +93,8 @@ body {
 
 .hero-nav a:hover {
   color: var(--accent-teal);
-  border-color: rgba(79, 255, 234, 0.8);
-  box-shadow: 0 0 16px rgba(79, 255, 234, 0.45);
+  border-color: rgba(0, 217, 255, 0.8);
+  box-shadow: 0 0 16px rgba(0, 217, 255, 0.45);
 }
 
 .labs-container,
@@ -129,7 +129,7 @@ body {
 .case-study-section h2,
 .lab-detail h2 {
   font-size: 2rem;
-  border-bottom: 2px solid rgba(79, 255, 234, 0.3);
+  border-bottom: 2px solid rgba(0, 217, 255, 0.3);
   padding-bottom: 8px;
   color: var(--text-light);
   width: 100%;
@@ -159,7 +159,7 @@ body {
 .lab-tools,
 .lab-result {
   background: linear-gradient(135deg, rgba(58, 58, 58, 0.95), rgba(43, 43, 43, 0.95));
-  border: 1px solid rgba(79, 255, 234, 0.24);
+  border: 1px solid rgba(0, 217, 255, 0.24);
   border-radius: 12px;
   padding: 26px 22px;
   box-shadow: 0 0 14px rgba(0, 0, 0, 0.35);
@@ -174,8 +174,8 @@ body {
 .lab-tools:hover,
 .lab-result:hover {
   transform: translateY(-6px);
-  border-color: rgba(79, 255, 234, 0.75);
-  box-shadow: 0 0 24px rgba(79, 255, 234, 0.45);
+  border-color: rgba(0, 217, 255, 0.75);
+  box-shadow: 0 0 24px rgba(0, 217, 255, 0.45);
 }
 
 .card-placeholder,
@@ -223,8 +223,8 @@ body {
 .linkedin-button:hover,
 .back-link:hover {
   color: var(--accent-teal);
-  border-color: rgba(79, 255, 234, 0.75);
-  box-shadow: 0 0 14px rgba(79, 255, 234, 0.45);
+  border-color: rgba(0, 217, 255, 0.75);
+  box-shadow: 0 0 14px rgba(0, 217, 255, 0.45);
 }
 
 .lab-scroll {
@@ -252,7 +252,7 @@ body {
   flex-shrink: 0;
   border-radius: 12px;
   overflow: hidden;
-  border: 1px solid rgba(79, 255, 234, 0.24);
+  border: 1px solid rgba(0, 217, 255, 0.24);
 }
 
 .linkedin-post iframe {
@@ -268,7 +268,7 @@ body {
 .linkedin-profile-badge {
   text-align: center;
   background: linear-gradient(135deg, rgba(58, 58, 58, 0.95), rgba(43, 43, 43, 0.95));
-  border: 1px solid rgba(79, 255, 234, 0.24);
+  border: 1px solid rgba(0, 217, 255, 0.24);
   border-radius: 12px;
   padding: 24px;
 }
@@ -326,14 +326,14 @@ body {
 .image-link {
   border-radius: 10px;
   overflow: hidden;
-  border: 1px solid rgba(79, 255, 234, 0.35);
+  border: 1px solid rgba(0, 217, 255, 0.35);
   background: rgba(0, 0, 0, 0.2);
   transition: all 0.25s ease;
 }
 
 .image-link:hover {
-  box-shadow: 0 0 20px rgba(79, 255, 234, 0.45);
-  border-color: rgba(79, 255, 234, 0.8);
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.45);
+  border-color: rgba(0, 217, 255, 0.8);
 }
 
 .image-link img {
@@ -357,21 +357,21 @@ body {
   z-index: 999;
   display: inline-block;
   color: var(--accent-teal);
-  border: 1px solid rgba(79, 255, 234, 0.65);
-  background: rgba(79, 255, 234, 0.1);
+  border: 1px solid rgba(0, 217, 255, 0.65);
+  background: rgba(0, 217, 255, 0.1);
   border-radius: 8px;
   padding: 8px 12px;
   transition: all 0.25s ease;
 }
 
 .back-to-top:hover {
-  box-shadow: 0 0 18px rgba(79, 255, 234, 0.55);
+  box-shadow: 0 0 18px rgba(0, 217, 255, 0.55);
   transform: translateY(-2px);
 }
 
 .labs-footer {
   background: var(--bg-dark);
-  border-top: 1px solid rgba(79, 255, 234, 0.25);
+  border-top: 1px solid rgba(0, 217, 255, 0.25);
   padding: 30px 20px;
   text-align: center;
   color: var(--text-muted);
