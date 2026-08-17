@@ -71,7 +71,7 @@
     <div class="hero-right">
       <h1 class="hero-name">Catherine Jason</h1>
       <p class="hero-tagline">
-        SOC Analyst • Cybersecurity • Networking 
+        SOC Analyst, Cybersecurity, Networking
       </p>
       <nav class="hero-nav">
                 <a href="#about">About</a>
@@ -101,11 +101,11 @@
 <section id="about" class="section">
     <h2>About Me</h2>
     <p>
-        I’m Catherine Jason, an IT and cybersecurity professional with hands-on experience in networking, systems administration, and security operations gained through both enterprise deployment work and self-directed lab environments. I’m currently completing my AAS in Cybersecurity while working in Technology Services for a 42-school district, where I support device deployment, systems administration, and end-user technical support at scale.
+        I am Catherine Jason, an IT and cybersecurity professional with hands on experience in networking, systems administration, and security operations. I built this experience through enterprise deployment work and focused lab projects.
         <br><br>
-        I’m motivated by cybersecurity because I enjoy analyzing how systems operate, how adversaries attempt to disrupt them, and how to build resilient defenses. Through labs and real-world troubleshooting, I’ve developed experience in network segmentation, forensic analysis, log correlation, and SIEM workflows skills I’m now expanding toward security operations and incident response.
+        I am completing my AAS in Cybersecurity while working in Technology Services for a 42 school district. I support device deployment, endpoint support, account access issues, and daily technical operations.
         <br><br>
-        I’m actively seeking opportunities in security operations and network defense where I can grow within a mission-driven team.
+        My focus areas include SOC operations, SIEM workflows, incident response, log analysis, and network defense. I am seeking a SOC Analyst or entry level cybersecurity role where I can contribute, keep learning, and grow with a strong team.
     </p>
 </section>
 
@@ -264,9 +264,9 @@
 </section>
 
 <section id="projects" class="section">
-  <h2>Hands‑On Projects</h2>
+  <h2>Hands On Projects</h2>
   <p class="section-intro">
-    Real‑world academic and lab projects demonstrating applied IT and security skills.
+    Practical projects that show applied IT support, cybersecurity, and security operations skills.
   </p>
 
   <div class="grid">
@@ -295,10 +295,10 @@
         Administered Linux and Windows Server environments in structured lab settings.
       </p>
       <p class="project-body">
-        Responsibilities included Ubuntu Server administration using GUI and command‑line tools.
+        Responsibilities included Ubuntu Server administration using GUI and command line tools.
       </p>
       <p class="project-body">
-        Configured Active Directory, Group Policy, and access controls following least‑privilege principles.
+        Configured Active Directory, Group Policy, and access controls using least privilege principles.
       </p>
       <div class="project-tools">
         <span>Ubuntu</span>
@@ -311,13 +311,13 @@
     <div class="card project-card">
       <h3><i class="fa-solid fa-magnifying-glass"></i> Digital Forensics Investigation</h3>
       <p class="project-lead">
-        Conducted structured digital forensics investigations using industry‑standard tools.
+        Conducted structured digital forensics investigations using industry standard tools.
       </p>
       <p class="project-body">
         Performed forensic imaging and examined system artifacts, registry data, and file metadata.
       </p>
       <p class="project-body">
-        Documented findings while preserving evidence integrity and maintaining proper chain‑of‑custody.
+        Documented findings while preserving evidence integrity and maintaining proper chain of custody.
       </p>
       <div class="project-tools">
         <span>FTK Imager</span>
@@ -381,7 +381,7 @@
       </a>
     </li>
   </ul>
-  <p>I welcome opportunities to connect with cybersecurity and IT professionals to exchange ideas, learn from others, and explore potential collaborations.</p>
+  <p>I am open to SOC Analyst, cybersecurity, and IT support opportunities. I welcome connections with recruiters, hiring managers, and security teams.</p>
 </section>
 
 <a class="back-to-top" href="#top" aria-label="Back to top">↑ Top</a>
@@ -563,7 +563,7 @@ const qa = [
 
   {
     keywords: ["why cybersecurity", "why cyber", "why this field"],
-    answer: "Cybersecurity clicked for me because I enjoy problem solving, investigating issues, and working hands on. There is always something new to learn and the field moves fast which keeps me motivated."
+    answer: "I chose cybersecurity because I enjoy problem solving, investigation work, and hands on technical tasks. The field keeps evolving, and I stay motivated by continuous learning."
   },
   {
     keywords: ["technical skills", "skills", "experience"],
@@ -571,7 +571,7 @@ const qa = [
   },
   {
     keywords: ["networking", "router", "switch", "vlan"],
-    answer: "I have hands on networking experience from building and troubleshooting lab environments. I worked with Cisco routers and switches, configured VLANs, set up inter VLAN communication, and used Wireshark to inspect traffic and troubleshoot connectivity issues."
+    answer: "I have hands on networking experience from building and troubleshooting lab environments. I configured Cisco routers and switches, built VLANs, set up inter VLAN communication, and used Wireshark to validate and troubleshoot traffic."
   },
   {
     keywords: ["linux", "ubuntu", "kali", "parrot"],
@@ -619,11 +619,11 @@ const qa = [
   },
   {
     keywords: ["weakness", "improve"],
-    answer: "One area I am working on is becoming more fluent with technical terminology and tool names. I understand the concepts well and I am strong at writing and documenting, but answering quickly in interviews is something I am actively improving through repetition and mock Q&A."
+    answer: "One area I am improving is speed when answering technical interview questions. I understand the concepts well and keep improving through repetition, mock interviews, and regular lab practice."
   },
   {
   "keywords": ["certification", "degree", "courses"],
-  "answer": "I’ve completed my CompTIA Security+ SY0‑701 certification and the BCR SOC Operations Analyst I program. I’m also pursuing my AAS in Cybersecurity. I have hands‑on experience through labs in networking, Linux, SIEM analysis, and digital forensics."
+  "answer": "I completed CompTIA Security+ SY0-701 and the BCR SOC Operations Analyst I program. I am also pursuing my AAS in Cybersecurity. I have hands on experience through labs in networking, Linux, SIEM analysis, and digital forensics."
   },
   {
     keywords: ["career goals", "future", "plans"],
@@ -668,7 +668,7 @@ function handleQuestion(question) {
 
   if (/\b(hello|hi|hey|start|introduction)\b/.test(question)) {
     const intro =
-      "Hi, I am Catherine. I created this chatbot to share my cybersecurity experience in a simple and interactive way. " +
+      "Hi, I am Catherine. I created this chatbot to share my cybersecurity and IT experience in a simple way. " +
       "Feel free to ask about my labs, tools, projects, or anything you are curious about.";
     addMessage("🤖", intro);
     speak(intro);
@@ -690,7 +690,7 @@ function handleQuestion(question) {
   }
 
   const fallback =
-    "I can tell you about my networking experience, systems I worked with, digital forensics labs, SIEM investigations, ethical hacking practice, tools I use, projects I completed, troubleshooting style, and career goals. Try asking me about one of those topics.";
+    "I can tell you about my networking experience, systems administration work, digital forensics labs, SIEM investigations, security tools, projects, troubleshooting approach, and career goals. Try asking me about one of those topics.";
   addMessage("🤖", fallback);
   speak(fallback);
 }
