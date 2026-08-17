@@ -81,8 +81,15 @@
         <a href="#projects">Projects</a>
         <a href="#honors">Honors</a>
         <a href="#contact">Contact</a>
-        <a href="Catherine_Jason_Resume.pdf" download class="resume-btn">Résumé (Download)</a>
-        <a href="Catherine_Jason_Resume.pdf" target="_blank" rel="noopener noreferrer" class="resume-btn">View Résumé</a>
+        <div class="resume-dropdown">
+          <button class="resume-dropdown-toggle" aria-haspopup="true" aria-expanded="false">Résumé ▾</button>
+          <div class="resume-dropdown-menu" role="menu">
+            <a href="Catherine_Jason_Resume.pdf" target="_blank" rel="noopener noreferrer" role="menuitem">View</a>
+            <a href="Catherine_Jason_Resume.pdf" download role="menuitem">Print / Download</a>
+            <a href="mailto:?subject=Catherine%20Jason%20R%C3%A9sum%C3%A9&body=Hi%2C%20please%20find%20Catherine%20Jason%27s%20r%C3%A9sum%C3%A9%20here%3A%20https%3A%2F%2Fcatherine-jason.github.io%2FCatherine-Jason%2FCatherine_Jason_Resume.pdf" role="menuitem">Send</a>
+            <a href="javascript:history.back()" role="menuitem">Go Back</a>
+          </div>
+        </div>
         <a href="certifications.html">Certifications</a>
         <a href="catherines-labs/">Catherine’s Labs</a>
       </nav>
@@ -789,6 +796,25 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
+// Résumé dropdown toggle
+(function () {
+  const toggle = document.querySelector(".resume-dropdown-toggle");
+  const menu = document.querySelector(".resume-dropdown-menu");
+  if (!toggle || !menu) return;
+
+  toggle.addEventListener("click", function () {
+    const open = menu.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+
+  document.addEventListener("click", function (e) {
+    if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+      menu.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+    }
+  });
+})();
 </script>
 
 </body>
