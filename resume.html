@@ -20,7 +20,7 @@
     <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
     <button
       type="button"
-      onclick="if (document.referrer && new URL(document.referrer).origin === window.location.origin) { window.history.back(); } else { window.location.href='index.html'; }">
+      onclick="goBackToPreviousPage()">
       <i class="fa-solid fa-arrow-left"></i> Back
     </button>
   </nav>
@@ -66,6 +66,17 @@
 <footer>
   <p>© 2026 Catherine Jason</p>
 </footer>
+
+<script>
+  function goBackToPreviousPage() {
+    if (document.referrer && new URL(document.referrer).origin === window.location.origin) {
+      window.history.back();
+      return;
+    }
+
+    window.location.href = 'index.html';
+  }
+</script>
 
 </body>
 </html>
