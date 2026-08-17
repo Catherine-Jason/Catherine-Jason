@@ -459,6 +459,7 @@ body {
   border-color: rgba(255, 80, 80, 0.45) !important;
   color: #ff6b6b !important;
   font-size: 1rem;
+  font-family: inherit;
 }
 
 .lightbox-btn-close:hover {

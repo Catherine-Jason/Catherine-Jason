@@ -101,32 +101,38 @@
 
 <script>
 (function () {
-    const overlay = document.getElementById('lightbox');
-    const img     = document.getElementById('lightbox-img');
-    const caption = document.getElementById('lightbox-caption');
+    var overlay   = document.getElementById('lightbox');
+    var img       = document.getElementById('lightbox-img');
+    var caption   = document.getElementById('lightbox-caption');
+    var closeBtn  = document.getElementById('lightbox-close');
+    var lastFocus = null;
 
-    function openLightbox(src, alt) {
+    function openLightbox(src, alt, trigger) {
+        lastFocus = trigger || null;
         img.src = src;
         img.alt = alt || '';
         caption.textContent = alt || '';
         overlay.classList.add('active');
         document.body.style.overflow = 'hidden';
+        closeBtn.focus();
     }
 
     function closeLightbox() {
         overlay.classList.remove('active');
         document.body.style.overflow = '';
         img.src = '';
+        if (lastFocus) lastFocus.focus();
     }
 
     document.querySelectorAll('[data-lightbox]').forEach(function (el) {
         el.addEventListener('click', function (e) {
             e.preventDefault();
-            openLightbox(el.dataset.lightbox, el.dataset.caption || el.querySelector('img')?.alt);
+            var alt = el.dataset.caption || (el.querySelector('img') && el.querySelector('img').alt) || '';
+            openLightbox(el.dataset.lightbox, alt, el);
         });
     });
 
-    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    closeBtn.addEventListener('click', closeLightbox);
     document.getElementById('lightbox-back').addEventListener('click', closeLightbox);
     overlay.addEventListener('click', function (e) {
         if (e.target === overlay) closeLightbox();

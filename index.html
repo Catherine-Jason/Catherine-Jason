@@ -790,7 +790,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
-<!-- Lightbox Modal -->
+<!-- Lightbox Modal (Home button omitted: this page IS the home page) -->
 <div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
   <div class="lightbox-toolbar">
     <button class="lightbox-btn-back" id="lightbox-back">← Back</button>
@@ -804,22 +804,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <script>
 (function () {
-  var overlay = document.getElementById('lightbox');
-  var img     = document.getElementById('lightbox-img');
-  var caption = document.getElementById('lightbox-caption');
+  var overlay   = document.getElementById('lightbox');
+  var img       = document.getElementById('lightbox-img');
+  var caption   = document.getElementById('lightbox-caption');
+  var closeBtn  = document.getElementById('lightbox-close');
+  var lastFocus = null;
 
-  function openLightbox(src, alt) {
+  function openLightbox(src, alt, trigger) {
+    lastFocus = trigger || null;
     img.src = src;
     img.alt = alt || '';
     caption.textContent = alt || '';
     overlay.classList.add('active');
     document.body.style.overflow = 'hidden';
+    closeBtn.focus();
   }
 
   function closeLightbox() {
     overlay.classList.remove('active');
     document.body.style.overflow = '';
     img.src = '';
+    if (lastFocus) lastFocus.focus();
   }
 
   document.querySelectorAll('[data-lightbox]').forEach(function (el) {
@@ -827,11 +832,11 @@ document.addEventListener("DOMContentLoaded", function () {
       e.preventDefault();
       var src = el.dataset.lightbox;
       var alt = el.dataset.caption || (el.querySelector('img') && el.querySelector('img').alt) || '';
-      openLightbox(src, alt);
+      openLightbox(src, alt, el);
     });
   });
 
-  document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+  closeBtn.addEventListener('click', closeLightbox);
   document.getElementById('lightbox-back').addEventListener('click', closeLightbox);
   overlay.addEventListener('click', function (e) {
     if (e.target === overlay) closeLightbox();
