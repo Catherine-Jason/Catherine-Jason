@@ -59,12 +59,14 @@
     gtag('config', 'G-QS4T2WFSF9');
   </script>
 </head>
-<body>
+<body id="top">
 
 <header class="hero-header">
   <div class="hero-container">
     <div class="hero-left">
-      <img src="catherine.PNG" alt="Catherine Jason" class="profile-photo">
+      <a href="catherine.PNG" target="_blank" rel="noopener noreferrer" class="image-link">
+        <img src="catherine.PNG" alt="Catherine Jason" class="profile-photo">
+      </a>
     </div>
     <div class="hero-right">
       <h1 class="hero-name">Catherine Jason</h1>
@@ -77,6 +79,7 @@
         <a href="#skills">Skills</a>
 
         <a href="#projects">Projects</a>
+        <a href="#honors">Honors</a>
         <a href="#contact">Contact</a>
         <a href="Catherine_Jason_Resume.pdf" download class="resume-btn">Résumé</a>
         <a href="SOC_OPERATIONS_ANALYST_1.pdf" target="_blank">SOC Certification</a>
@@ -86,7 +89,9 @@
   </div>
 </header>
   <div class="qr-badge">
-    <img src="IMG_4440.jpeg?raw=true" alt="Cybersecurity Association QR Code" class="qr-image">
+    <a href="IMG_4440.jpeg" target="_blank" rel="noopener noreferrer" class="image-link">
+      <img src="IMG_4440.jpeg?raw=true" alt="Cybersecurity Association QR Code" class="qr-image">
+    </a>
     <p class="qr-label">
         Cybersecurity Association, Inc.<br>
         <span>Scan to verify membership</span>
@@ -102,6 +107,7 @@
         <br><br>
         I’m actively seeking opportunities in security operations and network defense where I can grow within a mission-driven team.
     </p>
+    <a class="back-to-top-section" href="#top">Back to Top ↑</a>
 </section>
 
 
@@ -170,19 +176,20 @@
       </div>
 
   </div>
+  <a class="back-to-top-section" href="#top">Back to Top ↑</a>
 </section>
 
 
 
 <div id="chatbot-container">
-  <button id="chatbot-toggle">💬 Ask Me Anything</button>
+  <button id="chatbot-toggle" aria-expanded="false">💬 Ask Me Anything</button>
 
   <div id="chatbot-box" class="hidden">
     <div id="chatbot-header">
-      Catherine's Chatbot
-      <span id="chatbot-minimize">–</span>
-      <span id="chatbot-theme-toggle">☀️</span>
+      <span>Catherine's Chatbot</span>
+      <button id="chatbot-minimize" type="button" aria-label="Minimize chatbot">–</button>
     </div>
+    <div id="chatbot-status" aria-live="polite">Voice replies are ON. Click Listen to toggle.</div>
 
     <div id="chatbot-messages"></div>
     <div id="chatbot-typing" class="hidden">
@@ -196,9 +203,9 @@
     />
 
     <div class="chatbot-actions">
-      <button id="chatbot-mic">🎤</button>
-      <button id="chatbot-voice-toggle">🔊</button>
-      <button id="chatbot-send">➤</button>
+      <button id="chatbot-mic" type="button" aria-label="Start voice input">🎤 Speak</button>
+      <button id="chatbot-voice-toggle" type="button" aria-label="Toggle voice replies">🔊 Listen: On</button>
+      <button id="chatbot-send" type="button" aria-label="Send message">➤ Send</button>
     </div>
   </div>
 </div>
@@ -256,6 +263,7 @@
       <p class="skill-line">FTK Imager, OSForensics, E3 Forensic Platform, ProDiscover</p>
     </div>
   </div>
+  <a class="back-to-top-section" href="#top">Back to Top ↑</a>
 </section>
 
 <section id="projects" class="section">
@@ -340,11 +348,23 @@
       </div>
     </div>
   </div>
+  <a class="back-to-top-section" href="#top">Back to Top ↑</a>
 </section>
 
 <section id="honors" class="section">
-  <h2>Academic Honors</h2>
+  <h2>Honors & Certifications</h2>
   <div class="grid">
+    <div class="card cert-card">
+      <h3>CompTIA Security+ (SY0-701)</h3>
+      <p><strong>Candidate ID:</strong> COMP001022841819</p>
+      <p><strong>Certified:</strong> August 15, 2026</p>
+      <p><strong>Expires:</strong> August 15, 2029</p>
+      <p>
+        <a href="http://verify.CompTIA.org" target="_blank" rel="noopener noreferrer" class="verify-link">
+          Verify at verify.CompTIA.org
+        </a>
+      </p>
+    </div>
     <div class="card">
       <h3>Phi Theta Kappa Honor Society</h3>
       <p>Alpha Psi Psi Chapter</p>
@@ -357,6 +377,7 @@
       </p>
     </div>
   </div>
+  <a class="back-to-top-section" href="#top">Back to Top ↑</a>
 </section>
 
 <section id="contact" class="section">
@@ -377,9 +398,12 @@
     </li>
   </ul>
   <p>I welcome opportunities to connect with cybersecurity and IT professionals to exchange ideas, learn from others, and explore potential collaborations.</p>
+  <a class="back-to-top-section" href="#top">Back to Top ↑</a>
 </section>
 
-<footer>hi
+<a class="back-to-top" href="#top" aria-label="Back to top">↑ Top</a>
+
+<footer>
   <p>© 2026 Catherine Jason</p>
 </footer>
 
@@ -427,7 +451,7 @@ function addMessage(sender, text) {
   const bubble = document.createElement("div");
   bubble.classList.add("chat-bubble");
   bubble.classList.add(sender === "🤖" ? "bot-bubble" : "user-bubble");
-  bubble.innerHTML = text;
+  bubble.textContent = text;
 
   row.appendChild(iconWrapper);
   row.appendChild(bubble);
@@ -444,38 +468,72 @@ function hideTyping() {
   if (typing) typing.style.display = "none";
 }
 
+function sendQuestion(questionInput) {
+  const input = document.getElementById("chatbot-input");
+  if (!input) return;
+  const question = (questionInput || input.value).trim();
+  if (!question) return;
+  addMessage("You", question);
+  input.value = "";
+  showTyping();
+  setTimeout(() => {
+    hideTyping();
+    handleQuestion(question);
+  }, 450);
+}
+
 // ============================================
 // VOICE FEATURES: SPEECH-TO-TEXT + TEXT-TO-SPEECH
 // ============================================
-let voiceEnabled = false;
+let voiceEnabled = true;
 let recognizing = false;
 let recognition = null;
+const speechSupported = "webkitSpeechRecognition" in window || "SpeechRecognition" in window;
+const synthesisSupported = "speechSynthesis" in window;
+
+function updateChatStatus(message) {
+  const status = document.getElementById("chatbot-status");
+  if (status) status.textContent = message;
+}
 
 // Speech-to-text
-if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
+if (speechSupported) {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   recognition = new SpeechRecognition();
   recognition.lang = "en-US";
   recognition.continuous = false;
-  recognition.interimResults = false;
+  recognition.interimResults = true;
+  recognition.maxAlternatives = 1;
 
-  recognition.onstart = () => recognizing = true;
-  recognition.onend = () => recognizing = false;
+  recognition.onstart = () => {
+    recognizing = true;
+    updateChatStatus("Listening… speak naturally and pause to send.");
+  };
+
+  recognition.onend = () => {
+    recognizing = false;
+    const micButton = document.getElementById("chatbot-mic");
+    if (micButton) micButton.classList.remove("active");
+    updateChatStatus("Voice input ready.");
+  };
+
+  recognition.onerror = (event) => {
+    recognizing = false;
+    const micButton = document.getElementById("chatbot-mic");
+    if (micButton) micButton.classList.remove("active");
+    updateChatStatus(`Voice input error: ${event.error}.`);
+  };
 
   recognition.onresult = (event) => {
-    const transcript = event.results[0][0].transcript;
     const input = document.getElementById("chatbot-input");
     if (!input) return;
+    const latest = event.results[event.results.length - 1];
+    const transcript = latest[0].transcript.trim();
+    if (!transcript) return;
 
     input.value = transcript;
-    const question = transcript.trim();
-    if (question) {
-      addMessage("You", question);
-      showTyping();
-      setTimeout(() => {
-        hideTyping();
-        handleQuestion(question);
-      }, 500);
+    if (latest.isFinal) {
+      sendQuestion(transcript);
     }
   };
 }
@@ -487,14 +545,14 @@ function loadVoices() {
   availableVoices = window.speechSynthesis ? speechSynthesis.getVoices() : [];
 }
 
-if ("speechSynthesis" in window) {
+if (synthesisSupported) {
   loadVoices();
   window.speechSynthesis.onvoiceschanged = loadVoices;
 }
 
 function speak(text) {
   if (!voiceEnabled) return;
-  if (!("speechSynthesis" in window)) return;
+  if (!synthesisSupported) return;
 
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = "en-US";
@@ -505,6 +563,7 @@ function speak(text) {
   );
   if (preferred) utterance.voice = preferred;
 
+  window.speechSynthesis.cancel();
   speechSynthesis.speak(utterance);
 }
 
@@ -624,13 +683,7 @@ function handleQuestion(question) {
 
   question = question.toLowerCase();
 
-  if (
-    question.includes("hello") ||
-    question.includes("hi") ||
-    question.includes("hey") ||
-    question.includes("start") ||
-    question.includes("introduction")
-  ) {
+  if (/\b(hello|hi|hey|start|introduction)\b/.test(question)) {
     const intro =
       "Hi, I am Catherine. I created this chatbot to share my cybersecurity experience in a simple and interactive way. " +
       "Feel free to ask about my labs, tools, projects, or anything you are curious about.";
@@ -639,12 +692,18 @@ function handleQuestion(question) {
     return;
   }
 
-  for (const item of qa) {
-    if (item.keywords.some((k) => question.includes(k))) {
-      addMessage("🤖", item.answer);
-      speak(item.answer);
-      return;
-    }
+  const bestMatch = qa
+    .map((item) => {
+      const matches = item.keywords.filter((keyword) => question.includes(keyword));
+      const longest = matches.reduce((max, keyword) => Math.max(max, keyword.length), 0);
+      return { item, score: matches.length, longest };
+    })
+    .sort((a, b) => (b.score - a.score) || (b.longest - a.longest))[0];
+
+  if (bestMatch && bestMatch.score > 0) {
+    addMessage("🤖", bestMatch.item.answer);
+    speak(bestMatch.item.answer);
+    return;
   }
 
   const fallback =
@@ -665,20 +724,42 @@ document.addEventListener("DOMContentLoaded", function () {
   const input = document.getElementById("chatbot-input");
   const minimize = document.getElementById("chatbot-minimize");
 
+  function setVoiceToggleState() {
+    if (!voiceToggle) return;
+    voiceToggle.textContent = voiceEnabled ? "🔊 Listen: On" : "🔇 Listen: Off";
+    voiceToggle.classList.toggle("active", voiceEnabled);
+    updateChatStatus(
+      voiceEnabled
+        ? "Voice replies are ON. Click Listen to toggle."
+        : "Voice replies are OFF. Click Listen to enable."
+    );
+  }
+
+  setVoiceToggleState();
+  if (!speechSupported) {
+    updateChatStatus("Voice input is not supported in this browser.");
+    if (micBtn) {
+      micBtn.disabled = true;
+      micBtn.classList.add("disabled");
+    }
+  }
+
   if (micBtn) {
     micBtn.addEventListener("click", () => {
       if (!recognition) {
-        alert("Speech recognition is not supported in this browser.");
+        updateChatStatus("Voice input is not supported in this browser.");
         return;
       }
 
       if (recognizing) {
         recognition.stop();
+        micBtn.classList.remove("active");
       } else {
         try {
           recognition.start();
+          micBtn.classList.add("active");
         } catch (e) {
-          console.log(e);
+          updateChatStatus("Voice input is already running. Please try again.");
         }
       }
     });
@@ -687,29 +768,20 @@ document.addEventListener("DOMContentLoaded", function () {
   if (voiceToggle) {
     voiceToggle.addEventListener("click", () => {
       voiceEnabled = !voiceEnabled;
-      voiceToggle.classList.toggle("active", voiceEnabled);
+      setVoiceToggleState();
     });
   }
 
   if (sendBtn) {
     sendBtn.addEventListener("click", () => {
-      if (!input) return;
-      const question = input.value.trim();
-      if (!question) return;
-
-      addMessage("You", question);
-      input.value = "";
-      showTyping();
-      setTimeout(() => {
-        hideTyping();
-        handleQuestion(question);
-      }, 500);
+      sendQuestion();
     });
   }
 
   if (toggle) {
     toggle.addEventListener("click", () => {
       if (box) box.classList.remove("hidden");
+      toggle.setAttribute("aria-expanded", "true");
       if (input) input.focus();
     });
   }
@@ -717,20 +789,18 @@ document.addEventListener("DOMContentLoaded", function () {
   if (minimize) {
     minimize.addEventListener("click", () => {
       if (box) box.classList.add("hidden");
+      if (toggle) toggle.setAttribute("aria-expanded", "false");
+      if (recognition && recognizing) {
+        recognition.stop();
+      }
+      if (micBtn) micBtn.classList.remove("active");
     });
   }
 
   if (input) {
     input.addEventListener("keydown", (e) => {
       if (e.key === "Enter" && input.value.trim() !== "") {
-        const question = input.value.trim();
-        addMessage("You", question);
-        input.value = "";
-        showTyping();
-        setTimeout(() => {
-          hideTyping();
-          handleQuestion(question);
-        }, 500);
+        sendQuestion();
       }
     });
   }
