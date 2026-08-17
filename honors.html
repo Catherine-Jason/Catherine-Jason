@@ -67,14 +67,20 @@
 <script>
   (function () {
     const backButton = document.getElementById("honorsBackBtn");
+    const fallbackUrl = "index.html#honors";
 
     backButton.addEventListener("click", function () {
-      if (window.history.length > 1) {
-        window.history.back();
-        return;
+      if (document.referrer) {
+        try {
+          const previousUrl = new URL(document.referrer);
+          if (previousUrl.origin === window.location.origin) {
+            window.history.back();
+            return;
+          }
+        } catch (error) {}
       }
 
-      window.location.href = "index.html#honors";
+      window.location.href = fallbackUrl;
     });
   })();
 </script>
