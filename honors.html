@@ -70,8 +70,10 @@
     const fallbackUrl = "index.html#honors";
 
     backButton.addEventListener("click", function () {
-      if (document.referrer && typeof URL.canParse === "function" && URL.canParse(document.referrer)) {
-        const previousUrl = new URL(document.referrer);
+      if (document.referrer) {
+        const previousUrl = document.createElement("a");
+        previousUrl.href = document.referrer;
+
         if (previousUrl.origin === window.location.origin) {
           window.history.back();
           return;
