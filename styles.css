@@ -779,3 +779,90 @@ footer {
   color: var(--accent-teal);
   margin-right: 6px;
 }
+
+/* Resume page */
+.resume-page-header {
+  padding: 50px 20px 30px;
+  background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-medium) 100%);
+  border-bottom: 1px solid rgba(0, 217, 255, 0.3);
+  text-align: center;
+}
+
+.resume-page-header h1 {
+  font-size: 2.2rem;
+  color: var(--accent-teal);
+  text-shadow: 0 0 14px rgba(0, 217, 255, 0.4);
+  margin-bottom: 8px;
+}
+
+.resume-page-header p {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.resume-page-body {
+  max-width: 1100px;
+  margin: 50px auto;
+  padding: 0 20px;
+}
+
+.resume-intro-card,
+.resume-viewer-card {
+  background: linear-gradient(135deg, rgba(58,58,58,0.95), rgba(43,43,43,0.95));
+  border-radius: 12px;
+  padding: 32px;
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  margin-bottom: 30px;
+}
+
+.resume-intro-card h2,
+.resume-viewer-card h2 {
+  font-size: 1.4rem;
+  color: var(--accent-teal);
+  margin-bottom: 16px;
+  border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+  padding-bottom: 10px;
+}
+
+.resume-intro-card p {
+  color: var(--text-muted);
+  font-size: 0.97rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.resume-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.resume-frame-wrap {
+  text-align: center;
+}
+
+.resume-frame {
+  width: 100%;
+  min-height: 960px;
+  border: 2px solid rgba(0, 217, 255, 0.3);
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0 0 24px rgba(0, 217, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+  .resume-page-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .resume-intro-card,
+  .resume-viewer-card {
+    padding: 24px;
+  }
+
+  .resume-frame {
+    min-height: 620px;
+  }
+}
