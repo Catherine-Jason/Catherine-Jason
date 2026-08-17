@@ -67,15 +67,16 @@
 <script>
   (function () {
     const backButton = document.getElementById("honorsBackBtn");
+    const storedBackUrl = sessionStorage.getItem("honorsBackUrl");
     const fallbackUrl = "index.html#honors";
 
     backButton.addEventListener("click", function () {
-      if (document.referrer) {
+      if (storedBackUrl) {
         const previousUrl = document.createElement("a");
-        previousUrl.href = document.referrer;
+        previousUrl.href = storedBackUrl;
 
         if (previousUrl.origin === window.location.origin) {
-          window.history.back();
+          window.location.href = storedBackUrl;
           return;
         }
       }
