@@ -47,7 +47,7 @@
   <div class="cert-info-card">
     <h2><i class="fa-solid fa-file-pdf"></i> Embedded Certificate</h2>
     <div class="cert-image-wrap">
-      <object data="PTK_cert.pdf" type="application/pdf" aria-label="Phi Theta Kappa certificate PDF">
+      <object data="PTK_cert.pdf" type="application/pdf" aria-label="Phi Theta Kappa certificate PDF" width="680" height="480">
         <p class="cert-pdf-fallback">
           Can't view the PDF here?
           <a href="PTK_cert.pdf" target="_blank" rel="noopener noreferrer">Open the certificate directly</a>
@@ -69,6 +69,10 @@
     const backButton = document.getElementById("honorsBackBtn");
     const storedBackUrl = sessionStorage.getItem("honorsBackUrl");
     const fallbackUrl = "index.html#honors";
+
+    if (storedBackUrl) {
+      sessionStorage.removeItem("honorsBackUrl");
+    }
 
     backButton.addEventListener("click", function () {
       if (storedBackUrl) {
