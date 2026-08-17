@@ -8,12 +8,13 @@
 </head>
 <body id="top">
   <section class="section certificate-page">
-    <button class="back-to-top-section" onclick="if (history.length > 1) { history.back(); } else { location.href='index.html#honors'; }">← Back</button>
+    <button type="button" class="back-to-top-section" onclick="goBackOrFallback('index.html#honors')">← Back</button>
     <h2>Phi Theta Kappa Honor Society Certificate</h2>
     <div class="card cert-card">
       <iframe src="PTK_cert.pdf" title="Phi Theta Kappa Certificate PDF" class="certificate-embed"></iframe>
     </div>
-    <button class="back-to-top-section" onclick="if (history.length > 1) { history.back(); } else { location.href='index.html#honors'; }">← Back</button>
+    <button type="button" class="back-to-top-section" onclick="goBackOrFallback('index.html#honors')">← Back</button>
   </section>
+  <script src="back-navigation.js"></script>
 </body>
 </html>

@@ -8,13 +8,14 @@
 </head>
 <body id="top">
   <section class="section certificate-page">
-    <button class="back-to-top-section" onclick="if (history.length > 1) { history.back(); } else { location.href='index.html#honors'; }">← Back</button>
+    <button type="button" class="back-to-top-section" onclick="goBackOrFallback('index.html#honors')">← Back</button>
     <h2>CompTIA Security+ (SY0-701)</h2>
     <div class="card cert-card">
       <p><strong>Certified:</strong> August 15, 2026</p>
       <img src="IMG_4440.jpeg" alt="CompTIA Security+ Certificate" class="certificate-image">
     </div>
-    <button class="back-to-top-section" onclick="if (history.length > 1) { history.back(); } else { location.href='index.html#honors'; }">← Back</button>
+    <button type="button" class="back-to-top-section" onclick="goBackOrFallback('index.html#honors')">← Back</button>
   </section>
+  <script src="back-navigation.js"></script>
 </body>
 </html>
