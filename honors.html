@@ -70,21 +70,19 @@
     const storedBackUrl = sessionStorage.getItem("honorsBackUrl");
     const fallbackUrl = "index.html#honors";
 
-    if (storedBackUrl) {
-      sessionStorage.removeItem("honorsBackUrl");
-    }
-
     backButton.addEventListener("click", function () {
       if (storedBackUrl) {
         const previousUrl = document.createElement("a");
         previousUrl.href = storedBackUrl;
 
         if (previousUrl.origin === window.location.origin) {
+          sessionStorage.removeItem("honorsBackUrl");
           window.location.href = storedBackUrl;
           return;
         }
       }
 
+      sessionStorage.removeItem("honorsBackUrl");
       window.location.href = fallbackUrl;
     });
   })();
