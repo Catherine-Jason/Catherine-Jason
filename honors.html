@@ -18,7 +18,9 @@
   <p>Academic recognition and official documentation.</p>
   <nav class="cert-nav-row">
     <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
-    <a href="index.html#honors"><i class="fa-solid fa-arrow-left"></i> Back</a>
+    <button type="button" class="cert-nav-btn" id="honorsBackBtn">
+      <i class="fa-solid fa-arrow-left"></i> Back
+    </button>
   </nav>
 </header>
 
@@ -61,6 +63,21 @@
 <footer>
   <p>© 2026 Catherine Jason</p>
 </footer>
+
+<script>
+  (function () {
+    const backButton = document.getElementById("honorsBackBtn");
+
+    backButton.addEventListener("click", function () {
+      if (window.history.length > 1) {
+        window.history.back();
+        return;
+      }
+
+      window.location.href = "index.html#honors";
+    });
+  })();
+</script>
 
 </body>
 </html>
