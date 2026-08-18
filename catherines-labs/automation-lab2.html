@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Automation Lab 2 — Bash System Health Check | Catherine Jason</title>
+    <meta name="description" content="Automation Lab 2: Bash script to check system health metrics including CPU, memory, disk usage, and running services, with alerting output.">
+    <meta name="robots" content="index, follow">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body id="top">
+<main class="lab-page">
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="../index.html" class="breadcrumb-link">Home</a>
+        <span>•</span>
+        <a href="index.html" class="breadcrumb-link">Catherine's Labs</a>
+        <span>•</span>
+        <span>Automation Lab 2</span>
+    </nav>
+
+    <section class="lab-detail" id="automation-lab2">
+        <h2>Automation Lab 2 — Bash System Health Check</h2>
+        <p>A Bash script that checks key system health metrics on a Linux host, flags anything outside acceptable thresholds, and outputs a timestamped summary for review or log ingestion.</p>
+    </section>
+
+    <section class="case-study-section">
+        <h3>Overview</h3>
+        <p>Keeping servers healthy requires visibility into CPU load, memory consumption, disk space, and critical service status. This script consolidates those checks into a single runnable report that can be executed manually or scheduled via cron.</p>
+        <p><strong>Real-world relevance:</strong> Proactive system monitoring catches resource exhaustion and service failures before they become outages. This script is designed for environments where a full monitoring stack is not yet in place or a lightweight spot-check tool is needed.</p>
+    </section>
+
+    <section class="case-study-section">
+        <h3>Objective</h3>
+        <ul>
+            <li>Check CPU usage and flag if it exceeds 80 percent</li>
+            <li>Check memory usage and flag if used memory exceeds 85 percent</li>
+            <li>Check disk usage on the root partition and flag if it exceeds 90 percent</li>
+            <li>Verify that critical services such as SSH and cron are running</li>
+            <li>Output a clean, timestamped health report to the terminal and an optional log file</li>
+        </ul>
+    </section>
+
+    <section class="case-study-section">
+        <h3>Script Walkthrough</h3>
+        <ol>
+            <li>Set threshold variables for CPU, memory, and disk at the top of the script for easy adjustment.</li>
+            <li>Used <code>top</code> and <code>awk</code> to extract current CPU idle percentage and calculate usage.</li>
+            <li>Parsed <code>free</code> command output to calculate memory usage percentage.</li>
+            <li>Used <code>df</code> to pull root partition disk usage percentage.</li>
+            <li>Checked each critical service using <code>systemctl is-active</code> and captured pass or fail status.</li>
+            <li>Printed a formatted summary with color-coded status indicators and appended output to a log file.</li>
+        </ol>
+    </section>
+
+    <section class="case-study-section">
+        <h3>Script Preview</h3>
+        <pre class="code-block"><code>#!/bin/bash
+# Automation Lab 2 — Bash System Health Check
+# Checks CPU, memory, disk, and service status with threshold alerting
+
+TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
+LOG_FILE="/var/log/system_health.log"
+
+CPU_THRESHOLD=80
+MEM_THRESHOLD=85
+DISK_THRESHOLD=90
+
+SERVICES=("ssh" "cron")
+
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+RESET='\033[0m'
+
+echo "====================================="
+echo " System Health Check — $TIMESTAMP"
+echo "====================================="
+
+# CPU Usage
+CPU_IDLE=$(top -bn1 | grep "Cpu(s)" | awk '{print $8}' | tr -d '%')
+CPU_USED=$(echo "100 - $CPU_IDLE" | bc)
+if (( $(echo "$CPU_USED > $CPU_THRESHOLD" | bc -l) )); then
+    echo -e "CPU Usage:    ${RED}${CPU_USED}% — ALERT${RESET}"
+else
+    echo -e "CPU Usage:    ${GREEN}${CPU_USED}% — OK${RESET}"
+fi
+
+# Memory Usage
+MEM_TOTAL=$(free | awk '/Mem:/ {print $2}')
+MEM_USED=$(free  | awk '/Mem:/ {print $3}')
+MEM_PCT=$(echo "scale=1; $MEM_USED / $MEM_TOTAL * 100" | bc)
+if (( $(echo "$MEM_PCT > $MEM_THRESHOLD" | bc -l) )); then
+    echo -e "Memory Usage: ${RED}${MEM_PCT}% — ALERT${RESET}"
+else
+    echo -e "Memory Usage: ${GREEN}${MEM_PCT}% — OK${RESET}"
+fi
+
+# Disk Usage
+DISK_USED=$(df / | awk 'NR==2 {print $5}' | tr -d '%')
+if [ "$DISK_USED" -gt "$DISK_THRESHOLD" ]; then
+    echo -e "Disk Usage:   ${RED}${DISK_USED}% — ALERT${RESET}"
+else
+    echo -e "Disk Usage:   ${GREEN}${DISK_USED}% — OK${RESET}"
+fi
+
+# Service Checks
+echo ""
+echo "Service Status:"
+for SERVICE in "${SERVICES[@]}"; do
+    STATUS=$(systemctl is-active "$SERVICE" 2>/dev/null)
+    if [ "$STATUS" = "active" ]; then
+        echo -e "  $SERVICE: ${GREEN}Running${RESET}"
+    else
+        echo -e "  $SERVICE: ${RED}NOT Running — ALERT${RESET}"
+    fi
+done
+
+echo "=====================================" | tee -a "$LOG_FILE"
+echo "Check complete. See $LOG_FILE for history."</code></pre>
+    </section>
+
+    <section class="lab-tools">
+        <h3>Key Skills Demonstrated</h3>
+        <ul>
+            <li>Bash scripting with conditional logic and threshold comparisons</li>
+            <li>Linux system resource monitoring using native command-line utilities</li>
+            <li>Service health verification with <code>systemctl</code></li>
+            <li>Structured output formatting and log file management</li>
+        </ul>
+    </section>
+
+    <section class="lab-tools">
+        <h3>Tools &amp; Technologies</h3>
+        <ul>
+            <li>Bash (Linux shell scripting)</li>
+            <li>GNU Core Utilities: <code>top</code>, <code>free</code>, <code>df</code>, <code>awk</code>, <code>bc</code></li>
+            <li>systemd (<code>systemctl</code>) for service management</li>
+            <li>Cron for scheduled execution</li>
+        </ul>
+    </section>
+
+    <section class="lab-result">
+        <h3>Results &amp; Outcomes</h3>
+        <ul>
+            <li>Delivered a fast, portable system health check runnable on any standard Linux host.</li>
+            <li>Provided clear, color-coded output for immediate visual review during incident response or routine checks.</li>
+            <li>Built threshold variables at the top of the script so any team member can adjust limits without modifying logic.</li>
+            <li>Designed to run on a cron schedule and append results to a persistent log file for trend visibility.</li>
+        </ul>
+    </section>
+
+    <div class="lab-nav">
+        <a href="index.html#automation" class="back-link">&#8592; Back to Automation Scripts</a>
+    </div>
+
+</main>
+
+<a class="back-to-top" href="#top" aria-label="Back to top">&#8593; Top</a>
+
+<footer class="labs-footer">
+    <p>&copy; 2026 Catherine Jason | Cybersecurity Labs &amp; Interactive Projects</p>
+</footer>
+
+</body>
+</html>
