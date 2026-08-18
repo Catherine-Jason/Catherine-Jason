@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Automation Lab 3 — Python Log Parser &amp; Alert Script | Catherine Jason</title>
+    <title>Automation Lab 3 - Python Log Parser &amp; Alert Script | Catherine Jason</title>
     <meta name="description" content="Automation Lab 3: Python script that parses system or application logs, detects patterns indicating errors or security events, and generates a summary alert report.">
     <meta name="robots" content="index, follow">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -21,7 +21,7 @@
     </nav>
 
     <section class="lab-detail" id="automation-lab3">
-        <h2>Automation Lab 3 — Python Log Parser &amp; Alert Script</h2>
+        <h2>Automation Lab 3 - Python Log Parser &amp; Alert Script</h2>
         <p>A Python script that reads a log file, searches for patterns tied to errors or security events, tallies occurrences by category, and generates a plain-text summary report.</p>
     </section>
 
@@ -57,7 +57,7 @@
         <h3>Script Preview</h3>
         <pre class="code-block"><code>#!/usr/bin/env python3
 """
-Automation Lab 3 — Python Log Parser & Alert Script
+Automation Lab 3 - Python Log Parser & Alert Script
 Scans a log file for defined event patterns and generates a summary report.
 """
 
@@ -91,11 +91,11 @@ with open(LOG_FILE, "r", errors="replace") as fh:
                 matches[name].append((line_num, line.rstrip()))
 
 with open(output_file, "w") as report:
-    report.write(f"Log Parser Report — {timestamp}\n")
+    report.write(f"Log Parser Report - {timestamp}\n")
     report.write(f"Source: {LOG_FILE}\n")
     report.write("=" * 60 + "\n\n")
     for name, hits in matches.items():
-        report.write(f"[{name}] — {len(hits)} occurrence(s)\n")
+        report.write(f"[{name}] - {len(hits)} occurrence(s)\n")
         for line_num, content in hits[:10]:   # cap preview at 10 lines
             report.write(f"  Line {line_num}: {content}\n")
         if len(hits) > 10:
