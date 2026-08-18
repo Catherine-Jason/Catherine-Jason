@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Automation Lab 1 — PowerShell User Account Audit | Catherine Jason</title>
+    <meta name="description" content="Automation Lab 1: PowerShell script to audit Active Directory user accounts, flag inactive accounts, and export a compliance-ready report.">
+    <meta name="robots" content="index, follow">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body id="top">
+<main class="lab-page">
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="../index.html" class="breadcrumb-link">Home</a>
+        <span>•</span>
+        <a href="index.html" class="breadcrumb-link">Catherine's Labs</a>
+        <span>•</span>
+        <span>Automation Lab 1</span>
+    </nav>
+
+    <section class="lab-detail" id="automation-lab1">
+        <h2>Automation Lab 1 — PowerShell User Account Audit</h2>
+        <p>A PowerShell script that queries Active Directory, identifies inactive or non-compliant user accounts, and exports a structured CSV report for IT and security review.</p>
+    </section>
+
+    <section class="case-study-section">
+        <h3>Overview</h3>
+        <p>Manual account audits are time-consuming and error-prone at scale. This script automates the process of pulling user account data from Active Directory, evaluating each account against defined activity thresholds, and generating a ready-to-share compliance report.</p>
+        <p><strong>Real-world relevance:</strong> Regular account audits reduce the risk of orphaned or compromised credentials sitting undetected in your environment. This type of automation directly supports identity hygiene and access control compliance.</p>
+    </section>
+
+    <section class="case-study-section">
+        <h3>Objective</h3>
+        <ul>
+            <li>Identify user accounts that have not logged in within the last 90 days</li>
+            <li>Flag accounts with passwords that have never been set or have expired</li>
+            <li>Capture account status, last logon date, and password policy flags</li>
+            <li>Export findings to a CSV for IT and compliance team review</li>
+        </ul>
+    </section>
+
+    <section class="case-study-section">
+        <h3>Script Walkthrough</h3>
+        <ol>
+            <li>Imported the Active Directory PowerShell module and defined a 90-day inactivity threshold.</li>
+            <li>Queried all enabled user accounts using <code>Get-ADUser</code> with relevant property filters.</li>
+            <li>Calculated days since last logon for each account and compared against the threshold.</li>
+            <li>Collected accounts meeting inactivity or password non-compliance criteria into a result set.</li>
+            <li>Exported the result set to a timestamped CSV file for downstream review and action.</li>
+        </ol>
+    </section>
+
+    <section class="case-study-section">
+        <h3>Script Preview</h3>
+        <pre class="code-block"><code># Automation Lab 1 — PowerShell User Account Audit
+# Queries Active Directory for inactive or non-compliant user accounts
+
+Import-Module ActiveDirectory
+
+$DaysInactive = 90
+$CutoffDate   = (Get-Date).AddDays(-$DaysInactive)
+$Timestamp    = Get-Date -Format "yyyy-MM-dd"
+$OutputFile   = ".\UserAuditReport_$Timestamp.csv"
+
+$Results = Get-ADUser -Filter {Enabled -eq $true} -Properties `
+    DisplayName, SamAccountName, LastLogonDate, `
+    PasswordNeverExpires, PasswordLastSet, PasswordExpired |
+Where-Object {
+    ($_.LastLogonDate -lt $CutoffDate -or $_.LastLogonDate -eq $null) -or
+    $_.PasswordNeverExpires -eq $true -or
+    $_.PasswordExpired -eq $true
+} |
+Select-Object DisplayName, SamAccountName, LastLogonDate,
+    PasswordNeverExpires, PasswordLastSet, PasswordExpired
+
+$Results | Export-Csv -Path $OutputFile -NoTypeInformation -Encoding UTF8
+
+Write-Host "Audit complete. $($Results.Count) accounts flagged."
+Write-Host "Report saved to: $OutputFile"</code></pre>
+    </section>
+
+    <section class="lab-tools">
+        <h3>Key Skills Demonstrated</h3>
+        <ul>
+            <li>Active Directory querying and property filtering with PowerShell</li>
+            <li>Threshold-based conditional logic for account evaluation</li>
+            <li>Automated report generation and file output</li>
+            <li>Identity hygiene practices aligned with access control compliance</li>
+        </ul>
+    </section>
+
+    <section class="lab-tools">
+        <h3>Tools &amp; Technologies</h3>
+        <ul>
+            <li>PowerShell 5.1+</li>
+            <li>Active Directory PowerShell Module (RSAT)</li>
+            <li>Windows Server / Active Directory Domain Services</li>
+            <li>CSV output for reporting and compliance handoff</li>
+        </ul>
+    </section>
+
+    <section class="lab-result">
+        <h3>Results &amp; Outcomes</h3>
+        <ul>
+            <li>Reduced time spent on manual account reviews from hours to seconds per audit cycle.</li>
+            <li>Produced a structured, auditable report identifying accounts requiring immediate action.</li>
+            <li>Supported compliance readiness by surfacing password policy violations and stale accounts.</li>
+            <li>Designed to run as a scheduled task for recurring automated audits.</li>
+        </ul>
+    </section>
+
+    <div class="lab-nav">
+        <a href="index.html#automation" class="back-link">&#8592; Back to Automation Scripts</a>
+    </div>
+
+</main>
+
+<a class="back-to-top" href="#top" aria-label="Back to top">&#8593; Top</a>
+
+<footer class="labs-footer">
+    <p>&copy; 2026 Catherine Jason | Cybersecurity Labs &amp; Interactive Projects</p>
+</footer>
+
+</body>
+</html>
