@@ -377,6 +377,74 @@ body {
   color: var(--text-muted);
 }
 
+/* GitHub Project Overview Cards */
+.gh-project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 22px;
+  margin-top: 28px;
+}
+
+.gh-project-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+}
+
+.gh-project-card-link:focus-visible {
+  outline: 2px solid var(--accent-teal);
+  outline-offset: 4px;
+}
+
+.gh-project-card {
+  background: linear-gradient(135deg, rgba(58, 58, 58, 0.95), rgba(43, 43, 43, 0.95));
+  border: 1px solid rgba(0, 217, 255, 0.24);
+  border-radius: 12px;
+  padding: 26px 22px;
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.35);
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.gh-project-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(0, 217, 255, 0.75);
+  box-shadow: 0 0 24px rgba(0, 217, 255, 0.45);
+}
+
+.gh-project-icon {
+  font-size: 2.5rem;
+  color: var(--accent-teal);
+}
+
+.gh-project-label {
+  color: var(--accent-blue);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.gh-project-card h3 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.gh-project-summary {
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.65;
+}
+
+.gh-project-card .card-button {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
 /* GitHub Case Study Cards */
 .gh-case-study {
   display: grid;
