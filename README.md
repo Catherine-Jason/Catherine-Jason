@@ -1,21 +1,12 @@
-🌐 **Portfolio Website:** https://www.catherinejason.com
-🔗 **LinkedIn:** https://www.linkedin.com/in/catherine-jason/
+🌐 [catherinejason.com](https://www.catherinejason.com) | 🔗 [LinkedIn](https://www.linkedin.com/in/catherine-jason/)
 
-Cybersecurity and IT student with hands-on experience in networking,
-security operations, Linux and Windows administration, and threat analysis.
+Hi, I'm Catherine. I'm a cybersecurity and IT student focused on security operations, network administration, and threat analysis. I work hands-on with real tools and real labs, not just theory.
 
-### 🛡️ Core Skills
-- Security operations and threat analysis (SIEM, IDS)
-- Network configuration and troubleshooting (VLANs, ACLs, TCP/IP)
-- Linux and Windows administration (Ubuntu CLI/GUI, Active Directory)
-- Investigative and forensic fundamentals
+My background covers Linux and Windows administration, network configuration, SIEM monitoring, and basic forensics. I have built out lab environments from scratch and documented what I learned along the way.
 
-### 🧰 Tools & Technologies
-- Splunk, SNORT, Nessus
-- Wireshark, Metasploit, Burp Suite
-- Kali Linux, Parrot OS
-- Cisco Catalyst switches
+**What I work with:**
+Splunk, SNORT, Nessus, Wireshark, Metasploit, Burp Suite, Kali Linux, Parrot OS, Cisco Catalyst switches, Ubuntu (CLI and GUI), Active Directory
 
-### 🎓 Honors & Affiliations
-- Phi Theta Kappa Honor Society — Alpha Psi Psi Chapter
-- Member, Cybersecurity Association, Inc.
+**Honors:**
+Phi Theta Kappa Honor Society, Alpha Psi Psi Chapter
+Member, Cybersecurity Association, Inc.
