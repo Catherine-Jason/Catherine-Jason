@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Automation Lab 2 — Bash System Health Check | Catherine Jason</title>
+    <title>Automation Lab 2 - Bash System Health Check | Catherine Jason</title>
     <meta name="description" content="Automation Lab 2: Bash script to check system health metrics including CPU, memory, disk usage, and running services, with alerting output.">
     <meta name="robots" content="index, follow">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -21,7 +21,7 @@
     </nav>
 
     <section class="lab-detail" id="automation-lab2">
-        <h2>Automation Lab 2 — Bash System Health Check</h2>
+        <h2>Automation Lab 2 - Bash System Health Check</h2>
         <p>A Bash script that checks key system health metrics on a Linux host, flags anything outside acceptable thresholds, and outputs a timestamped summary for review or log ingestion.</p>
     </section>
 
@@ -57,7 +57,7 @@
     <section class="case-study-section">
         <h3>Script Preview</h3>
         <pre class="code-block"><code>#!/bin/bash
-# Automation Lab 2 — Bash System Health Check
+# Automation Lab 2 - Bash System Health Check
 # Checks CPU, memory, disk, and service status with threshold alerting
 
 TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
@@ -74,16 +74,16 @@ RED='\033[0;31m'
 RESET='\033[0m'
 
 echo "====================================="
-echo " System Health Check — $TIMESTAMP"
+echo " System Health Check - $TIMESTAMP"
 echo "====================================="
 
 # CPU Usage
 CPU_IDLE=$(top -bn1 | grep "Cpu(s)" | awk '{print $8}' | tr -d '%')
 CPU_USED=$(echo "100 - $CPU_IDLE" | bc)
 if (( $(echo "$CPU_USED > $CPU_THRESHOLD" | bc -l) )); then
-    echo -e "CPU Usage:    ${RED}${CPU_USED}% — ALERT${RESET}"
+    echo -e "CPU Usage:    ${RED}${CPU_USED}% - ALERT${RESET}"
 else
-    echo -e "CPU Usage:    ${GREEN}${CPU_USED}% — OK${RESET}"
+    echo -e "CPU Usage:    ${GREEN}${CPU_USED}% - OK${RESET}"
 fi
 
 # Memory Usage
@@ -91,17 +91,17 @@ MEM_TOTAL=$(free | awk '/Mem:/ {print $2}')
 MEM_USED=$(free  | awk '/Mem:/ {print $3}')
 MEM_PCT=$(echo "scale=1; $MEM_USED / $MEM_TOTAL * 100" | bc)
 if (( $(echo "$MEM_PCT > $MEM_THRESHOLD" | bc -l) )); then
-    echo -e "Memory Usage: ${RED}${MEM_PCT}% — ALERT${RESET}"
+    echo -e "Memory Usage: ${RED}${MEM_PCT}% - ALERT${RESET}"
 else
-    echo -e "Memory Usage: ${GREEN}${MEM_PCT}% — OK${RESET}"
+    echo -e "Memory Usage: ${GREEN}${MEM_PCT}% - OK${RESET}"
 fi
 
 # Disk Usage
 DISK_USED=$(df / | awk 'NR==2 {print $5}' | tr -d '%')
 if [ "$DISK_USED" -gt "$DISK_THRESHOLD" ]; then
-    echo -e "Disk Usage:   ${RED}${DISK_USED}% — ALERT${RESET}"
+    echo -e "Disk Usage:   ${RED}${DISK_USED}% - ALERT${RESET}"
 else
-    echo -e "Disk Usage:   ${GREEN}${DISK_USED}% — OK${RESET}"
+    echo -e "Disk Usage:   ${GREEN}${DISK_USED}% - OK${RESET}"
 fi
 
 # Service Checks
@@ -112,7 +112,7 @@ for SERVICE in "${SERVICES[@]}"; do
     if [ "$STATUS" = "active" ]; then
         echo -e "  $SERVICE: ${GREEN}Running${RESET}"
     else
-        echo -e "  $SERVICE: ${RED}NOT Running — ALERT${RESET}"
+        echo -e "  $SERVICE: ${RED}NOT Running - ALERT${RESET}"
     fi
 done
 
