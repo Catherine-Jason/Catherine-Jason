@@ -832,6 +832,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (toggle) {
     toggle.addEventListener("click", () => {
       if (box) box.classList.remove("hidden");
+      toggle.classList.add("hidden");
       toggle.setAttribute("aria-expanded", "true");
       if (input) input.focus();
     });
@@ -840,7 +841,10 @@ document.addEventListener("DOMContentLoaded", function () {
   if (minimize) {
     minimize.addEventListener("click", () => {
       if (box) box.classList.add("hidden");
-      if (toggle) toggle.setAttribute("aria-expanded", "false");
+      if (toggle) {
+        toggle.classList.remove("hidden");
+        toggle.setAttribute("aria-expanded", "false");
+      }
       if (recognition && recognizing) {
         recognition.stop();
       }

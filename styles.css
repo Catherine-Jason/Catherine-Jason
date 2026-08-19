@@ -362,7 +362,13 @@ footer {
   font-size: 14px;
   font-weight: 700;
   box-shadow: 0 0 16px rgba(58, 141, 255, 0.45);
-  transition: 0.25s ease;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+#chatbot-toggle.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.8);
 }
 
 #chatbot-toggle:hover {
