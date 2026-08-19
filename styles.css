@@ -419,11 +419,18 @@ footer {
 
 #chatbot-minimize {
   background: transparent;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.25);
   cursor: pointer;
-  font-size: 22px;
+  font-size: 20px;
   line-height: 1;
   color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 #chatbot-minimize:hover,
@@ -581,6 +588,48 @@ footer {
   color: var(--accent-teal);
   border-color: rgba(0, 217, 255, 0.8);
   box-shadow: 0 0 12px rgba(0, 217, 255, 0.3);
+}
+
+/* Suggested question chips */
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 2px 0 6px 32px;
+}
+
+.chat-chip {
+  background: rgba(0, 217, 255, 0.08);
+  border: 1px solid rgba(0, 217, 255, 0.4);
+  color: var(--accent-teal);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+
+.chat-chip:hover {
+  background: var(--accent-teal);
+  color: var(--bg-darkest);
+  border-color: var(--accent-teal);
+}
+
+/* Inline portfolio links inside chat bubbles */
+.chat-link {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--accent-teal);
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(0, 217, 255, 0.5);
+  transition: color 0.2s ease;
+}
+
+.chat-link:hover {
+  color: white;
+  border-bottom-color: white;
 }
 
 @media (max-width: 768px) {

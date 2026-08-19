@@ -184,8 +184,8 @@
 
   <div id="chatbot-box" class="hidden">
     <div id="chatbot-header">
-      <span>Catherine's Chatbot</span>
-      <button id="chatbot-minimize" type="button" aria-label="Minimize chatbot">-</button>
+      <span>Ask Catherine</span>
+      <button id="chatbot-minimize" type="button" aria-label="Minimize chatbot">&#8722;</button>
     </div>
     <div id="chatbot-status" aria-live="polite">Voice replies are ON. Click Listen to toggle.</div>
 
@@ -391,10 +391,14 @@
 </footer>
 
 <script>
-      // ============================================
+// ============================================
 // CHATBOT CORE LOGIC + ICON RENDERING
 // ============================================
-function addMessage(sender, text) {
+
+const botSVG = `<svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="4" ry="4"/><circle cx="9" cy="12" r="1.2"/><circle cx="15" cy="12" r="1.2"/><line x1="12" y1="4" x2="12" y2="6"/><circle cx="12" cy="3" r="1"/></svg>`;
+const userSVG = `<svg viewBox="0 0 24 24"><rect x="3" y="14" width="18" height="4" rx="1" ry="1"/><rect x="5" y="6" width="14" height="8" rx="2" ry="2"/><path d="M12 7.5c-2 0-3 1.5-3 3.2 0 1.3.7 2.3 1.8 2.8h2.4c1.1-.5 1.8-1.5 1.8-2.8 0-1.7-1-3.2-3-3.2z"/><path d="M9.5 13.5c.6 1.2 1.6 2 2.5 2s1.9-.8 2.5-2"/></svg>`;
+
+function addMessage(sender, html, isHTML) {
   const messages = document.getElementById("chatbot-messages");
   if (!messages) return;
 
@@ -404,26 +408,7 @@ function addMessage(sender, text) {
   const iconWrapper = document.createElement("div");
   iconWrapper.classList.add("chat-icon");
 
-  const botSVG = `
-    <svg viewBox="0 0 24 24">
-      <rect x="4" y="6" width="16" height="12" rx="4" ry="4" />
-      <circle cx="9" cy="12" r="1.2" />
-      <circle cx="15" cy="12" r="1.2" />
-      <line x1="12" y1="4" x2="12" y2="6" />
-      <circle cx="12" cy="3" r="1" />
-    </svg>
-  `;
-
-  const userSVG = `
-    <svg viewBox="0 0 24 24">
-      <rect x="3" y="14" width="18" height="4" rx="1" ry="1" />
-      <rect x="5" y="6" width="14" height="8" rx="2" ry="2" />
-      <path d="M12 7.5c-2 0-3 1.5-3 3.2 0 1.3.7 2.3 1.8 2.8h2.4c1.1-.5 1.8-1.5 1.8-2.8 0-1.7-1-3.2-3-3.2z" />
-      <path d="M9.5 13.5c.6 1.2 1.6 2 2.5 2s1.9-.8 2.5-2" />
-    </svg>
-  `;
-
-  if (sender === "🤖") {
+  if (sender === "bot") {
     iconWrapper.classList.add("bot-icon-message");
     iconWrapper.innerHTML = botSVG;
   } else {
@@ -433,12 +418,38 @@ function addMessage(sender, text) {
 
   const bubble = document.createElement("div");
   bubble.classList.add("chat-bubble");
-  bubble.classList.add(sender === "🤖" ? "bot-bubble" : "user-bubble");
-  bubble.textContent = text;
+  bubble.classList.add(sender === "bot" ? "bot-bubble" : "user-bubble");
+  if (isHTML) {
+    bubble.innerHTML = html;
+  } else {
+    bubble.textContent = html;
+  }
 
   row.appendChild(iconWrapper);
   row.appendChild(bubble);
   messages.appendChild(row);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function addChips(suggestions) {
+  const messages = document.getElementById("chatbot-messages");
+  if (!messages || !suggestions || !suggestions.length) return;
+
+  const chipRow = document.createElement("div");
+  chipRow.classList.add("chip-row");
+
+  suggestions.forEach(s => {
+    const chip = document.createElement("button");
+    chip.classList.add("chat-chip");
+    chip.textContent = s;
+    chip.addEventListener("click", () => {
+      chipRow.remove();
+      sendQuestion(s);
+    });
+    chipRow.appendChild(chip);
+  });
+
+  messages.appendChild(chipRow);
   messages.scrollTop = messages.scrollHeight;
 }
 
@@ -456,13 +467,15 @@ function sendQuestion(questionInput) {
   if (!input) return;
   const question = (questionInput || input.value).trim();
   if (!question) return;
-  addMessage("You", question);
+  addMessage("user", question);
   input.value = "";
+  // Remove any existing chips when a new question is asked
+  document.querySelectorAll(".chip-row").forEach(r => r.remove());
   showTyping();
   setTimeout(() => {
     hideTyping();
     handleQuestion(question);
-  }, 450);
+  }, 500);
 }
 
 // ============================================
@@ -479,7 +492,6 @@ function updateChatStatus(message) {
   if (status) status.textContent = message;
 }
 
-// Speech-to-text
 if (speechSupported) {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   recognition = new SpeechRecognition();
@@ -504,7 +516,7 @@ if (speechSupported) {
     recognizing = false;
     const micButton = document.getElementById("chatbot-mic");
     if (micButton) micButton.classList.remove("active");
-    updateChatStatus(`Voice input error: ${event.error}.`);
+    updateChatStatus("Voice input error. Please try again.");
   };
 
   recognition.onresult = (event) => {
@@ -513,7 +525,6 @@ if (speechSupported) {
     const latest = event.results[event.results.length - 1];
     const transcript = latest[0].transcript.trim();
     if (!transcript) return;
-
     input.value = transcript;
     if (latest.isFinal) {
       sendQuestion(transcript);
@@ -521,52 +532,57 @@ if (speechSupported) {
   };
 }
 
-// Text-to-speech: safe voice loading
+// ============================================
+// TEXT-TO-SPEECH: NATURAL FEMALE VOICE
+// Ranked priority list targets the most human-sounding
+// female voices across Chrome, Edge, Safari, and Firefox.
+// ============================================
 let availableVoices = [];
 let selectedVoice = null;
 
-const preferredFemaleVoiceHints = [
+// Ordered from most preferred to least
+const femaleVoicePriority = [
+  "google uk english female",
   "google us english",
+  "microsoft aria",
+  "microsoft jenny",
   "samantha",
   "ava",
-  "aria",
-  "allison",
-  "joanna",
-  "salli",
-  "jenny",
-  "zira",
   "karen",
   "moira",
-  "female"
+  "allison",
+  "victoria",
+  "fiona",
+  "zira",
+  "female",
+  "woman"
 ];
-const maleVoiceHints = ["david", "mark", "george", "male"];
+const maleVoiceExclusions = ["david", "mark", "george", " male", "man", "daniel", "alex", "fred", "junior", "albert", "ralph", "bad news", "bahh", "bells", "boing", "bubbles", "cellos", "deranged", "good news", "hysterical", "organ", "superstar", "trinoids", "whisper", "zarvox"];
+
+function scoreVoice(voice) {
+  const name = voice.name.toLowerCase();
+  const isUSEnglish = voice.lang === "en-US";
+  const isUKEnglish = voice.lang === "en-GB";
+  const isAnyEnglish = voice.lang.startsWith("en");
+  const isMale = maleVoiceExclusions.some(h => name.includes(h));
+  if (isMale) return -100;
+
+  // Exact priority match gets highest score
+  const priorityIdx = femaleVoicePriority.findIndex(h => name.includes(h));
+  const priorityScore = priorityIdx >= 0 ? (femaleVoicePriority.length - priorityIdx) * 10 : 0;
+
+  return priorityScore +
+    (isUSEnglish ? 8 : 0) +
+    (isUKEnglish ? 6 : 0) +
+    (isAnyEnglish ? 3 : 0) +
+    (voice.localService ? 1 : 0);
+}
 
 function loadVoices() {
   availableVoices = window.speechSynthesis ? speechSynthesis.getVoices() : [];
-  if (!availableVoices.length) {
-    selectedVoice = null;
-    return;
-  }
-
-  selectedVoice = availableVoices
-    .map((voice) => {
-      const name = voice.name.toLowerCase();
-      const isUSEnglish = voice.lang === "en-US";
-      const isAnyEnglish = voice.lang.startsWith("en");
-      const hasFemaleHint = preferredFemaleVoiceHints.some((hint) => name.includes(hint));
-      const hasMaleHint = maleVoiceHints.some((hint) => name.includes(hint));
-      const localBonus = voice.localService ? 2 : 0;
-      const googleBonus = name.includes("google") ? 5 : 0;
-      const score =
-        (isUSEnglish ? 8 : 0) +
-        (isAnyEnglish ? 3 : 0) +
-        (hasFemaleHint ? 10 : 0) -
-        (hasMaleHint ? 6 : 0) +
-        localBonus +
-        googleBonus;
-      return { voice, score };
-    })
-    .sort((a, b) => b.score - a.score)[0]?.voice || null;
+  if (!availableVoices.length) { selectedVoice = null; return; }
+  const scored = availableVoices.map(v => ({ voice: v, score: scoreVoice(v) })).sort((a, b) => b.score - a.score);
+  selectedVoice = scored[0].score > -100 ? scored[0].voice : null;
 }
 
 if (synthesisSupported) {
@@ -575,195 +591,279 @@ if (synthesisSupported) {
 }
 
 function speak(text) {
-  if (!voiceEnabled) return;
-  if (!synthesisSupported) return;
-
+  if (!voiceEnabled || !synthesisSupported) return;
+  window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = "en-US";
-  utterance.rate = 0.92;
-  utterance.pitch = 1.1;
+  // Slightly slower than default for clarity, natural pitch
+  utterance.rate = 0.9;
+  utterance.pitch = 1.05;
   utterance.volume = 1;
-
   if (selectedVoice) utterance.voice = selectedVoice;
-
-  window.speechSynthesis.cancel();
   speechSynthesis.speak(utterance);
 }
 
-
 // ============================================
 // Q&A ARRAY
+// Each entry: keywords[], answer (text), link (optional), followUps[]
 // ============================================
 
 const qa = [
   {
-    keywords: ["tell me about yourself", "about you", "who are you", "introduction"],
-    answer: "I am Catherine Jason. I work in IT and cybersecurity, and I have been building real skills through hands-on labs and actual work experience. Right now I support technology operations for a 42-school district in Maryland, and I am finishing my AAS in Cybersecurity. My focus areas are security operations, systems administration, and network defense."
+    keywords: ["tell me about yourself", "about you", "who are you", "introduction", "background"],
+    answer: "I'm Catherine Jason. I work in IT and cybersecurity and I've been building real skills through hands-on labs and actual work experience. Right now I support technology operations for a 42-school district in Maryland and I'm finishing my AAS in Cybersecurity. My focus areas are security operations, systems administration, and network defense.",
+    link: null,
+    followUps: ["What's your work experience?", "What certifications do you have?", "What are your career goals?"]
   },
   {
     keywords: ["why should we hire you", "why hire you", "what value", "what do you bring"],
-    answer: "I bring real work experience, not just coursework. I have already been doing this at scale, supporting 43 school sites, resolving MFA issues, managing Active Directory, and handling help desk tickets in a fast-paced environment. I pick things up quickly, I document my work well, and I show up consistently."
+    answer: "I bring real work experience, not just coursework. I've already been doing this at scale — supporting 43 school sites, resolving MFA issues, managing Active Directory, and handling help desk tickets in a fast-paced environment. I pick things up quickly, I document my work well, and I show up consistently.",
+    link: { text: "See my resume", href: "resume.html" },
+    followUps: ["What's your work experience?", "What are your technical skills?", "What are your strengths?"]
   },
   {
     keywords: ["why cybersecurity", "why cyber", "why this field", "passion for security"],
-    answer: "I genuinely enjoy understanding how systems work and how they can be broken. I like the investigation side of it, figuring out what happened, why it happened, and how to stop it from happening again. That curiosity is what keeps me engaged and keeps me learning."
+    answer: "I genuinely enjoy understanding how systems work and how they can be broken. I like the investigation side of it — figuring out what happened, why it happened, and how to stop it from happening again. That curiosity is what keeps me engaged and keeps me learning.",
+    link: null,
+    followUps: ["How do you stay current in cybersecurity?", "What labs have you completed?", "What are your career goals?"]
   },
   {
     keywords: ["technical skills", "skills", "tools you know", "what tools"],
-    answer: "I am comfortable with Linux and Windows administration, Active Directory, networking fundamentals, and SIEM tools like Splunk. I have also worked with Wireshark, Nmap, Nessus, and Burp Suite in lab environments. On the support side, I have used Quick Assist, Remote Desktop, AnyDesk, and TeamViewer to troubleshoot across Windows and macOS systems."
+    answer: "I'm comfortable with Linux and Windows administration, Active Directory, networking fundamentals, and SIEM tools like Splunk. I've also worked with Wireshark, Nmap, Nessus, and Burp Suite in lab environments. On the support side, I've used Quick Assist, Remote Desktop, AnyDesk, and TeamViewer to troubleshoot across Windows and macOS systems.",
+    link: { text: "View my labs", href: "catherines-labs/index.html" },
+    followUps: ["Can you tell me about your labs?", "What is your networking experience?", "What is your Linux experience?"]
   },
   {
     keywords: ["networking", "router", "switch", "vlan", "cisco"],
-    answer: "I have hands-on experience with Cisco routers and switches, VLAN configuration, and traffic analysis using Wireshark. I can isolate connectivity issues, trace where a problem is coming from, and verify the fix before I close out."
+    answer: "I have hands-on experience with Cisco routers and switches, VLAN configuration, and traffic analysis using Wireshark. I can isolate connectivity issues, trace where a problem is coming from, and verify the fix before I close out.",
+    link: { text: "View networking labs", href: "catherines-labs/index.html" },
+    followUps: ["What other technical skills do you have?", "Tell me about your Linux experience.", "What SIEM tools have you used?"]
   },
   {
     keywords: ["linux", "ubuntu", "kali", "parrot", "command line"],
-    answer: "Linux is something I use regularly. I am comfortable with user management, file permissions, service configuration, and command line troubleshooting. I have worked across Ubuntu, Kali, and Parrot environments in both lab and practical settings."
+    answer: "Linux is something I use regularly. I'm comfortable with user management, file permissions, service configuration, and command line troubleshooting. I've worked across Ubuntu, Kali, and Parrot environments in both lab and practical settings.",
+    link: { text: "View my labs", href: "catherines-labs/index.html" },
+    followUps: ["What Windows Server experience do you have?", "Tell me about your penetration testing labs.", "What are your technical skills?"]
   },
   {
     keywords: ["windows server", "active directory", "ad", "group policy"],
-    answer: "I have configured Active Directory, set up users and groups, applied Group Policy, and worked with role-based access controls following least-privilege principles. I also resolved MFA resets and account lockouts in a live environment at Carroll County Public Schools."
+    answer: "I've configured Active Directory, set up users and groups, applied Group Policy, and worked with role-based access controls following least-privilege principles. I also resolved MFA resets and account lockouts in a live environment at Carroll County Public Schools.",
+    link: { text: "View my labs", href: "catherines-labs/index.html" },
+    followUps: ["What is your work experience?", "Tell me about your Linux skills.", "How do you approach troubleshooting?"]
   },
   {
     keywords: ["forensics", "ftk", "osforensics", "digital forensics", "chain of custody"],
-    answer: "I completed structured forensics investigations using FTK Imager and OSForensics. I captured forensic images, reviewed registry artifacts and file metadata, and documented everything according to chain-of-custody standards."
+    answer: "I completed structured forensics investigations using FTK Imager and OSForensics. I captured forensic images, reviewed registry artifacts and file metadata, and documented everything according to chain-of-custody standards.",
+    link: { text: "View forensics labs", href: "catherines-labs/index.html" },
+    followUps: ["What SIEM tools have you used?", "Tell me about your penetration testing experience.", "What other labs have you completed?"]
   },
   {
     keywords: ["siem", "splunk", "log analysis", "log correlation", "soc analyst"],
-    answer: "I used Splunk to analyze authentication logs, surface suspicious patterns, and work through alert triage. I also completed BCR SOC Operations Analyst training, which gave me structured experience with SIEM workflows and incident response prioritization."
+    answer: "I used Splunk to analyze authentication logs, surface suspicious patterns, and work through alert triage. I also completed BCR SOC Operations Analyst training, which gave me structured experience with SIEM workflows and incident response prioritization.",
+    link: { text: "View SOC Analyst certification", href: "soc-analyst.html" },
+    followUps: ["How do you handle a security incident?", "Tell me about your digital forensics experience.", "What certifications do you have?"]
   },
   {
     keywords: ["ethical hacking", "pentest", "penetration testing", "ctf", "vulnerability"],
-    answer: "I completed penetration testing labs that covered the full attack cycle: reconnaissance, scanning, enumeration, and basic exploitation. These labs gave me a stronger sense of how attackers think and what defenses actually matter."
+    answer: "I completed penetration testing labs that covered the full attack cycle: reconnaissance, scanning, enumeration, and basic exploitation. These labs gave me a stronger sense of how attackers think and what defenses actually matter.",
+    link: { text: "View my labs", href: "catherines-labs/index.html" },
+    followUps: ["What SIEM experience do you have?", "Tell me about your digital forensics work.", "How do you stay current in cybersecurity?"]
   },
   {
     keywords: ["projects", "portfolio", "website", "chatbot", "what have you built"],
-    answer: "This portfolio and chatbot are projects I built myself to present my work in a clear and practical way. I also have completed labs in networking, Windows Server administration, digital forensics, and SIEM analysis. You can explore all of it on this site."
+    answer: "This portfolio and chatbot are projects I built myself to present my work in a clear and practical way. I've also completed labs in networking, Windows Server administration, digital forensics, and SIEM analysis. You can explore everything on this site.",
+    link: { text: "Explore Catherine's Labs", href: "catherines-labs/index.html" },
+    followUps: ["What labs have you completed?", "Tell me about your technical skills.", "What are your career goals?"]
   },
   {
     keywords: ["labs", "hands on", "hands-on", "practice", "lab work"],
-    answer: "My labs cover networking, Linux, Windows Server, digital forensics, SIEM investigation, and security testing. Each one was designed to simulate a realistic scenario so I could actually practice troubleshooting and not just read about it."
+    answer: "My labs cover networking, Linux, Windows Server, digital forensics, SIEM investigation, and security testing. Each one was designed to simulate a realistic scenario so I could actually practice troubleshooting and not just read about it.",
+    link: { text: "Browse all labs", href: "catherines-labs/index.html" },
+    followUps: ["What tools did you use in your labs?", "Tell me about your SIEM labs.", "Tell me about your forensics labs."]
   },
   {
     keywords: ["troubleshooting", "problem solving", "how do you fix", "approach to problems"],
-    answer: "I keep my troubleshooting process calm and structured. I confirm the issue first, then test one variable at a time, document each step as I go, and verify the fix before I call it done. That approach keeps me from chasing the wrong problem."
+    answer: "I keep my troubleshooting process calm and structured. I confirm the issue first, then test one variable at a time, document each step as I go, and verify the fix before I call it done. That approach keeps me from chasing the wrong problem.",
+    link: null,
+    followUps: ["Tell me about your help desk experience.", "What is your incident response process?", "What are your strengths?"]
   },
   {
     keywords: ["strengths", "good at", "soft skills", "communication", "work style", "what are your strengths"],
-    answer: "My strongest traits are clear communication, consistency, and ownership. I work well on my own and I collaborate well with others. I stay focused when things shift, and I do not leave tasks half-finished."
+    answer: "My strongest traits are clear communication, consistency, and ownership. I work well on my own and I collaborate well with others. I stay focused when things shift and I don't leave tasks half-finished.",
+    link: { text: "See my resume", href: "resume.html" },
+    followUps: ["What are you working on improving?", "How do you handle pressure?", "How do you work on a team?"]
   },
   {
     keywords: ["weakness", "improve", "growth area", "what are you working on"],
-    answer: "I am actively working on responding faster under interview pressure. I know the material well, but I want my delivery to match that confidence. I have been doing mock interviews and reviewing my responses to tighten things up."
+    answer: "I'm actively working on responding faster under interview pressure. I know the material well, but I want my delivery to match that confidence. I've been doing mock interviews and reviewing my responses to tighten things up.",
+    link: null,
+    followUps: ["What are your strengths?", "How do you handle pressure?", "What are your career goals?"]
   },
   {
     keywords: ["certification", "degree", "courses", "education", "security plus", "comptia"],
-    answer: "I hold CompTIA Security Plus, SY0-701, certified in August 2026. I also completed BCR Cyber Program SOC Operations Analyst training. I am currently finishing my AAS in Cybersecurity and I am a member of Phi Theta Kappa Honor Society."
+    answer: "I hold CompTIA Security+ SY0-701, certified in August 2026. I also completed BCR Cyber Program SOC Operations Analyst training. I'm currently finishing my AAS in Cybersecurity and I'm a member of Phi Theta Kappa Honor Society.",
+    link: { text: "View my certifications", href: "certifications.html" },
+    followUps: ["Tell me about your CompTIA Security+ certification.", "What is your SOC Analyst background?", "What are your career goals?"]
   },
   {
     keywords: ["phi theta kappa", "honor society", "honors", "academic achievement"],
-    answer: "I am a member of the Phi Theta Kappa Honor Society, Alpha Psi Psi Chapter. That recognition reflects my academic commitment alongside everything I have been building on the technical side."
+    answer: "I'm a member of the Phi Theta Kappa Honor Society, Alpha Psi Psi Chapter. That recognition reflects my academic commitment alongside everything I've been building on the technical side.",
+    link: null,
+    followUps: ["What certifications do you have?", "Tell me about yourself.", "What are your career goals?"]
   },
   {
     keywords: ["career goals", "future", "plans", "next role", "where do you see yourself"],
-    answer: "My goal is to move into a security operations or IT support role where I can contribute from day one and keep growing. Long term I want to go deeper into incident response and network defense."
+    answer: "My goal is to move into a security operations or IT support role where I can contribute from day one and keep growing. Long term I want to go deeper into incident response and network defense.",
+    link: { text: "See my resume", href: "resume.html" },
+    followUps: ["Why should we hire you?", "What is your work experience?", "What are your technical skills?"]
   },
   {
     keywords: ["first 90 days", "first three months", "onboarding", "starting a new job"],
-    answer: "In my first 90 days I focus on learning how the team works, understanding documentation standards, and becoming someone people can rely on. I ask focused questions, I take notes, and I build trust through consistent follow-through."
+    answer: "In my first 90 days I focus on learning how the team works, understanding documentation standards, and becoming someone people can rely on. I ask focused questions, I take notes, and I build trust through consistent follow-through.",
+    link: null,
+    followUps: ["What are your strengths?", "How do you work on a team?", "Why should we hire you?"]
   },
   {
     keywords: ["incident response", "security incident", "example incident", "how do you handle an incident"],
-    answer: "When I handle an incident I follow a clear process. Identify the issue, gather evidence, contain the risk, escalate if needed, and document every action taken. I keep it organized so the team has a clear record of what happened and what was done."
+    answer: "When I handle an incident I follow a clear process. Identify the issue, gather evidence, contain the risk, escalate if needed, and document every action taken. I keep it organized so the team has a clear record of what happened and what was done.",
+    link: { text: "View SOC Analyst training", href: "soc-analyst.html" },
+    followUps: ["What SIEM tools have you used?", "Tell me about your forensics experience.", "What is your troubleshooting approach?"]
   },
   {
     keywords: ["ticketing", "service desk", "help desk", "it support", "ticket queue"],
-    answer: "I have real help desk experience from my time at Carroll County Public Schools, where I worked ticket queues covering MFA resets, account lockouts, password issues, and device support across 43 sites. I keep my notes accurate and my follow-up timely."
+    answer: "I have real help desk experience from my time at Carroll County Public Schools, where I worked ticket queues covering MFA resets, account lockouts, password issues, and device support across 43 sites. I keep my notes accurate and my follow-up timely.",
+    link: { text: "See my resume", href: "resume.html" },
+    followUps: ["What remote support tools do you use?", "How do you approach troubleshooting?", "Tell me about your work experience."]
   },
   {
     keywords: ["work experience", "job history", "current job", "where do you work", "carroll county"],
-    answer: "I currently work in Technology Services supporting Carroll County Public Schools across 43 school sites. My work covers Active Directory, device deployment, help desk tickets, MFA troubleshooting, and end-user support. I also provide independent IT and cybersecurity support to a small business client in Sykesville, Maryland."
+    answer: "I currently work in Technology Services supporting Carroll County Public Schools across 43 school sites. My work covers Active Directory, device deployment, help desk tickets, MFA troubleshooting, and end-user support. I also provide independent IT and cybersecurity support to a small business client in Sykesville, Maryland.",
+    link: { text: "See my full resume", href: "resume.html" },
+    followUps: ["What technical skills do you use in your current role?", "Why should we hire you?", "What are your career goals?"]
   },
   {
     keywords: ["remote support", "remote access", "anydesk", "teamviewer", "quick assist"],
-    answer: "I regularly support clients remotely using Quick Assist, Windows Remote Desktop, AnyDesk, and TeamViewer. I troubleshoot across both Windows and macOS systems and walk clients through fixes clearly and patiently."
+    answer: "I regularly support clients remotely using Quick Assist, Windows Remote Desktop, AnyDesk, and TeamViewer. I troubleshoot across both Windows and macOS systems and walk clients through fixes clearly and patiently.",
+    link: { text: "See my resume", href: "resume.html" },
+    followUps: ["Tell me about your help desk experience.", "What technical skills do you have?", "How do you approach troubleshooting?"]
   },
   {
     keywords: ["availability", "start date", "schedule", "when can you start"],
-    answer: "I am open to discussing start timing based on what your team needs. I can plan my schedule to support a smooth onboarding."
+    answer: "I'm open to discussing start timing based on what your team needs. I can plan my schedule to support a smooth onboarding.",
+    link: { text: "Contact me", href: "#contact" },
+    followUps: ["How can I contact you?", "What is your availability for interviews?", "Why should we hire you?"]
   },
   {
     keywords: ["salary", "compensation", "pay range", "how much do you make"],
-    answer: "I am open to a conversation about compensation based on the role, the scope of work, and the market range for entry-level cybersecurity and IT positions."
+    answer: "I'm open to a conversation about compensation based on the role, the scope of work, and the market range for entry-level cybersecurity and IT positions.",
+    link: null,
+    followUps: ["What are your career goals?", "Why should we hire you?", "How can I contact you?"]
   },
   {
     keywords: ["work authorization", "authorized to work", "sponsorship", "visa"],
-    answer: "I can provide any work authorization information you need during the hiring process."
+    answer: "I can provide any work authorization information you need during the hiring process.",
+    link: { text: "Contact me", href: "#contact" },
+    followUps: ["How can I contact you?", "What is your availability?", "Why should we hire you?"]
   },
   {
     keywords: ["conflict", "disagreement", "team conflict", "difficult coworker"],
-    answer: "When there is a disagreement, I focus on understanding the other person's perspective before I push back. I keep it professional and focused on the work, not the person. Most conflicts get resolved pretty quickly when everyone feels heard."
+    answer: "When there's a disagreement, I focus on understanding the other person's perspective before I push back. I keep it professional and focused on the work, not the person. Most conflicts get resolved pretty quickly when everyone feels heard.",
+    link: null,
+    followUps: ["How do you work on a team?", "What are your strengths?", "How do you handle pressure?"]
   },
   {
     keywords: ["pressure", "deadline", "stressful", "high pressure", "under pressure"],
-    answer: "I stay calm under pressure by keeping things organized and focusing on what I can control. I prioritize, communicate clearly about where things stand, and work through the problem one step at a time."
+    answer: "I stay calm under pressure by keeping things organized and focusing on what I can control. I prioritize, communicate clearly about where things stand, and work through the problem one step at a time.",
+    link: null,
+    followUps: ["What are your strengths?", "How do you approach troubleshooting?", "Tell me about your work experience."]
   },
   {
     keywords: ["teamwork", "team player", "collaborate", "working with others"],
-    answer: "I work well on teams. I communicate clearly, I do not leave people guessing on where things stand, and I am willing to step in and help where it is needed. I have done that in both school projects and in actual work environments."
+    answer: "I work well on teams. I communicate clearly, I don't leave people guessing on where things stand, and I'm willing to step in and help where it's needed. I've done that in both school projects and in actual work environments.",
+    link: null,
+    followUps: ["How do you handle conflict?", "What are your strengths?", "Tell me about your work experience."]
   },
   {
     keywords: ["tell me about a time", "example of", "give me an example", "walk me through"],
-    answer: "Happy to. Ask me about a specific situation, like troubleshooting a difficult issue, handling a security incident, supporting a user, or working through a challenge in a team setting, and I will walk you through it."
+    answer: "Happy to. Ask me about a specific situation — like troubleshooting a difficult issue, handling a security incident, supporting a user, or working through a challenge in a team setting — and I'll walk you through it.",
+    link: null,
+    followUps: ["How do you handle a security incident?", "Tell me about your troubleshooting approach.", "Tell me about your work experience."]
   },
   {
     keywords: ["how do you stay current", "learning", "keep up with cybersecurity", "stay updated"],
-    answer: "I stay current by working through labs, reading security news, and following up on areas where I feel less confident. I also review real-world attack patterns and case studies to connect what I am learning to what is actually happening out there."
+    answer: "I stay current by working through labs, reading security news, and following up on areas where I feel less confident. I also review real-world attack patterns and case studies to connect what I'm learning to what's actually happening out there.",
+    link: { text: "Browse my labs", href: "catherines-labs/index.html" },
+    followUps: ["What labs have you completed?", "What certifications do you have?", "Tell me about your career goals."]
   },
   {
     keywords: ["contact", "email", "linkedin", "reach you", "how to contact"],
-    answer: "You can reach me by email at c.jason11@outlook.com or connect with me on LinkedIn at linkedin.com/in/catherine-jason. I am always open to connecting."
+    answer: "You can reach me by email at c.jason11@outlook.com or connect with me on LinkedIn at linkedin.com/in/catherine-jason. I'm always open to connecting.",
+    link: { text: "Go to Contact section", href: "#contact" },
+    followUps: ["What is your availability?", "Why should we hire you?", "Tell me about yourself."]
+  },
+  {
+    keywords: ["resume", "cv", "download resume"],
+    answer: "My resume covers my work experience at Carroll County Public Schools, my independent IT consulting, certifications, education, and technical skills.",
+    link: { text: "View my resume", href: "resume.html" },
+    followUps: ["What is your work experience?", "What certifications do you have?", "Why should we hire you?"]
+  },
+  {
+    keywords: ["comptia", "security plus", "security+", "sy0-701"],
+    answer: "I earned CompTIA Security+ SY0-701 in August 2026. It covers threat analysis, identity management, cryptography, network security, and incident response. It's one of the most recognized entry-level cybersecurity certifications in the industry.",
+    link: { text: "View CompTIA certification", href: "comptia.html" },
+    followUps: ["What other certifications do you have?", "What is your SOC Analyst background?", "What are your career goals?"]
   }
 ];
 
-      // ============================================
-// HANDLE QUESTION USING CLEAN Q&A ARRAY
+// ============================================
+// HANDLE QUESTION
 // ============================================
 function handleQuestion(question) {
   if (!question || typeof question !== "string") {
-    addMessage("🤖", "Sorry, I did not catch that. Please ask again.");
+    addMessage("bot", "I didn't catch that. Go ahead and ask again.");
     return;
   }
 
-  question = question.toLowerCase();
+  const q = question.toLowerCase();
 
-  if (/\b(hello|hi|hey|start|introduction)\b/.test(question)) {
-    const intro =
-      "Hey, I am Catherine's chatbot. I can answer questions about her background, skills, projects, and experience. " +
-      "Feel free to ask about her labs, tools, certifications, work history, or anything you want to know about her.";
-    addMessage("🤖", intro);
+  if (/\b(hello|hi|hey|start|introduction)\b/.test(q)) {
+    const intro = "Hi, I'm Catherine. I can answer questions about my background, skills, labs, and work experience. What would you like to know?";
+    addMessage("bot", intro);
     speak(intro);
+    addChips(["Tell me about yourself", "What are your technical skills?", "What labs have you completed?", "Why should we hire you?"]);
     return;
   }
 
   const bestMatch = qa
     .map((item) => {
-      const matches = item.keywords.filter((keyword) => question.includes(keyword));
-      const longest = matches.reduce((max, keyword) => Math.max(max, keyword.length), 0);
+      const matches = item.keywords.filter((kw) => q.includes(kw));
+      const longest = matches.reduce((max, kw) => Math.max(max, kw.length), 0);
       return { item, score: matches.length, longest };
     })
     .sort((a, b) => (b.score - a.score) || (b.longest - a.longest))[0];
 
   if (bestMatch && bestMatch.score > 0) {
-    addMessage("🤖", bestMatch.item.answer);
-    speak(bestMatch.item.answer);
+    const entry = bestMatch.item;
+    let html = escapeHTML(entry.answer);
+    if (entry.link) {
+      html += ` <a class="chat-link" href="${entry.link.href}" target="_blank" rel="noopener">${escapeHTML(entry.link.text)} ↗</a>`;
+    }
+    addMessage("bot", html, true);
+    speak(entry.answer);
+    if (entry.followUps && entry.followUps.length) {
+      addChips(entry.followUps);
+    }
     return;
   }
 
-  const fallback =
-    "Good question. You can ask me about Catherine's technical skills, work experience, labs, certifications, career goals, or incident response process. Try something like, why should we hire you, or tell me about your experience.";
-  addMessage("🤖", fallback);
+  const fallback = "Good question. Try asking about my technical skills, work experience, labs, certifications, or why you should hire me.";
+  addMessage("bot", fallback);
   speak(fallback);
+  addChips(["What are your technical skills?", "Tell me about yourself", "What labs have you done?", "View resume"]);
+}
+
+function escapeHTML(str) {
+  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
 // ============================================
@@ -784,27 +884,20 @@ document.addEventListener("DOMContentLoaded", function () {
     voiceToggle.classList.toggle("active", voiceEnabled);
     updateChatStatus(
       voiceEnabled
-        ? `Voice replies are ON${selectedVoice ? ` using ${selectedVoice.name}` : ""}. Click Listen to toggle.`
-        : "Voice replies are OFF. Click Listen to enable."
+        ? `Voice ON${selectedVoice ? " \u2013 " + selectedVoice.name : ""}. Toggle to turn off.`
+        : "Voice OFF. Click Listen to enable."
     );
   }
 
   setVoiceToggleState();
-  if (!speechSupported) {
-    updateChatStatus("Voice input is not supported in this browser.");
-    if (micBtn) {
-      micBtn.disabled = true;
-      micBtn.classList.add("disabled");
-    }
+  if (!speechSupported && micBtn) {
+    micBtn.disabled = true;
+    micBtn.classList.add("disabled");
   }
 
   if (micBtn) {
     micBtn.addEventListener("click", () => {
-      if (!recognition) {
-        updateChatStatus("Voice input is not supported in this browser.");
-        return;
-      }
-
+      if (!recognition) return;
       if (recognizing) {
         recognition.stop();
         micBtn.classList.remove("active");
@@ -822,14 +915,13 @@ document.addEventListener("DOMContentLoaded", function () {
   if (voiceToggle) {
     voiceToggle.addEventListener("click", () => {
       voiceEnabled = !voiceEnabled;
+      if (!voiceEnabled && synthesisSupported) speechSynthesis.cancel();
       setVoiceToggleState();
     });
   }
 
   if (sendBtn) {
-    sendBtn.addEventListener("click", () => {
-      sendQuestion();
-    });
+    sendBtn.addEventListener("click", () => sendQuestion());
   }
 
   if (toggle) {
@@ -848,21 +940,15 @@ document.addEventListener("DOMContentLoaded", function () {
         toggle.classList.remove("hidden");
         toggle.setAttribute("aria-expanded", "false");
       }
-      if (recognition && recognizing) {
-        recognition.stop();
-      }
-      if (synthesisSupported) {
-        speechSynthesis.cancel();
-      }
+      if (recognition && recognizing) recognition.stop();
+      if (synthesisSupported) speechSynthesis.cancel();
       if (micBtn) micBtn.classList.remove("active");
     });
   }
 
   if (input) {
     input.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" && input.value.trim() !== "") {
-        sendQuestion();
-      }
+      if (e.key === "Enter" && input.value.trim() !== "") sendQuestion();
     });
   }
 });
