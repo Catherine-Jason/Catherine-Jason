@@ -577,8 +577,8 @@ function speak(text) {
 
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = "en-US";
-  utterance.rate = 0.96;
-  utterance.pitch = 1.03;
+  utterance.rate = 0.88;
+  utterance.pitch = 1.0;
   utterance.volume = 1;
 
   if (selectedVoice) utterance.voice = selectedVoice;
@@ -589,101 +589,137 @@ function speak(text) {
 
 
 // ============================================
-// CLEAN Q&A ARRAY (REPLACE
+// Q&A ARRAY
 // ============================================
 
 const qa = [
   {
     keywords: ["tell me about yourself", "about you", "who are you", "introduction"],
-    answer: "I am Catherine Jason, a cybersecurity and IT student focused on security operations, systems support, and practical lab work. I learn by building, testing, documenting, and improving real workflows."
+    answer: "I am Catherine Jason. I work in IT and cybersecurity, and I have been building real skills through hands-on labs and actual work experience. Right now I support technology operations for a 42-school district in Maryland, and I am finishing my AAS in Cybersecurity. My focus areas are security operations, systems administration, and network defense."
   },
   {
     keywords: ["why should we hire you", "why hire you", "what value", "what do you bring"],
-    answer: "You should hire me because I combine strong technical fundamentals with clear communication and reliable follow through. I can learn quickly, document my work, and support the team from day one."
+    answer: "I bring real work experience, not just coursework. I have already been doing this at scale, supporting 43 school sites, resolving MFA issues, managing Active Directory, and handling help desk tickets in a fast-paced environment. I pick things up quickly, I document my work well, and I show up consistently."
   },
   {
-    keywords: ["why cybersecurity", "why cyber", "why this field"],
-    answer: "I chose cybersecurity because I enjoy solving problems, investigating root causes, and protecting people and systems. It is meaningful work that keeps me curious and motivated to keep growing."
+    keywords: ["why cybersecurity", "why cyber", "why this field", "passion for security"],
+    answer: "I genuinely enjoy understanding how systems work and how they can be broken. I like the investigation side of it, figuring out what happened, why it happened, and how to stop it from happening again. That curiosity is what keeps me engaged and keeps me learning."
   },
   {
-    keywords: ["technical skills", "skills", "experience"],
-    answer: "My technical skills include Linux, Windows administration, networking fundamentals, Active Directory, SIEM analysis, and core security tooling such as Wireshark, Nmap, Splunk, Nessus, and Burp Suite."
+    keywords: ["technical skills", "skills", "tools you know", "what tools"],
+    answer: "I am comfortable with Linux and Windows administration, Active Directory, networking fundamentals, and SIEM tools like Splunk. I have also worked with Wireshark, Nmap, Nessus, and Burp Suite in lab environments. On the support side, I have used Quick Assist, Remote Desktop, AnyDesk, and TeamViewer to troubleshoot across Windows and macOS systems."
   },
   {
-    keywords: ["networking", "router", "switch", "vlan"],
-    answer: "I have practical networking experience with Cisco routers and switches, VLAN setup, and traffic troubleshooting with Wireshark. I am comfortable isolating connectivity issues and validating fixes."
+    keywords: ["networking", "router", "switch", "vlan", "cisco"],
+    answer: "I have hands-on experience with Cisco routers and switches, VLAN configuration, and traffic analysis using Wireshark. I can isolate connectivity issues, trace where a problem is coming from, and verify the fix before I close out."
   },
   {
-    keywords: ["linux", "ubuntu", "kali", "parrot"],
-    answer: "I work in Linux often and I am comfortable with permissions, user management, services, and command line troubleshooting across Ubuntu, Kali, and Parrot environments."
+    keywords: ["linux", "ubuntu", "kali", "parrot", "command line"],
+    answer: "Linux is something I use regularly. I am comfortable with user management, file permissions, service configuration, and command line troubleshooting. I have worked across Ubuntu, Kali, and Parrot environments in both lab and practical settings."
   },
   {
     keywords: ["windows server", "active directory", "ad", "group policy"],
-    answer: "In my Windows Server and Active Directory labs I created users and groups, managed access, and practiced Group Policy and authentication workflows used in enterprise environments."
+    answer: "I have configured Active Directory, set up users and groups, applied Group Policy, and worked with role-based access controls following least-privilege principles. I also resolved MFA resets and account lockouts in a live environment at Carroll County Public Schools."
   },
   {
-    keywords: ["forensics", "ftk", "osforensics", "e3", "prodiscover"],
-    answer: "I completed digital forensics labs where I captured and verified evidence, reviewed registry and file artifacts, and documented findings in a clear and organized format."
+    keywords: ["forensics", "ftk", "osforensics", "digital forensics", "chain of custody"],
+    answer: "I completed structured forensics investigations using FTK Imager and OSForensics. I captured forensic images, reviewed registry artifacts and file metadata, and documented everything according to chain-of-custody standards."
   },
   {
-    keywords: ["siem", "splunk", "log analysis", "soc"],
-    answer: "I used Splunk in lab scenarios to review authentication activity, identify suspicious patterns, and prioritize alerts. This helped me build a practical SOC style triage mindset."
+    keywords: ["siem", "splunk", "log analysis", "log correlation", "soc analyst"],
+    answer: "I used Splunk to analyze authentication logs, surface suspicious patterns, and work through alert triage. I also completed BCR SOC Operations Analyst training, which gave me structured experience with SIEM workflows and incident response prioritization."
   },
   {
-    keywords: ["ethical hacking", "pentest", "penetration testing", "ctf"],
-    answer: "I completed controlled penetration testing labs covering reconnaissance, scanning, enumeration, and basic exploitation. These labs strengthened my understanding of attacker behavior and defense priorities."
+    keywords: ["ethical hacking", "pentest", "penetration testing", "ctf", "vulnerability"],
+    answer: "I completed penetration testing labs that covered the full attack cycle: reconnaissance, scanning, enumeration, and basic exploitation. These labs gave me a stronger sense of how attackers think and what defenses actually matter."
   },
   {
-    keywords: ["projects", "portfolio", "website", "chatbot"],
-    answer: "I built this portfolio and chatbot to present my work clearly to recruiters and hiring teams. I also completed projects in networking, server administration, forensics, and SIEM investigations."
+    keywords: ["projects", "portfolio", "website", "chatbot", "what have you built"],
+    answer: "This portfolio and chatbot are projects I built myself to present my work in a clear and practical way. I also have completed labs in networking, Windows Server administration, digital forensics, and SIEM analysis. You can explore all of it on this site."
   },
   {
-    keywords: ["labs", "hands on", "practice"],
-    answer: "My labs cover networking, Linux, Windows Server, digital forensics, SIEM analysis, and security testing. They gave me confidence by letting me practice troubleshooting in realistic scenarios."
+    keywords: ["labs", "hands on", "hands-on", "practice", "lab work"],
+    answer: "My labs cover networking, Linux, Windows Server, digital forensics, SIEM investigation, and security testing. Each one was designed to simulate a realistic scenario so I could actually practice troubleshooting and not just read about it."
   },
   {
-    keywords: ["troubleshooting", "problem solving", "fix"],
-    answer: "My troubleshooting approach is structured and calm. I confirm the issue, test one variable at a time, document each step, and verify the final fix before I close the task."
+    keywords: ["troubleshooting", "problem solving", "how do you fix", "approach to problems"],
+    answer: "I keep my troubleshooting process calm and structured. I confirm the issue first, then test one variable at a time, document each step as I go, and verify the fix before I call it done. That approach keeps me from chasing the wrong problem."
   },
   {
-    keywords: ["strengths", "good at", "soft skills", "communication", "work style"],
-    answer: "My strengths are clear communication, patience, ownership, and consistency. I work well independently, collaborate well with teams, and stay focused when priorities shift."
+    keywords: ["strengths", "good at", "soft skills", "communication", "work style", "what are your strengths"],
+    answer: "My strongest traits are clear communication, consistency, and ownership. I work well on my own and I collaborate well with others. I stay focused when things shift, and I do not leave tasks half-finished."
   },
   {
-    keywords: ["weakness", "improve", "growth area"],
-    answer: "A growth area for me is improving speed in interview responses under pressure. I am actively improving this with mock interviews, better prep notes, and more repetition."
+    keywords: ["weakness", "improve", "growth area", "what are you working on"],
+    answer: "I am actively working on responding faster under interview pressure. I know the material well, but I want my delivery to match that confidence. I have been doing mock interviews and reviewing my responses to tighten things up."
   },
   {
-    keywords: ["certification", "degree", "courses", "education"],
-    answer: "I earned CompTIA Security Plus SY0 701 and completed BCR SOC Operations Analyst I training. I am also pursuing my AAS in Cybersecurity while continuing hands on labs."
+    keywords: ["certification", "degree", "courses", "education", "security plus", "comptia"],
+    answer: "I hold CompTIA Security Plus, SY0-701, certified in August 2026. I also completed BCR Cyber Program SOC Operations Analyst training. I am currently finishing my AAS in Cybersecurity and I am a member of Phi Theta Kappa Honor Society."
   },
   {
-    keywords: ["career goals", "future", "plans", "next role"],
-    answer: "My goal is to start in a cybersecurity or IT support role where I can contribute immediately, keep learning, and grow into deeper security operations and incident response work."
+    keywords: ["phi theta kappa", "honor society", "honors", "academic achievement"],
+    answer: "I am a member of the Phi Theta Kappa Honor Society, Alpha Psi Psi Chapter. That recognition reflects my academic commitment alongside everything I have been building on the technical side."
   },
   {
-    keywords: ["first 90 days", "first three months", "onboarding"],
-    answer: "In my first ninety days I focus on learning team workflows, understanding documentation standards, and becoming dependable on daily tasks. I ask focused questions and deliver steady progress."
+    keywords: ["career goals", "future", "plans", "next role", "where do you see yourself"],
+    answer: "My goal is to move into a security operations or IT support role where I can contribute from day one and keep growing. Long term I want to go deeper into incident response and network defense."
   },
   {
-    keywords: ["incident response", "security incident", "example incident"],
-    answer: "I follow a simple incident workflow by identifying the issue, collecting evidence, containing risk, escalating when needed, and documenting actions clearly for review and follow up."
+    keywords: ["first 90 days", "first three months", "onboarding", "starting a new job"],
+    answer: "In my first 90 days I focus on learning how the team works, understanding documentation standards, and becoming someone people can rely on. I ask focused questions, I take notes, and I build trust through consistent follow-through."
   },
   {
-    keywords: ["ticketing", "service desk", "help desk", "it support"],
-    answer: "I am comfortable working from ticket queues, tracking updates, and communicating clearly with users. I focus on accurate notes, timely follow up, and complete resolution."
+    keywords: ["incident response", "security incident", "example incident", "how do you handle an incident"],
+    answer: "When I handle an incident I follow a clear process. Identify the issue, gather evidence, contain the risk, escalate if needed, and document every action taken. I keep it organized so the team has a clear record of what happened and what was done."
   },
   {
-    keywords: ["availability", "start date", "schedule"],
-    answer: "I am ready to discuss start timing based on your team needs and I can plan my schedule to support reliable onboarding and training."
+    keywords: ["ticketing", "service desk", "help desk", "it support", "ticket queue"],
+    answer: "I have real help desk experience from my time at Carroll County Public Schools, where I worked ticket queues covering MFA resets, account lockouts, password issues, and device support across 43 sites. I keep my notes accurate and my follow-up timely."
   },
   {
-    keywords: ["salary", "compensation", "pay range"],
-    answer: "I am open to discussing compensation based on role scope, growth opportunity, and market range for entry level cybersecurity and IT positions."
+    keywords: ["work experience", "job history", "current job", "where do you work", "carroll county"],
+    answer: "I currently work in Technology Services supporting Carroll County Public Schools across 43 school sites. My work covers Active Directory, device deployment, help desk tickets, MFA troubleshooting, and end-user support. I also provide independent IT and cybersecurity support to a small business client in Sykesville, Maryland."
   },
   {
-    keywords: ["work authorization", "authorized to work", "sponsorship"],
-    answer: "I can provide full work authorization details during the hiring process and I am happy to share what you need for compliance."
+    keywords: ["remote support", "remote access", "anydesk", "teamviewer", "quick assist"],
+    answer: "I regularly support clients remotely using Quick Assist, Windows Remote Desktop, AnyDesk, and TeamViewer. I troubleshoot across both Windows and macOS systems and walk clients through fixes clearly and patiently."
+  },
+  {
+    keywords: ["availability", "start date", "schedule", "when can you start"],
+    answer: "I am open to discussing start timing based on what your team needs. I can plan my schedule to support a smooth onboarding."
+  },
+  {
+    keywords: ["salary", "compensation", "pay range", "how much do you make"],
+    answer: "I am open to a conversation about compensation based on the role, the scope of work, and the market range for entry-level cybersecurity and IT positions."
+  },
+  {
+    keywords: ["work authorization", "authorized to work", "sponsorship", "visa"],
+    answer: "I can provide any work authorization information you need during the hiring process."
+  },
+  {
+    keywords: ["conflict", "disagreement", "team conflict", "difficult coworker"],
+    answer: "When there is a disagreement, I focus on understanding the other person's perspective before I push back. I keep it professional and focused on the work, not the person. Most conflicts get resolved pretty quickly when everyone feels heard."
+  },
+  {
+    keywords: ["pressure", "deadline", "stressful", "high pressure", "under pressure"],
+    answer: "I stay calm under pressure by keeping things organized and focusing on what I can control. I prioritize, communicate clearly about where things stand, and work through the problem one step at a time."
+  },
+  {
+    keywords: ["teamwork", "team player", "collaborate", "working with others"],
+    answer: "I work well on teams. I communicate clearly, I do not leave people guessing on where things stand, and I am willing to step in and help where it is needed. I have done that in both school projects and in actual work environments."
+  },
+  {
+    keywords: ["tell me about a time", "example of", "give me an example", "walk me through"],
+    answer: "Happy to. Ask me about a specific situation, like troubleshooting a difficult issue, handling a security incident, supporting a user, or working through a challenge in a team setting, and I will walk you through it."
+  },
+  {
+    keywords: ["how do you stay current", "learning", "keep up with cybersecurity", "stay updated"],
+    answer: "I stay current by working through labs, reading security news, and following up on areas where I feel less confident. I also review real-world attack patterns and case studies to connect what I am learning to what is actually happening out there."
+  },
+  {
+    keywords: ["contact", "email", "linkedin", "reach you", "how to contact"],
+    answer: "You can reach me by email at c.jason11@outlook.com or connect with me on LinkedIn at linkedin.com/in/catherine-jason. I am always open to connecting."
   }
 ];
 
@@ -700,8 +736,8 @@ function handleQuestion(question) {
 
   if (/\b(hello|hi|hey|start|introduction)\b/.test(question)) {
     const intro =
-      "Hi, I am Catherine. I created this chatbot to share my cybersecurity experience in a simple and interactive way. " +
-      "Feel free to ask about my labs, tools, projects, and recruiter style interview topics.";
+      "Hey, I am Catherine's chatbot. I can answer questions about her background, skills, projects, and experience. " +
+      "Feel free to ask about her labs, tools, certifications, work history, or any recruiter-style interview topics.";
     addMessage("🤖", intro);
     speak(intro);
     return;
@@ -722,7 +758,7 @@ function handleQuestion(question) {
   }
 
   const fallback =
-    "I can answer questions about my technical skills, projects, incident response approach, service desk workflow, communication style, career goals, and recruiter interview topics like first ninety days and why you should hire me.";
+    "Good question. You can ask me about Catherine's technical skills, work experience, labs, certifications, career goals, incident response process, or common recruiter interview topics. Try something like, why should we hire you, or tell me about your experience.";
   addMessage("🤖", fallback);
   speak(fallback);
 }
