@@ -526,14 +526,15 @@ let availableVoices = [];
 let selectedVoice = null;
 
 const preferredFemaleVoiceHints = [
+  "google us english",
   "samantha",
-  "zira",
-  "aria",
   "ava",
+  "aria",
   "allison",
   "joanna",
   "salli",
   "jenny",
+  "zira",
   "karen",
   "moira",
   "female"
@@ -554,13 +555,15 @@ function loadVoices() {
       const isAnyEnglish = voice.lang.startsWith("en");
       const hasFemaleHint = preferredFemaleVoiceHints.some((hint) => name.includes(hint));
       const hasMaleHint = maleVoiceHints.some((hint) => name.includes(hint));
-      const localBonus = voice.localService ? 1 : 0;
+      const localBonus = voice.localService ? 2 : 0;
+      const googleBonus = name.includes("google") ? 5 : 0;
       const score =
         (isUSEnglish ? 8 : 0) +
         (isAnyEnglish ? 3 : 0) +
         (hasFemaleHint ? 10 : 0) -
         (hasMaleHint ? 6 : 0) +
-        localBonus;
+        localBonus +
+        googleBonus;
       return { voice, score };
     })
     .sort((a, b) => b.score - a.score)[0]?.voice || null;
@@ -577,8 +580,8 @@ function speak(text) {
 
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = "en-US";
-  utterance.rate = 0.88;
-  utterance.pitch = 1.0;
+  utterance.rate = 0.92;
+  utterance.pitch = 1.1;
   utterance.volume = 1;
 
   if (selectedVoice) utterance.voice = selectedVoice;
@@ -737,7 +740,7 @@ function handleQuestion(question) {
   if (/\b(hello|hi|hey|start|introduction)\b/.test(question)) {
     const intro =
       "Hey, I am Catherine's chatbot. I can answer questions about her background, skills, projects, and experience. " +
-      "Feel free to ask about her labs, tools, certifications, work history, or any recruiter-style interview topics.";
+      "Feel free to ask about her labs, tools, certifications, work history, or anything you want to know about her.";
     addMessage("🤖", intro);
     speak(intro);
     return;
@@ -758,7 +761,7 @@ function handleQuestion(question) {
   }
 
   const fallback =
-    "Good question. You can ask me about Catherine's technical skills, work experience, labs, certifications, career goals, incident response process, or common recruiter interview topics. Try something like, why should we hire you, or tell me about your experience.";
+    "Good question. You can ask me about Catherine's technical skills, work experience, labs, certifications, career goals, or incident response process. Try something like, why should we hire you, or tell me about your experience.";
   addMessage("🤖", fallback);
   speak(fallback);
 }
