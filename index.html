@@ -185,7 +185,7 @@
   <div id="chatbot-box" class="hidden">
     <div id="chatbot-header">
       <span>Catherine's Chatbot</span>
-      <button id="chatbot-minimize" type="button" aria-label="Minimize chatbot">–</button>
+      <button id="chatbot-minimize" type="button" aria-label="Minimize chatbot">-</button>
     </div>
     <div id="chatbot-status" aria-live="polite">Voice replies are ON. Click Listen to toggle.</div>
 
@@ -523,9 +523,47 @@ if (speechSupported) {
 
 // Text-to-speech: safe voice loading
 let availableVoices = [];
+let selectedVoice = null;
+
+const preferredFemaleVoiceHints = [
+  "samantha",
+  "zira",
+  "aria",
+  "ava",
+  "allison",
+  "joanna",
+  "salli",
+  "jenny",
+  "karen",
+  "moira",
+  "female"
+];
+const maleVoiceHints = ["david", "mark", "george", "male"];
 
 function loadVoices() {
   availableVoices = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  if (!availableVoices.length) {
+    selectedVoice = null;
+    return;
+  }
+
+  selectedVoice = availableVoices
+    .map((voice) => {
+      const name = voice.name.toLowerCase();
+      const isUSEnglish = voice.lang === "en-US";
+      const isAnyEnglish = voice.lang.startsWith("en");
+      const hasFemaleHint = preferredFemaleVoiceHints.some((hint) => name.includes(hint));
+      const hasMaleHint = maleVoiceHints.some((hint) => name.includes(hint));
+      const localBonus = voice.localService ? 1 : 0;
+      const score =
+        (isUSEnglish ? 8 : 0) +
+        (isAnyEnglish ? 3 : 0) +
+        (hasFemaleHint ? 10 : 0) -
+        (hasMaleHint ? 6 : 0) +
+        localBonus;
+      return { voice, score };
+    })
+    .sort((a, b) => b.score - a.score)[0]?.voice || null;
 }
 
 if (synthesisSupported) {
@@ -539,12 +577,11 @@ function speak(text) {
 
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = "en-US";
+  utterance.rate = 0.96;
+  utterance.pitch = 1.03;
+  utterance.volume = 1;
 
-  const preferred = availableVoices.find(v =>
-    v.lang.startsWith("en") &&
-    /female|samantha|us/i.test(v.name)
-  );
-  if (preferred) utterance.voice = preferred;
+  if (selectedVoice) utterance.voice = selectedVoice;
 
   window.speechSynthesis.cancel();
   speechSynthesis.speak(utterance);
@@ -556,102 +593,97 @@ function speak(text) {
 // ============================================
 
 const qa = [
-    {
-    keywords: ["tell me about yourself", "about you", "who are you"],
-    answer: "I am someone who enjoys learning how things work, especially in cybersecurity. I am working through my AAS in Cybersecurity and spend a lot of time doing hands-on labs in networking, Linux, and security tools."
+  {
+    keywords: ["tell me about yourself", "about you", "who are you", "introduction"],
+    answer: "I am Catherine Jason, a cybersecurity and IT student focused on security operations, systems support, and practical lab work. I learn by building, testing, documenting, and improving real workflows."
   },
-
+  {
+    keywords: ["why should we hire you", "why hire you", "what value", "what do you bring"],
+    answer: "You should hire me because I combine strong technical fundamentals with clear communication and reliable follow through. I can learn quickly, document my work, and support the team from day one."
+  },
   {
     keywords: ["why cybersecurity", "why cyber", "why this field"],
-    answer: "Cybersecurity clicked for me because I enjoy problem solving, investigating issues, and working hands on. There is always something new to learn and the field moves fast which keeps me motivated."
+    answer: "I chose cybersecurity because I enjoy solving problems, investigating root causes, and protecting people and systems. It is meaningful work that keeps me curious and motivated to keep growing."
   },
   {
     keywords: ["technical skills", "skills", "experience"],
-    answer: "I have experience with Linux, Windows, networking fundamentals, Wireshark, Nmap, Active Directory, virtualization, SIEM concepts, and basic scripting. I completed penetration testing and digital forensics labs that strengthened my practical skills."
+    answer: "My technical skills include Linux, Windows administration, networking fundamentals, Active Directory, SIEM analysis, and core security tooling such as Wireshark, Nmap, Splunk, Nessus, and Burp Suite."
   },
   {
     keywords: ["networking", "router", "switch", "vlan"],
-    answer: "I have hands-on networking experience from building and troubleshooting lab environments. I worked with Cisco routers and switches, configured VLANs, set up inter-VLAN communication, and used Wireshark to inspect traffic and troubleshoot connectivity issues."
+    answer: "I have practical networking experience with Cisco routers and switches, VLAN setup, and traffic troubleshooting with Wireshark. I am comfortable isolating connectivity issues and validating fixes."
   },
   {
     keywords: ["linux", "ubuntu", "kali", "parrot"],
-    answer: "I use Linux constantly in my labs. I am comfortable with permissions, file systems, user management, networking commands, and troubleshooting. I worked in Ubuntu, Kali, and Parrot Security environments."
+    answer: "I work in Linux often and I am comfortable with permissions, user management, services, and command line troubleshooting across Ubuntu, Kali, and Parrot environments."
   },
   {
-    keywords: ["windows server", "active directory", "ad"],
-    answer: "I worked with Windows Server and Active Directory in my labs. I created users and groups, managed permissions, configured Group Policy, and practiced authentication concepts. These labs helped me understand enterprise identity and access management."
+    keywords: ["windows server", "active directory", "ad", "group policy"],
+    answer: "In my Windows Server and Active Directory labs I created users and groups, managed access, and practiced Group Policy and authentication workflows used in enterprise environments."
   },
   {
     keywords: ["forensics", "ftk", "osforensics", "e3", "prodiscover"],
-    answer: "I completed digital forensics labs using FTK Imager, OSForensics, E3 Forensic Platform, and ProDiscover. I practiced imaging drives, verifying evidence with hashing, analyzing registry artifacts, and documenting findings for investigations."
+    answer: "I completed digital forensics labs where I captured and verified evidence, reviewed registry and file artifacts, and documented findings in a clear and organized format."
   },
   {
-    keywords: ["siem", "splunk", "log analysis"],
-    answer: "I worked with Splunk to analyze authentication logs, investigate suspicious activity, and identify patterns that might indicate an attack. These labs helped me understand how attackers can appear in log data and how analysts prioritize alerts."
+    keywords: ["siem", "splunk", "log analysis", "soc"],
+    answer: "I used Splunk in lab scenarios to review authentication activity, identify suspicious patterns, and prioritize alerts. This helped me build a practical SOC style triage mindset."
   },
   {
     keywords: ["ethical hacking", "pentest", "penetration testing", "ctf"],
-    answer: "I completed penetration testing labs that covered reconnaissance, scanning, enumeration, exploitation, and privilege escalation. I used tools like Nmap, Metasploit, Burp Suite, Hydra, and John the Ripper in controlled environments."
+    answer: "I completed controlled penetration testing labs covering reconnaissance, scanning, enumeration, and basic exploitation. These labs strengthened my understanding of attacker behavior and defense priorities."
   },
   {
-    keywords: ["tools", "wireshark", "nmap", "burp", "nessus"],
-    answer: "I use Wireshark for packet analysis, Nmap for scanning, Splunk for log analysis, FTK Imager for forensics, and Burp Suite for web testing. Each tool gives me a different perspective when investigating security issues."
-  },
-  {
-    keywords: ["projects", "portfolio", "website"],
-    answer: "I built my own portfolio website and coded this chatbot to share my experience. I also completed projects like building a network infrastructure, setting up a Windows Server domain, performing digital forensics analysis, and creating security investigations in SIEM labs."
+    keywords: ["projects", "portfolio", "website", "chatbot"],
+    answer: "I built this portfolio and chatbot to present my work clearly to recruiters and hiring teams. I also completed projects in networking, server administration, forensics, and SIEM investigations."
   },
   {
     keywords: ["labs", "hands on", "practice"],
-    answer: "I completed labs in networking, Linux administration, Windows Server, digital forensics, SIEM analysis, and ethical hacking. These labs built real confidence because I could experiment, make mistakes, and learn by working through the issues myself."
+    answer: "My labs cover networking, Linux, Windows Server, digital forensics, SIEM analysis, and security testing. They gave me confidence by letting me practice troubleshooting in realistic scenarios."
   },
   {
     keywords: ["troubleshooting", "problem solving", "fix"],
-    answer: "I approach troubleshooting by slowing things down and looking at one piece at a time. I recreate the issue, check the obvious causes first, and then work through each possibility until I isolate the root problem."
+    answer: "My troubleshooting approach is structured and calm. I confirm the issue, test one variable at a time, document each step, and verify the final fix before I close the task."
   },
   {
-    keywords: ["learning style", "learn", "study"],
-    answer: "I learn best through hands-on practice. I like to experiment, break things, fix them, and repeat the process until it clicks. Writing and documenting what I learn also helps me retain concepts."
+    keywords: ["strengths", "good at", "soft skills", "communication", "work style"],
+    answer: "My strengths are clear communication, patience, ownership, and consistency. I work well independently, collaborate well with teams, and stay focused when priorities shift."
   },
   {
-    keywords: ["strengths", "good at"],
-    answer: "My strengths include troubleshooting, clear communication, patience, curiosity, and the ability to stay calm when something breaks. I enjoy exploring how different parts of technology connect and finding practical solutions."
+    keywords: ["weakness", "improve", "growth area"],
+    answer: "A growth area for me is improving speed in interview responses under pressure. I am actively improving this with mock interviews, better prep notes, and more repetition."
   },
   {
-    keywords: ["weakness", "improve"],
-    answer: "One area I am working on is becoming more fluent with technical terminology and tool names. I understand the concepts well and I am strong at writing and documenting, but answering quickly in interviews is something I am actively improving through repetition and mock Q&A."
+    keywords: ["certification", "degree", "courses", "education"],
+    answer: "I earned CompTIA Security Plus SY0 701 and completed BCR SOC Operations Analyst I training. I am also pursuing my AAS in Cybersecurity while continuing hands on labs."
   },
   {
-  "keywords": ["certification", "degree", "courses"],
-  "answer": "I completed my CompTIA Security+ SY0-701 certification and the BCR SOC Operations Analyst I program. I'm also pursuing my AAS in Cybersecurity and have hands-on lab experience in networking, Linux, SIEM analysis, and digital forensics."
+    keywords: ["career goals", "future", "plans", "next role"],
+    answer: "My goal is to start in a cybersecurity or IT support role where I can contribute immediately, keep learning, and grow into deeper security operations and incident response work."
   },
   {
-    keywords: ["career goals", "future", "plans"],
-    answer: "My goal is to grow into a cybersecurity role where I can investigate alerts, analyze logs, and help protect systems. I enjoy the mix of technical work, problem solving, and continuous learning that cybersecurity offers."
+    keywords: ["first 90 days", "first three months", "onboarding"],
+    answer: "In my first ninety days I focus on learning team workflows, understanding documentation standards, and becoming dependable on daily tasks. I ask focused questions and deliver steady progress."
   },
   {
-    keywords: ["motivation", "motivates you"],
-    answer: "I am motivated by curiosity and the challenge of understanding what is happening behind the scenes. I enjoy learning how attackers think and how defenders can stay ahead. Every lab teaches me something new."
+    keywords: ["incident response", "security incident", "example incident"],
+    answer: "I follow a simple incident workflow by identifying the issue, collecting evidence, containing risk, escalating when needed, and documenting actions clearly for review and follow up."
   },
   {
-    keywords: ["virtualization", "vm", "virtual machine"],
-    answer: "I used virtual machines throughout my labs to build safe testing environments. I learned how to take snapshots, revert systems, and create isolated setups for networking, Linux, Windows, and security experiments."
+    keywords: ["ticketing", "service desk", "help desk", "it support"],
+    answer: "I am comfortable working from ticket queues, tracking updates, and communicating clearly with users. I focus on accurate notes, timely follow up, and complete resolution."
   },
   {
-    keywords: ["cloud", "azure", "aws"],
-    answer: "I have experience with cloud fundamentals such as virtual machines, identity concepts, and basic security principles. I learned how cloud environments differ from on-premises systems and why access control and monitoring matter so much in that context."
+    keywords: ["availability", "start date", "schedule"],
+    answer: "I am ready to discuss start timing based on your team needs and I can plan my schedule to support reliable onboarding and training."
   },
   {
-    keywords: ["scripting", "bash", "powershell"],
-    answer: "I wrote simple Bash scripts to automate tasks like user creation, permission changes, and log collection. I also used basic PowerShell commands for Windows environments. I enjoy scripting because it saves time and improves consistency."
+    keywords: ["salary", "compensation", "pay range"],
+    answer: "I am open to discussing compensation based on role scope, growth opportunity, and market range for entry level cybersecurity and IT positions."
   },
   {
-    keywords: ["java", "java programming", "object oriented", "oop"],
-    answer: "I learned Java in my programming course where I wrote programs using object-oriented concepts. I worked with classes, methods, loops, arrays, and logic-based problem solving. Java helped strengthen my overall coding foundation."
-  },
-  {
-    keywords: ["soft skills", "communication", "work style"],
-    answer: "I communicate clearly, stay patient when troubleshooting, and work well both independently and in groups. I enjoy learning, helping others, and contributing to a positive team environment."
+    keywords: ["work authorization", "authorized to work", "sponsorship"],
+    answer: "I can provide full work authorization details during the hiring process and I am happy to share what you need for compliance."
   }
 ];
 
@@ -669,7 +701,7 @@ function handleQuestion(question) {
   if (/\b(hello|hi|hey|start|introduction)\b/.test(question)) {
     const intro =
       "Hi, I am Catherine. I created this chatbot to share my cybersecurity experience in a simple and interactive way. " +
-      "Feel free to ask about my labs, tools, projects, or anything you are curious about.";
+      "Feel free to ask about my labs, tools, projects, and recruiter style interview topics.";
     addMessage("🤖", intro);
     speak(intro);
     return;
@@ -690,7 +722,7 @@ function handleQuestion(question) {
   }
 
   const fallback =
-    "I can tell you about my networking experience, systems I worked with, digital forensics labs, SIEM investigations, ethical hacking practice, tools I use, projects I completed, troubleshooting style, and career goals. Try asking me about one of those topics.";
+    "I can answer questions about my technical skills, projects, incident response approach, service desk workflow, communication style, career goals, and recruiter interview topics like first ninety days and why you should hire me.";
   addMessage("🤖", fallback);
   speak(fallback);
 }
@@ -713,7 +745,7 @@ document.addEventListener("DOMContentLoaded", function () {
     voiceToggle.classList.toggle("active", voiceEnabled);
     updateChatStatus(
       voiceEnabled
-        ? "Voice replies are ON. Click Listen to toggle."
+        ? `Voice replies are ON${selectedVoice ? ` using ${selectedVoice.name}` : ""}. Click Listen to toggle.`
         : "Voice replies are OFF. Click Listen to enable."
     );
   }
@@ -775,6 +807,9 @@ document.addEventListener("DOMContentLoaded", function () {
       if (toggle) toggle.setAttribute("aria-expanded", "false");
       if (recognition && recognizing) {
         recognition.stop();
+      }
+      if (synthesisSupported) {
+        speechSynthesis.cancel();
       }
       if (micBtn) micBtn.classList.remove("active");
     });
