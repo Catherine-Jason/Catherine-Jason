@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Automation Lab 3 - Python Log Parser &amp; Alert Script | Catherine Jason</title>
-    <meta name="description" content="Automation Lab 3: Python script that parses system or application logs, detects patterns indicating errors or security events, and generates a summary alert report.">
+    <meta name="description" content="Automation Lab 3 with a Python log parsing workflow that detects event patterns and generates structured summary reporting.">
     <meta name="robots" content="index, follow">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
@@ -22,13 +22,13 @@
 
     <section class="lab-detail" id="automation-lab3">
         <h2>Automation Lab 3 - Python Log Parser &amp; Alert Script</h2>
-        <p>A Python script that reads a log file, searches for patterns tied to errors or security events, tallies occurrences by category, and generates a plain-text summary report.</p>
+        <p>This lab shows a Python script that parses log files, detects patterns tied to errors or suspicious activity, and generates a summary report for review.</p>
     </section>
 
     <section class="case-study-section">
         <h3>Overview</h3>
-        <p>Log files contain critical operational and security data, but manually reviewing them is impractical at scale. This script automates the process of scanning a log file for defined event patterns, counting how often each pattern appears, and producing a concise summary that can be reviewed or fed into a ticketing or SIEM workflow.</p>
-        <p><strong>Real-world relevance:</strong> Log parsing is a core skill for SOC analysts and system administrators alike. Automating routine log review reduces analyst fatigue and ensures nothing gets missed during high-volume periods.</p>
+        <p>Manual log review can miss critical signals when data volume grows. This script automates pattern matching, tracks event counts by category, and captures sample lines for quick triage context.</p>
+        <p><strong>Real-world relevance:</strong> Automated log parsing supports SOC workflows by reducing repetitive manual review and improving visibility into recurring error and security events.</p>
     </section>
 
     <section class="case-study-section">
@@ -45,11 +45,11 @@
     <section class="case-study-section">
         <h3>Script Walkthrough</h3>
         <ol>
-            <li>Defined a dictionary of named patterns with their corresponding regex or keyword strings at the top of the script.</li>
-            <li>Opened the target log file and iterated through each line using a buffered reader to handle large files efficiently.</li>
-            <li>For each line, checked all patterns and recorded the line number and content for any matches found.</li>
-            <li>After processing, tallied results per pattern and compiled matched lines into a structured report.</li>
-            <li>Wrote the summary to a timestamped output file and printed a brief count summary to the terminal.</li>
+            <li>Defined a named dictionary of event patterns using regex and keyword matches.</li>
+            <li>Opened the target log file and processed each line with buffered reading.</li>
+            <li>Checked each line against all configured patterns and recorded matches with line numbers.</li>
+            <li>Calculated per pattern totals and assembled structured report output.</li>
+            <li>Wrote a timestamped report file and printed a concise terminal summary.</li>
         </ol>
     </section>
 
@@ -111,10 +111,10 @@ print(f"\nFull report saved to: {output_file}")</code></pre>
     <section class="lab-tools">
         <h3>Key Skills Demonstrated</h3>
         <ul>
-            <li>Python scripting with file I/O and regular expressions</li>
-            <li>Log analysis and event pattern recognition</li>
-            <li>Structured report generation with timestamped output</li>
-            <li>Scalable design using configurable pattern dictionaries</li>
+            <li>Python scripting with file handling and regular expressions</li>
+            <li>Log analysis and event pattern detection</li>
+            <li>Structured report output with timestamped artifacts</li>
+            <li>Maintainable design using configurable pattern dictionaries</li>
         </ul>
     </section>
 
@@ -122,19 +122,19 @@ print(f"\nFull report saved to: {output_file}")</code></pre>
         <h3>Tools &amp; Technologies</h3>
         <ul>
             <li>Python 3.8+</li>
-            <li>Standard library modules: <code>re</code>, <code>datetime</code>, <code>pathlib</code></li>
-            <li>Linux system logs (syslog, auth.log, application logs)</li>
-            <li>Compatible with any plain-text log format</li>
+            <li>Standard library modules including <code>re</code>, <code>datetime</code>, and <code>pathlib</code></li>
+            <li>Linux and application log sources</li>
+            <li>Plain text output for ticket and analyst handoff use</li>
         </ul>
     </section>
 
     <section class="lab-result">
         <h3>Results &amp; Outcomes</h3>
         <ul>
-            <li>Automated log review that previously required manual grep commands across multiple files.</li>
-            <li>Produced a clean, categorized report that can be attached to a ticket or forwarded to a security team.</li>
-            <li>Pattern dictionary design allows new event types to be added in seconds without touching the core logic.</li>
-            <li>Designed to integrate with scheduled jobs or be triggered by a monitoring alert for on-demand analysis.</li>
+            <li>Automated repetitive log review steps that are often done manually.</li>
+            <li>Generated categorized reporting that can support incident notes and ticket updates.</li>
+            <li>Improved flexibility by allowing new event types to be added quickly.</li>
+            <li>Prepared the workflow for scheduled execution or on demand triage support.</li>
         </ul>
     </section>
 

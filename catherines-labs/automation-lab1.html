@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Automation Lab 1 - PowerShell User Account Audit | Catherine Jason</title>
-    <meta name="description" content="Automation Lab 1: PowerShell script to audit Active Directory user accounts, flag inactive accounts, and export a compliance-ready report.">
+    <meta name="description" content="Automation Lab 1 with a PowerShell workflow for Active Directory account auditing, inactive account identification, and compliance ready reporting.">
     <meta name="robots" content="index, follow">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
@@ -22,13 +22,13 @@
 
     <section class="lab-detail" id="automation-lab1">
         <h2>Automation Lab 1 - PowerShell User Account Audit</h2>
-        <p>A PowerShell script that queries Active Directory, identifies inactive or non-compliant user accounts, and exports a structured CSV report for IT and security review.</p>
+        <p>This lab shows a PowerShell workflow that queries Active Directory, identifies inactive or non compliant user accounts, and exports a structured CSV report for IT and security review.</p>
     </section>
 
     <section class="case-study-section">
         <h3>Overview</h3>
-        <p>Manual account audits are time-consuming and error-prone at scale. This script automates the process of pulling user account data from Active Directory, evaluating each account against defined activity thresholds, and generating a ready-to-share compliance report.</p>
-        <p><strong>Real-world relevance:</strong> Regular account audits reduce the risk of orphaned or compromised credentials sitting undetected in your environment. This type of automation directly supports identity hygiene and access control compliance.</p>
+        <p>Manual account audits can become slow and inconsistent as user volume grows. This script automates account review by collecting core identity fields, applying audit checks, and exporting a clean report for follow up.</p>
+        <p><strong>Real-world relevance:</strong> Routine identity audits help reduce risk from stale credentials, weak account hygiene, and policy drift. This process supports least privilege and audit readiness.</p>
     </section>
 
     <section class="case-study-section">
@@ -44,11 +44,11 @@
     <section class="case-study-section">
         <h3>Script Walkthrough</h3>
         <ol>
-            <li>Imported the Active Directory PowerShell module and defined a 90-day inactivity threshold.</li>
-            <li>Queried all enabled user accounts using <code>Get-ADUser</code> with relevant property filters.</li>
-            <li>Calculated days since last logon for each account and compared against the threshold.</li>
-            <li>Collected accounts meeting inactivity or password non-compliance criteria into a result set.</li>
-            <li>Exported the result set to a timestamped CSV file for downstream review and action.</li>
+            <li>Imported the Active Directory PowerShell module and defined a 90 day inactivity threshold.</li>
+            <li>Queried enabled user accounts with <code>Get-ADUser</code> and requested relevant identity properties.</li>
+            <li>Calculated days since last logon for each account and compared results against the threshold.</li>
+            <li>Collected accounts that matched inactivity or password policy exceptions.</li>
+            <li>Exported results to a timestamped CSV for review, documentation, and remediation tracking.</li>
         </ol>
     </section>
 
@@ -85,9 +85,9 @@ Write-Host "Report saved to: $OutputFile"</code></pre>
         <h3>Key Skills Demonstrated</h3>
         <ul>
             <li>Active Directory querying and property filtering with PowerShell</li>
-            <li>Threshold-based conditional logic for account evaluation</li>
-            <li>Automated report generation and file output</li>
-            <li>Identity hygiene practices aligned with access control compliance</li>
+            <li>Threshold based logic for account risk review</li>
+            <li>Automated report generation for security operations follow up</li>
+            <li>Identity hygiene practices aligned with access governance controls</li>
         </ul>
     </section>
 
@@ -96,7 +96,7 @@ Write-Host "Report saved to: $OutputFile"</code></pre>
         <ul>
             <li>PowerShell 5.1+</li>
             <li>Active Directory PowerShell Module (RSAT)</li>
-            <li>Windows Server / Active Directory Domain Services</li>
+            <li>Windows Server and Active Directory Domain Services</li>
             <li>CSV output for reporting and compliance handoff</li>
         </ul>
     </section>
@@ -104,10 +104,10 @@ Write-Host "Report saved to: $OutputFile"</code></pre>
     <section class="lab-result">
         <h3>Results &amp; Outcomes</h3>
         <ul>
-            <li>Reduced time spent on manual account reviews from hours to seconds per audit cycle.</li>
-            <li>Produced a structured, auditable report identifying accounts requiring immediate action.</li>
-            <li>Supported compliance readiness by surfacing password policy violations and stale accounts.</li>
-            <li>Designed to run as a scheduled task for recurring automated audits.</li>
+            <li>Reduced manual account review time from hours to seconds per audit cycle.</li>
+            <li>Produced an auditable report that highlights accounts requiring action.</li>
+            <li>Improved visibility into stale accounts and password policy exceptions.</li>
+            <li>Prepared the workflow for scheduled recurring audits.</li>
         </ul>
     </section>
 

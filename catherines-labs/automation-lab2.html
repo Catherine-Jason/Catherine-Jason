@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Automation Lab 2 - Bash System Health Check | Catherine Jason</title>
-    <meta name="description" content="Automation Lab 2: Bash script to check system health metrics including CPU, memory, disk usage, and running services, with alerting output.">
+    <meta name="description" content="Automation Lab 2 with a Bash system health workflow for resource monitoring, threshold alerting, and service status validation.">
     <meta name="robots" content="index, follow">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
@@ -22,13 +22,13 @@
 
     <section class="lab-detail" id="automation-lab2">
         <h2>Automation Lab 2 - Bash System Health Check</h2>
-        <p>A Bash script that checks key system health metrics on a Linux host, flags anything outside acceptable thresholds, and outputs a timestamped summary for review or log ingestion.</p>
+        <p>This lab shows a Bash script that checks core Linux health metrics, compares results against thresholds, and outputs a timestamped status summary for review or logging.</p>
     </section>
 
     <section class="case-study-section">
         <h3>Overview</h3>
-        <p>Keeping servers healthy requires visibility into CPU load, memory consumption, disk space, and critical service status. This script consolidates those checks into a single runnable report that can be executed manually or scheduled via cron.</p>
-        <p><strong>Real-world relevance:</strong> Proactive system monitoring catches resource exhaustion and service failures before they become outages. This script is designed for environments where a full monitoring stack is not yet in place or a lightweight spot-check tool is needed.</p>
+        <p>Reliable operations depend on quick visibility into host performance and service status. This script combines CPU, memory, disk, and service checks into one repeatable command line workflow.</p>
+        <p><strong>Real-world relevance:</strong> Early detection of resource pressure and service failures supports faster response and helps prevent preventable outages.</p>
     </section>
 
     <section class="case-study-section">
@@ -45,12 +45,12 @@
     <section class="case-study-section">
         <h3>Script Walkthrough</h3>
         <ol>
-            <li>Set threshold variables for CPU, memory, and disk at the top of the script for easy adjustment.</li>
-            <li>Used <code>top</code> and <code>awk</code> to extract current CPU idle percentage and calculate usage.</li>
-            <li>Parsed <code>free</code> command output to calculate memory usage percentage.</li>
-            <li>Used <code>df</code> to pull root partition disk usage percentage.</li>
-            <li>Checked each critical service using <code>systemctl is-active</code> and captured pass or fail status.</li>
-            <li>Printed a formatted summary with color-coded status indicators and appended output to a log file.</li>
+            <li>Set threshold variables for CPU, memory, and disk usage for quick adjustment.</li>
+            <li>Used <code>top</code> and <code>awk</code> to calculate current CPU utilization.</li>
+            <li>Parsed <code>free</code> output to compute memory usage percentage.</li>
+            <li>Used <code>df</code> to capture root partition disk usage percentage.</li>
+            <li>Checked each critical service with <code>systemctl is-active</code> and recorded status.</li>
+            <li>Printed a formatted summary and appended output to a log file for historical review.</li>
         </ol>
     </section>
 
@@ -123,30 +123,30 @@ echo "Check complete. See $LOG_FILE for history."</code></pre>
     <section class="lab-tools">
         <h3>Key Skills Demonstrated</h3>
         <ul>
-            <li>Bash scripting with conditional logic and threshold comparisons</li>
-            <li>Linux system resource monitoring using native command-line utilities</li>
-            <li>Service health verification with <code>systemctl</code></li>
-            <li>Structured output formatting and log file management</li>
+            <li>Bash scripting with threshold driven conditional logic</li>
+            <li>Linux host monitoring with native command line utilities</li>
+            <li>Service health checks using <code>systemctl</code></li>
+            <li>Structured output and persistent log history management</li>
         </ul>
     </section>
 
     <section class="lab-tools">
         <h3>Tools &amp; Technologies</h3>
         <ul>
-            <li>Bash (Linux shell scripting)</li>
-            <li>GNU Core Utilities: <code>top</code>, <code>free</code>, <code>df</code>, <code>awk</code>, <code>bc</code></li>
-            <li>systemd (<code>systemctl</code>) for service management</li>
-            <li>Cron for scheduled execution</li>
+            <li>Bash shell scripting</li>
+            <li>GNU utilities including <code>top</code>, <code>free</code>, <code>df</code>, <code>awk</code>, and <code>bc</code></li>
+            <li>systemd with <code>systemctl</code></li>
+            <li>Cron scheduling</li>
         </ul>
     </section>
 
     <section class="lab-result">
         <h3>Results &amp; Outcomes</h3>
         <ul>
-            <li>Delivered a fast, portable system health check runnable on any standard Linux host.</li>
-            <li>Provided clear, color-coded output for immediate visual review during incident response or routine checks.</li>
-            <li>Built threshold variables at the top of the script so any team member can adjust limits without modifying logic.</li>
-            <li>Designed to run on a cron schedule and append results to a persistent log file for trend visibility.</li>
+            <li>Built a repeatable host health check that runs quickly on standard Linux systems.</li>
+            <li>Created clear output that helps prioritize immediate response actions.</li>
+            <li>Improved maintainability by separating thresholds from core logic.</li>
+            <li>Enabled scheduled trend tracking with persistent log output.</li>
         </ul>
     </section>
 
