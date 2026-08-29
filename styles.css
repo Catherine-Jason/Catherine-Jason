@@ -147,15 +147,84 @@ body {
   box-shadow: 0 0 20px rgba(0, 217, 255, 0.45);
 }
 
+.profile-link {
+  border-radius: 0;
+}
+
+.profile-art {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 220px;
+  height: 220px;
+  isolation: isolate;
+}
+
+.swoosh-layer {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 58% 42% 62% 38% / 56% 40% 60% 44%;
+}
+
+.swoosh-one {
+  width: 265px;
+  height: 162px;
+  transform: translate(3px, 18px) rotate(-19deg);
+  background:
+    radial-gradient(circle at 18% 26%, rgba(205, 255, 242, 0.8) 0 16%, transparent 28%),
+    radial-gradient(circle at 36% 72%, rgba(0, 217, 255, 0.32) 0 18%, transparent 40%),
+    linear-gradient(108deg, rgba(188, 255, 236, 0.9) 0%, rgba(64, 226, 240, 0.86) 45%, rgba(0, 217, 255, 0.78) 70%, rgba(160, 112, 255, 0.72) 100%);
+  box-shadow:
+    0 0 18px rgba(115, 255, 223, 0.35),
+    0 0 30px rgba(109, 118, 255, 0.22);
+  opacity: 0.88;
+}
+
+.swoosh-two {
+  width: 250px;
+  height: 145px;
+  transform: translate(-8px, 2px) rotate(-28deg);
+  background:
+    radial-gradient(circle at 70% 40%, rgba(198, 248, 255, 0.5) 0 15%, transparent 35%),
+    linear-gradient(96deg, rgba(29, 180, 170, 0.24) 10%, rgba(0, 234, 255, 0.66) 55%, rgba(162, 101, 255, 0.7) 100%);
+  filter: blur(0.35px);
+  opacity: 0.78;
+}
+
+.swoosh-three {
+  width: 232px;
+  height: 122px;
+  transform: translate(-3px, 10px) rotate(-13deg);
+  background:
+    repeating-linear-gradient(101deg, rgba(196, 255, 240, 0.45) 0 8px, rgba(0, 228, 255, 0.18) 8px 16px, rgba(138, 98, 255, 0.22) 16px 24px),
+    linear-gradient(102deg, rgba(111, 247, 214, 0.45) 0%, rgba(0, 218, 255, 0.54) 50%, rgba(165, 93, 255, 0.42) 100%);
+  mix-blend-mode: screen;
+  opacity: 0.62;
+}
+
+.profile-halo {
+  position: absolute;
+  inset: 40px 34px 24px 34px;
+  border-radius: 52% 48% 46% 54% / 52% 44% 56% 48%;
+  background: radial-gradient(circle at 52% 36%, rgba(180, 255, 241, 0.22) 0%, rgba(0, 217, 255, 0.13) 50%, rgba(154, 95, 255, 0.16) 100%);
+  filter: blur(9px);
+  z-index: 1;
+}
+
 .profile-photo {
   width: 220px;
   height: 220px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 1.5px solid rgba(0, 217, 255, 0.65);
-  box-shadow:
-    0 0 18px rgba(0, 217, 255, 0.28),
-    0 0 34px rgba(150, 95, 255, 0.2);
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+  border-radius: 0;
+  border: none;
+  background: transparent;
+  filter:
+    drop-shadow(0 0 8px rgba(176, 255, 242, 0.28))
+    drop-shadow(0 0 16px rgba(0, 220, 255, 0.26))
+    drop-shadow(0 0 22px rgba(146, 101, 255, 0.22));
 }
 
 .section {
