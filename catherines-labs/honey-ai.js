@@ -43,11 +43,17 @@
     });
 
     if (previewImage && previewFallback) {
-        previewImage.addEventListener('error', () => {
+        const showPreviewFallback = () => {
             previewImage.setAttribute('aria-hidden', 'true');
             previewImage.hidden = true;
             previewFallback.hidden = false;
-        }, { once: true });
+        };
+
+        previewImage.addEventListener('error', showPreviewFallback, { once: true });
+
+        if (previewImage.complete && previewImage.naturalWidth === 0) {
+            showPreviewFallback();
+        }
     }
 
     const patterns = [
