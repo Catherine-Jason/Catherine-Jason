@@ -717,6 +717,12 @@ body {
   background: rgba(17, 17, 17, 0.55);
 }
 
+.risk-demo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 .risk-demo-label {
   color: var(--text-light);
   font-weight: 600;
