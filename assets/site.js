@@ -1,16 +1,32 @@
 (function () {
+  function sanitizeRelativePath(path, fallback) {
+    if (typeof path !== 'string') {
+      return fallback;
+    }
+
+    var value = path.trim();
+    if (!value) {
+      return fallback;
+    }
+
+    if (/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(value)) {
+      return fallback;
+    }
+
+    if (!/^[./a-zA-Z0-9_#?=&%-]+$/.test(value)) {
+      return fallback;
+    }
+
+    return value;
+  }
+
   function getLinkTargets() {
     var body = document.body;
-    var homePath = body.getAttribute('data-home-path');
-    var labsPath = body.getAttribute('data-labs-path');
+    var defaultHomePath = window.location.pathname.indexOf('/catherines-labs/') !== -1 ? '../index.html' : 'index.html';
+    var defaultLabsPath = window.location.pathname.indexOf('/catherines-labs/') !== -1 ? 'index.html' : 'catherines-labs/index.html';
 
-    if (!homePath) {
-      homePath = window.location.pathname.indexOf('/catherines-labs/') !== -1 ? '../index.html' : 'index.html';
-    }
-
-    if (!labsPath) {
-      labsPath = window.location.pathname.indexOf('/catherines-labs/') !== -1 ? 'index.html' : 'catherines-labs/index.html';
-    }
+    var homePath = sanitizeRelativePath(body.getAttribute('data-home-path'), defaultHomePath);
+    var labsPath = sanitizeRelativePath(body.getAttribute('data-labs-path'), defaultLabsPath);
 
     return { homePath: homePath, labsPath: labsPath };
   }
