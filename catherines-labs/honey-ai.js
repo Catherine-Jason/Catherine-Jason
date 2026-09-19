@@ -152,6 +152,29 @@
         return Array.isArray(fallback) ? fallback.map((entry) => String(entry)) : [];
     }
 
+    function getTrustedApiBase(base) {
+        if (!base) {
+            return '';
+        }
+
+        try {
+            const parsed = new URL(base);
+            const isHttps = parsed.protocol === 'https:';
+            const isSameOrigin = parsed.origin === window.location.origin;
+            const host = parsed.hostname.toLowerCase();
+            const isLocalHost = host === 'localhost' || host === '127.0.0.1' || host === '::1';
+            const isTrustedHttp = parsed.protocol === 'http:' && (isLocalHost || isSameOrigin);
+
+            if (isHttps || isTrustedHttp) {
+                return parsed.origin + parsed.pathname.replace(/\/+$/, '');
+            }
+
+            return '';
+        } catch {
+            return '';
+        }
+    }
+
     function parseServerResult(payload, fallbackPrompt) {
         const scoreValue = Number(
             payload?.risk_score ??
@@ -179,15 +202,16 @@
     }
 
     async function getRiskData(prompt) {
-        if (!apiBase) {
+        const trustedApiBase = getTrustedApiBase(apiBase);
+        if (!trustedApiBase) {
             return {
                 ...calculateRisk(prompt),
-                source: 'Local preview (no backend URL configured)',
+                source: apiBase ? 'Local preview (untrusted backend URL)' : 'Local preview (no backend URL configured)',
                 responseText: ''
             };
         }
 
-        const response = await fetch(`${apiBase}/chat`, {
+        const response = await fetch(`${trustedApiBase}/chat`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
