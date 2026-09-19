@@ -6,9 +6,8 @@
     function closeAll(except) {
         toggles.forEach((toggle) => {
             const panel = toggle.nextElementSibling;
-            const isMatch = toggle === except;
-            toggle.setAttribute('aria-expanded', isMatch ? String(!panel.hasAttribute('hidden')) : 'false');
-            if (!isMatch) {
+            if (toggle !== except) {
+                toggle.setAttribute('aria-expanded', 'false');
                 panel.setAttribute('hidden', 'hidden');
             }
         });
