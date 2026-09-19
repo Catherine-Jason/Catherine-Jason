@@ -482,6 +482,7 @@ body {
 }
 
 .gh-case-preview-fallback {
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -490,6 +491,10 @@ body {
   font-size: 0.9rem;
   padding: 20px;
   text-align: center;
+}
+
+.gh-case-preview-fallback[hidden] {
+  display: none;
 }
 
 .gh-case-preview-fallback i {

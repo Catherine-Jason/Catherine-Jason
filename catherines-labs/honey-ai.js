@@ -47,7 +47,6 @@
             previewImage.setAttribute('aria-hidden', 'true');
             previewImage.hidden = true;
             previewFallback.hidden = false;
-            previewFallback.style.display = 'flex';
         }, { once: true });
     }
 
