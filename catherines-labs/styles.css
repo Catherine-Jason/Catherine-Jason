@@ -738,6 +738,11 @@ body {
   font: inherit;
 }
 
+.risk-demo textarea.risk-demo-input {
+  resize: vertical;
+  min-height: 120px;
+}
+
 .risk-demo-input:focus-visible {
   outline: 2px solid rgba(0, 217, 255, 0.6);
   outline-offset: 2px;
