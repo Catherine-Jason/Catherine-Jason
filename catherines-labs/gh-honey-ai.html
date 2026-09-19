@@ -73,9 +73,9 @@
                     src="https://opengraph.github.com/repo/Catherine-Jason/Capstone_2026"
                     alt="Honey-AI GitHub repository preview"
                     loading="lazy"
-                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                    onerror="this.setAttribute('aria-hidden','true'); this.hidden = true; this.nextElementSibling.hidden = false; this.nextElementSibling.style.display='flex';"
                 />
-                <div class="gh-case-preview-fallback" style="display:none;">
+                <div class="gh-case-preview-fallback" hidden>
                     <i class="fa-brands fa-github"></i>
                     <span>catherine-jason / Capstone_2026</span>
                 </div>
@@ -252,18 +252,18 @@ FastAPI /chat endpoint
                 <div class="gh-case-section">
                     <h4>Screenshots</h4>
                     <div class="image-grid">
-                        <div class="image-placeholder" role="img" aria-label="Placeholder for Honey-AI dashboard screenshot">
-                            <i class="fa-regular fa-image"></i>
+                        <div class="image-placeholder">
+                            <i class="fa-regular fa-image" aria-hidden="true"></i>
                             <strong>Dashboard Overview</strong>
                             <span>Screenshot coming soon</span>
                         </div>
-                        <div class="image-placeholder" role="img" aria-label="Placeholder for Honey-AI event log screenshot">
-                            <i class="fa-regular fa-image"></i>
+                        <div class="image-placeholder">
+                            <i class="fa-regular fa-image" aria-hidden="true"></i>
                             <strong>Recent Events Table</strong>
                             <span>Screenshot coming soon</span>
                         </div>
-                        <div class="image-placeholder" role="img" aria-label="Placeholder for Honey-AI report screenshot">
-                            <i class="fa-regular fa-image"></i>
+                        <div class="image-placeholder">
+                            <i class="fa-regular fa-image" aria-hidden="true"></i>
                             <strong>Report Output</strong>
                             <span>Screenshot coming soon</span>
                         </div>
