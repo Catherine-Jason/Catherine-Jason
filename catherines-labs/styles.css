@@ -660,3 +660,201 @@ body {
   font-size: inherit;
   color: inherit;
 }
+
+
+/* Honey-AI case study additions */
+.info-popover {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.info-popover-toggle {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 217, 255, 0.45);
+  background: rgba(0, 217, 255, 0.08);
+  color: var(--accent-teal);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.info-popover-toggle:hover,
+.info-popover-toggle:focus-visible {
+  outline: none;
+  border-color: rgba(0, 217, 255, 0.8);
+  box-shadow: 0 0 12px rgba(0, 217, 255, 0.25);
+}
+
+.info-popover-panel {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 10px);
+  width: min(280px, 78vw);
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 217, 255, 0.3);
+  background: rgba(26, 26, 26, 0.98);
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  line-height: 1.55;
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.35);
+  z-index: 20;
+}
+
+.risk-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(58, 141, 255, 0.28);
+  background: rgba(17, 17, 17, 0.55);
+}
+
+.risk-demo-label {
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+.risk-demo-input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(58, 141, 255, 0.35);
+  background: rgba(43, 43, 43, 0.95);
+  color: var(--text-light);
+  font: inherit;
+}
+
+.risk-demo-input:focus-visible {
+  outline: 2px solid rgba(0, 217, 255, 0.6);
+  outline-offset: 2px;
+}
+
+.risk-demo-button {
+  align-self: flex-start;
+}
+
+.risk-demo-result {
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 217, 255, 0.18);
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--text-muted);
+}
+
+.risk-demo-result p,
+.risk-demo-result ul {
+  margin: 0;
+}
+
+.risk-demo-result ul {
+  margin-top: 8px;
+  padding-left: 20px;
+}
+
+.risk-demo-empty {
+  color: var(--text-muted);
+}
+
+.risk-level-low {
+  border-color: rgba(58, 141, 255, 0.3);
+}
+
+.risk-level-medium {
+  border-color: rgba(0, 217, 255, 0.45);
+}
+
+.risk-level-high {
+  border-color: rgba(255, 193, 7, 0.55);
+}
+
+.risk-level-critical {
+  border-color: rgba(255, 99, 132, 0.6);
+}
+
+.safety-callout {
+  padding: 18px;
+  border-left: 4px solid var(--accent-teal);
+  border-radius: 10px;
+  background: rgba(0, 217, 255, 0.08);
+  border-top: 1px solid rgba(0, 217, 255, 0.18);
+  border-right: 1px solid rgba(0, 217, 255, 0.18);
+  border-bottom: 1px solid rgba(0, 217, 255, 0.18);
+}
+
+.safety-callout p {
+  margin: 0;
+}
+
+.image-placeholder {
+  min-height: 220px;
+  border-radius: 10px;
+  border: 1px dashed rgba(0, 217, 255, 0.35);
+  background: rgba(0, 0, 0, 0.18);
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+  padding: 20px;
+}
+
+.image-placeholder i {
+  font-size: 2rem;
+  color: rgba(0, 217, 255, 0.55);
+}
+
+.image-placeholder strong {
+  color: var(--text-light);
+}
+
+.honey-flow-list {
+  margin: 14px 0 0;
+  padding-left: 18px;
+  color: var(--text-muted);
+}
+
+.honey-table-wrap {
+  overflow-x: auto;
+}
+
+.honey-risk-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  min-width: 560px;
+}
+
+.honey-risk-table th,
+.honey-risk-table td {
+  text-align: left;
+  padding: 12px;
+  border: 1px solid rgba(0, 217, 255, 0.18);
+  color: var(--text-muted);
+  vertical-align: top;
+}
+
+.honey-risk-table th {
+  color: var(--text-light);
+  background: rgba(0, 217, 255, 0.08);
+}
+
+.honey-build-notes {
+  display: grid;
+  gap: 16px;
+}
+
+.honey-build-notes h5 {
+  color: var(--accent-blue);
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+}
