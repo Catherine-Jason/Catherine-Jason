@@ -5,7 +5,10 @@
 
     function closeAll(except) {
         toggles.forEach((toggle) => {
-            const panel = toggle.nextElementSibling;
+            const panel = toggle.parentElement ? toggle.parentElement.querySelector('.info-popover-panel') : null;
+            if (!panel) {
+                return;
+            }
             if (toggle !== except) {
                 toggle.setAttribute('aria-expanded', 'false');
                 panel.setAttribute('hidden', 'hidden');
@@ -16,7 +19,10 @@
     toggles.forEach((toggle) => {
         toggle.addEventListener('click', (event) => {
             event.stopPropagation();
-            const panel = toggle.nextElementSibling;
+            const panel = toggle.parentElement ? toggle.parentElement.querySelector('.info-popover-panel') : null;
+            if (!panel) {
+                return;
+            }
             const willOpen = panel.hasAttribute('hidden');
             closeAll();
             if (willOpen) {
@@ -151,4 +157,6 @@
         event.preventDefault();
         renderResult();
     });
+
+    input.addEventListener('input', renderResult);
 })();
