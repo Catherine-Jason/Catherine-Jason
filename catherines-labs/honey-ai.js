@@ -105,8 +105,11 @@
 
     const params = new URLSearchParams(window.location.search);
     const queryApiBase = params.get('honeyApiBase');
+    const queryApiField = params.get('honeyApiField');
     const rawApiBase = queryApiBase || demo.dataset.apiBase || window.HONEY_API_BASE || '';
     const apiBase = String(rawApiBase).trim().replace(/\/+$/, '');
+    const rawApiField = String(queryApiField || demo.dataset.apiField || window.HONEY_API_FIELD || 'prompt').trim();
+    const apiField = /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(rawApiField) ? rawApiField : 'prompt';
 
     function renderParagraph(label, value) {
         const paragraph = document.createElement('p');
@@ -187,10 +190,7 @@
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                prompt,
-                message: prompt
-            })
+            body: JSON.stringify({ [apiField]: prompt })
         });
 
         if (!response.ok) {
