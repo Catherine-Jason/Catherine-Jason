@@ -1,5 +1,7 @@
 (() => {
     const toggles = document.querySelectorAll('.info-popover-toggle');
+    const previewImage = document.querySelector('.honey-preview-image');
+    const previewFallback = document.querySelector('.honey-preview-fallback');
 
     function closeAll(except) {
         toggles.forEach((toggle) => {
@@ -40,6 +42,15 @@
         }
     });
 
+    if (previewImage && previewFallback) {
+        previewImage.addEventListener('error', () => {
+            previewImage.setAttribute('aria-hidden', 'true');
+            previewImage.hidden = true;
+            previewFallback.hidden = false;
+            previewFallback.style.display = 'flex';
+        }, { once: true });
+    }
+
     const patterns = [
         'ignore previous instructions',
         'reveal system prompt',
@@ -76,6 +87,10 @@
     const form = document.querySelector('[data-risk-form]');
     const input = document.getElementById('risk-demo-input');
     const result = document.querySelector('[data-risk-result]');
+
+    if (!form || !input || !result) {
+        return;
+    }
 
     function renderParagraph(label, value) {
         const paragraph = document.createElement('p');
