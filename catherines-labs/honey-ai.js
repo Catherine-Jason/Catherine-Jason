@@ -226,7 +226,7 @@
             const fallback = calculateRisk(value);
             data = {
                 ...fallback,
-                source: apiBase ? `Local fallback (could not reach ${apiBase})` : 'Local preview',
+                source: apiBase ? 'Local fallback (backend unavailable)' : 'Local preview',
                 responseText: ''
             };
         }
@@ -236,9 +236,6 @@
         result.appendChild(renderParagraph('Result source:', data.source));
         result.appendChild(renderParagraph('Risk score:', `${data.score} / 100`));
         result.appendChild(renderParagraph('Risk level:', data.level));
-        if (apiBase) {
-            result.appendChild(renderParagraph('API base URL:', apiBase));
-        }
 
         if (data.responseText) {
             result.appendChild(renderParagraph('Model response:', data.responseText));
