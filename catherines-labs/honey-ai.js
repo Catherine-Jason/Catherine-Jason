@@ -145,6 +145,16 @@
         return wrapper;
     }
 
+    function normalizeMatches(candidate, fallback) {
+        if (Array.isArray(candidate)) {
+            return candidate.map((entry) => String(entry));
+        }
+        if (typeof candidate === 'string' && candidate.trim()) {
+            return [candidate.trim()];
+        }
+        return Array.isArray(fallback) ? fallback.map((entry) => String(entry)) : [];
+    }
+
     function parseServerResult(payload, fallbackPrompt) {
         const scoreValue = Number(
             payload?.risk_score ??
@@ -154,23 +164,18 @@
         const hasScore = Number.isFinite(scoreValue);
         const safeScore = hasScore ? Math.max(0, Math.min(100, scoreValue)) : null;
 
-        const normalizedMatches =
-            payload?.matches ||
-            payload?.matched_patterns ||
-            payload?.triggered_patterns ||
-            [];
+        const normalizedMatches = payload?.matches ?? payload?.matched_patterns ?? payload?.triggered_patterns;
 
         const promptText = String(payload?.prompt ?? fallbackPrompt ?? '');
         const localFallback = calculateRisk(promptText);
 
         const score = safeScore ?? localFallback.score;
-        const level = String(payload?.risk_level ?? payload?.level ?? getRiskLevel(score));
         const responseText = payload?.response ?? payload?.model_response ?? payload?.answer ?? '';
 
         return {
             score,
-            level: level.charAt(0).toUpperCase() + level.slice(1).toLowerCase(),
-            matches: Array.isArray(normalizedMatches) ? normalizedMatches : localFallback.matches,
+            level: getRiskLevel(score),
+            matches: normalizeMatches(normalizedMatches, localFallback.matches),
             responseText: String(responseText),
             source: 'Live backend'
         };
@@ -210,7 +215,8 @@
         result.appendChild(text);
     }
 
-    async function renderResult() {
+    async function renderResult(options = {}) {
+        const useLocalPreview = Boolean(options.useLocalPreview);
         const value = input.value.trim();
         if (!value) {
             setResultState('Enter a sample prompt to test the Honey-AI risk scoring flow.');
@@ -221,7 +227,15 @@
 
         let data;
         try {
-            data = await getRiskData(value);
+            if (useLocalPreview) {
+                data = {
+                    ...calculateRisk(value),
+                    source: apiBase ? 'Local preview while typing' : 'Local preview (no backend URL configured)',
+                    responseText: ''
+                };
+            } else {
+                data = await getRiskData(value);
+            }
         } catch (error) {
             const fallback = calculateRisk(value);
             data = {
@@ -255,9 +269,7 @@
         void renderResult();
     });
 
-    if (!apiBase) {
-        input.addEventListener('input', () => {
-            void renderResult();
-        });
-    }
+    input.addEventListener('input', () => {
+        void renderResult({ useLocalPreview: true });
+    });
 })();
