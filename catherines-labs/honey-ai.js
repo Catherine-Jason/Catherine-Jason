@@ -187,7 +187,10 @@
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ prompt })
+            body: JSON.stringify({
+                prompt,
+                message: prompt
+            })
         });
 
         if (!response.ok) {
