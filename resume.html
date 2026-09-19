@@ -52,7 +52,8 @@
   <script>
     (function () {
       const sendButton = document.getElementById("sendResumeBtn");
-      const hostedPdfUrl = "https://catherine-jason.github.io/Catherine-Jason/Catherine_Jason_Resume.pdf";
+      const currentDirectory = window.location.origin + window.location.pathname.replace(/[^/]*$/, "");
+      const hostedPdfUrl = new URL("Catherine_Jason_Resume.pdf", currentDirectory).toString();
 
       function openMailtoFallback() {
         const subject = encodeURIComponent("Catherine’s résumé");
