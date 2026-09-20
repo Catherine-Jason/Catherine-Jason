@@ -12,53 +12,72 @@
     <script src="../assets/site.js" defer></script>
 </head>
 <body id="top" data-home-path="../index.html" data-labs-path="index.html">
-<main class="lab-page">
 
-    <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="../index.html" class="breadcrumb-link">Home</a>
-        <span>•</span>
-        <a href="index.html" class="breadcrumb-link">Catherine's Labs</a>
-        <span>•</span>
-        <span>Automation Lab 2</span>
-    </nav>
+<!-- Hero Header -->
+<header class="hero-header">
+    <div class="hero-container">
+        <div class="hero-content">
+            <h1 class="hero-title">Automation Lab 2</h1>
+            <p class="hero-subtitle">Bash System Health Check</p>
+            <p class="hero-description">
+                A Bash script that checks core Linux health metrics, compares results against thresholds, and outputs a timestamped status summary for review or logging.
+            </p>
+            <nav class="hero-nav">
+                <a href="../index.html"><i class="fa-solid fa-house"></i> Home</a>
+                <a href="index.html">Catherine's Labs</a>
+            </nav>
+        </div>
+    </div>
+</header>
 
-    <section class="lab-detail" id="automation-lab2">
-        <h2>Automation Lab 2 - Bash System Health Check</h2>
-        <p>This lab shows a Bash script that checks core Linux health metrics, compares results against thresholds, and outputs a timestamped status summary for review or logging.</p>
-    </section>
+<main class="labs-container">
 
-    <section class="case-study-section">
-        <h3>Overview</h3>
-        <p>Reliable operations depend on quick visibility into host performance and service status. This script combines CPU, memory, disk, and service checks into one repeatable command line workflow.</p>
-        <p><strong>Real-world relevance:</strong> Early detection of resource pressure and service failures supports faster response and helps prevent preventable outages.</p>
-    </section>
+    <section class="labs-section">
+        <a href="index.html#automation" class="gh-back-link">← Back to Automation Scripts</a>
 
-    <section class="case-study-section">
-        <h3>Objective</h3>
-        <ul>
-            <li>Check CPU usage and flag if it exceeds 80 percent</li>
-            <li>Check memory usage and flag if used memory exceeds 85 percent</li>
-            <li>Check disk usage on the root partition and flag if it exceeds 90 percent</li>
-            <li>Verify that critical services such as SSH and cron are running</li>
-            <li>Output a clean, timestamped health report to the terminal and an optional log file</li>
-        </ul>
-    </section>
+        <div class="gh-case-study">
+            <div class="gh-case-body">
+                <h3>Automation Lab 2: Bash System Health Check</h3>
+                <p class="gh-case-desc">
+                    This lab shows a Bash script that checks core Linux health metrics, compares results against thresholds, and outputs a timestamped status summary for review or logging.
+                </p>
 
-    <section class="case-study-section">
-        <h3>Script Walkthrough</h3>
-        <ol>
-            <li>Set threshold variables for CPU, memory, and disk usage for quick adjustment.</li>
-            <li>Used <code>top</code> and <code>awk</code> to calculate current CPU utilization.</li>
-            <li>Parsed <code>free</code> output to compute memory usage percentage.</li>
-            <li>Used <code>df</code> to capture root partition disk usage percentage.</li>
-            <li>Checked each critical service with <code>systemctl is-active</code> and recorded status.</li>
-            <li>Printed a formatted summary and appended output to a log file for historical review.</li>
-        </ol>
-    </section>
+                <div class="gh-case-section">
+                    <h4>Overview</h4>
+                    <p class="gh-case-desc">
+                        Reliable operations depend on quick visibility into host performance and service status. This script combines CPU, memory, disk, and service checks into one repeatable command line workflow.
+                    </p>
+                    <p class="gh-case-desc">
+                        <strong>Real world relevance:</strong> Early detection of resource pressure and service failures supports faster response and helps prevent preventable outages.
+                    </p>
+                </div>
 
-    <section class="case-study-section">
-        <h3>Script Preview</h3>
-        <pre class="code-block"><code>#!/bin/bash
+                <div class="gh-case-section">
+                    <h4>Objective</h4>
+                    <ul>
+                        <li>Check CPU usage and flag if it exceeds 80 percent</li>
+                        <li>Check memory usage and flag if used memory exceeds 85 percent</li>
+                        <li>Check disk usage on the root partition and flag if it exceeds 90 percent</li>
+                        <li>Verify that critical services such as SSH and cron are running</li>
+                        <li>Output a clean, timestamped health report to the terminal and an optional log file</li>
+                    </ul>
+                </div>
+
+                <div class="gh-case-section">
+                    <h4>Script Walkthrough</h4>
+                    <ol class="honey-flow-list">
+                        <li>Set threshold variables for CPU, memory, and disk usage for quick adjustment.</li>
+                        <li>Used <code>top</code> and <code>awk</code> to calculate current CPU utilization.</li>
+                        <li>Parsed <code>free</code> output to compute memory usage percentage.</li>
+                        <li>Used <code>df</code> to capture root partition disk usage percentage.</li>
+                        <li>Checked each critical service with <code>systemctl is-active</code> and recorded status.</li>
+                        <li>Printed a formatted summary and appended output to a log file for historical review.</li>
+                    </ol>
+                </div>
+
+                <div class="gh-case-section">
+                    <h4>Script Preview</h4>
+                    <pre class="code-block"><code>#!/bin/bash
 # Automation Lab 2 - Bash System Health Check
 # Checks CPU, memory, disk, and service status with threshold alerting
 
@@ -120,45 +139,47 @@ done
 
 echo "=====================================" | tee -a "$LOG_FILE"
 echo "Check complete. See $LOG_FILE for history."</code></pre>
-    </section>
+                </div>
 
-    <section class="lab-tools">
-        <h3>Key Skills Demonstrated</h3>
-        <ul>
-            <li>Bash scripting with threshold driven conditional logic</li>
-            <li>Linux host monitoring with native command line utilities</li>
-            <li>Service health checks using <code>systemctl</code></li>
-            <li>Structured output and persistent log history management</li>
-        </ul>
-    </section>
+                <div class="gh-case-section">
+                    <h4>Key Skills Demonstrated</h4>
+                    <div class="gh-tags">
+                        <span class="gh-tag">Bash Scripting</span>
+                        <span class="gh-tag">Linux Monitoring</span>
+                        <span class="gh-tag">Threshold Alerting</span>
+                        <span class="gh-tag">systemctl</span>
+                        <span class="gh-tag">Log Management</span>
+                    </div>
+                </div>
 
-    <section class="lab-tools">
-        <h3>Tools &amp; Technologies</h3>
-        <ul>
-            <li>Bash shell scripting</li>
-            <li>GNU utilities including <code>top</code>, <code>free</code>, <code>df</code>, <code>awk</code>, and <code>bc</code></li>
-            <li>systemd with <code>systemctl</code></li>
-            <li>Cron scheduling</li>
-        </ul>
-    </section>
+                <div class="gh-case-section">
+                    <h4>Tools &amp; Technologies</h4>
+                    <ul>
+                        <li>Bash shell scripting</li>
+                        <li>GNU utilities including <code>top</code>, <code>free</code>, <code>df</code>, <code>awk</code>, and <code>bc</code></li>
+                        <li>systemd with <code>systemctl</code></li>
+                        <li>Cron scheduling</li>
+                    </ul>
+                </div>
 
-    <section class="lab-result">
-        <h3>Results &amp; Outcomes</h3>
-        <ul>
-            <li>Built a repeatable host health check that runs quickly on standard Linux systems.</li>
-            <li>Created clear output that helps prioritize immediate response actions.</li>
-            <li>Improved maintainability by separating thresholds from core logic.</li>
-            <li>Enabled scheduled trend tracking with persistent log output.</li>
-        </ul>
-    </section>
+                <div class="gh-case-section">
+                    <h4>Results &amp; Outcomes</h4>
+                    <ul>
+                        <li>Built a repeatable host health check that runs quickly on standard Linux systems.</li>
+                        <li>Created clear output that helps prioritize immediate response actions.</li>
+                        <li>Improved maintainability by separating thresholds from core logic.</li>
+                        <li>Enabled scheduled trend tracking with persistent log output.</li>
+                    </ul>
+                </div>
 
-    <div class="lab-nav">
-        <a href="index.html#automation" class="back-link">&#8592; Back to Automation Scripts</a>
-    </div>
+            </div>
+        </div>
+
+    </section>
 
 </main>
 
-<a class="back-to-top" href="#top" aria-label="Back to top">&#8593; Top</a>
+<a class="back-to-top" href="#top" aria-label="Back to top">↑ Top</a>
 
 <footer class="labs-footer">
     <p>&copy; 2026 Catherine Jason | Cybersecurity Labs &amp; Interactive Projects</p>
