@@ -60,6 +60,26 @@
             showPreviewFallback();
         }
     }
+
+    document.querySelectorAll('.gh-live-warning').forEach((warning) => {
+        const summary = warning.querySelector('[data-live-warning-toggle]');
+        const label = warning.querySelector('[data-live-warning-label]');
+
+        if (!summary || !label) {
+            return;
+        }
+
+        const syncWarningState = () => {
+            const isOpen = warning.hasAttribute('open');
+            label.textContent = isOpen
+                ? 'HTTP Warning (Expanded)'
+                : 'HTTP Warning (Collapsed)';
+            summary.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        };
+
+        warning.addEventListener('toggle', syncWarningState);
+        syncWarningState();
+    });
  
     const patterns = [
         'ignore previous instructions',
