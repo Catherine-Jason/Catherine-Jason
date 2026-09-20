@@ -60,6 +60,21 @@
             showPreviewFallback();
         }
     }
+
+    document.querySelectorAll('.gh-live-warning').forEach((warning) => {
+        const state = warning.querySelector('[data-live-warning-state]');
+
+        if (!state) {
+            return;
+        }
+
+        const syncWarningState = () => {
+            state.textContent = warning.hasAttribute('open') ? 'Expanded' : 'Collapsed';
+        };
+
+        warning.addEventListener('toggle', syncWarningState);
+        syncWarningState();
+    });
  
     const patterns = [
         'ignore previous instructions',

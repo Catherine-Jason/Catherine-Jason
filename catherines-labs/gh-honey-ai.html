@@ -350,25 +350,6 @@ FastAPI /chat endpoint
     <p>&copy; 2026 Catherine Jason | Cybersecurity Labs & Interactive Projects</p>
 </footer>
 
-<script>
-    document.querySelectorAll('.gh-live-warning').forEach((warning) => {
-        const summary = warning.querySelector('[data-live-warning-toggle]');
-        const state = warning.querySelector('[data-live-warning-state]');
-
-        if (!summary || !state) {
-            return;
-        }
-
-        const syncWarningState = () => {
-            const isOpen = warning.hasAttribute('open');
-            state.textContent = isOpen ? 'Expanded' : 'Collapsed';
-        };
-
-        warning.addEventListener('toggle', syncWarningState);
-
-        syncWarningState();
-    });
-</script>
 <script src="honey-ai.js"></script>
 
 </body>
