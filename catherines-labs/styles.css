@@ -757,12 +757,43 @@ body {
   margin-top: auto;
 }
 
-.gh-live-warning summary {
-  list-style: none;
+.gh-live-warning-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--accent-teal);
+  background: transparent;
+  color: var(--accent-teal);
 }
 
-.gh-live-warning summary::-webkit-details-marker {
-  display: none;
+.gh-live-warning-toggle:hover {
+  background: rgba(0, 217, 255, 0.1);
+}
+
+.gh-live-warning-toggle:focus-visible {
+  outline: 2px solid rgba(0, 217, 255, 0.6);
+  outline-offset: 2px;
+}
+
+.gh-live-warning-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gh-live-warning-state::before {
+  content: "Show";
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.gh-live-warning[open] .gh-live-warning-state::before {
+  content: "Hide";
 }
 
 .gh-live-warning p {
