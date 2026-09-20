@@ -62,16 +62,22 @@
     }
 
     document.querySelectorAll('.gh-live-warning').forEach((warning) => {
+        const summary = warning.querySelector('[data-live-warning-toggle]');
         const label = warning.querySelector('[data-live-warning-label]');
 
-        if (!label) {
+        if (!summary || !label) {
             return;
         }
 
         const syncWarningState = () => {
-            label.textContent = warning.hasAttribute('open')
+            const isOpen = warning.hasAttribute('open');
+            label.textContent = isOpen
                 ? 'HTTP Warning (Expanded)'
                 : 'HTTP Warning (Collapsed)';
+            summary.setAttribute(
+                'aria-label',
+                isOpen ? 'HTTP warning, expanded' : 'HTTP warning, collapsed'
+            );
         };
 
         warning.addEventListener('toggle', syncWarningState);
