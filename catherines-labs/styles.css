@@ -789,21 +789,6 @@ body {
   color: var(--text-muted);
 }
 
-.gh-live-card-kicker {
-  display: inline-flex;
-  align-items: center;
-  width: fit-content;
-  padding: 4px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(0, 217, 255, 0.28);
-  background: rgba(0, 217, 255, 0.08);
-  color: var(--accent-teal);
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
 .risk-demo-form {
   display: flex;
   flex-direction: column;
