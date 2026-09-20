@@ -174,17 +174,36 @@ FastAPI /chat endpoint
                 </div>
 
                 <div class="gh-case-section">
-                    <h4>Live Honeypot Demo (Oracle Host)</h4>
+                    <h4>Live Honey-AI Access (Oracle Host)</h4>
                     <p class="gh-case-desc">
-                        This is the real live Honey-AI honeypot endpoint running on my Oracle server:
-                        <code>http://158.101.103.170:8000</code>.
+                        This is the real live Honey-AI environment running on my Oracle server at
+                        <code>http://158.101.103.170:8000</code>. I split the live access area into two cards so visitors can either review the API documentation first or open the live honeypot directly.
                     </p>
                     <p class="gh-case-desc">
-                        For visitor safety and GitHub Pages compatibility, I open the HTTP endpoint in a new tab instead of embedding it here. Your browser may show a "Not secure" warning because this host is currently HTTP only.
+                        For visitor safety and GitHub Pages compatibility, both links open in a new tab. Your browser may show a "Not secure" warning because this host is currently HTTP only.
                     </p>
-                    <a href="http://158.101.103.170:8000" target="_blank" rel="noopener noreferrer" class="card-button">
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Live Honey-AI Honeypot
-                    </a>
+                    <div class="gh-live-zone">
+                        <article class="gh-live-card">
+                            <span class="gh-live-card-kicker">Card A</span>
+                            <h5>FastAPI Docs</h5>
+                            <p>
+                                Open the live FastAPI documentation first if you want to review the exposed endpoint, request format, and test interface before sending prompts.
+                            </p>
+                            <a href="http://158.101.103.170:8000/docs" target="_blank" rel="noopener noreferrer" class="card-button gh-btn-outline">
+                                <i class="fa-solid fa-book-open"></i> Open API Docs
+                            </a>
+                        </article>
+                        <article class="gh-live-card">
+                            <span class="gh-live-card-kicker">Card B</span>
+                            <h5>Live Honeypot</h5>
+                            <p>
+                                Open the live Honey-AI honeypot if you want to view the hosted interface directly on the Oracle server.
+                            </p>
+                            <a href="http://158.101.103.170:8000" target="_blank" rel="noopener noreferrer" class="card-button">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Live Honey-AI Honeypot
+                            </a>
+                        </article>
+                    </div>
                 </div>
 
                 <div class="gh-case-section">

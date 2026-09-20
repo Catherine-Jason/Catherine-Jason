@@ -722,6 +722,49 @@ body {
   background: rgba(17, 17, 17, 0.55);
 }
 
+.gh-live-zone {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.gh-live-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  background: rgba(17, 17, 17, 0.62);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+.gh-live-card h5,
+.gh-live-card p {
+  margin: 0;
+}
+
+.gh-live-card .card-button {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+.gh-live-card-kicker {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 217, 255, 0.28);
+  background: rgba(0, 217, 255, 0.08);
+  color: var(--accent-teal);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 .risk-demo-form {
   display: flex;
   flex-direction: column;
