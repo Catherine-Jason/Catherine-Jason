@@ -699,13 +699,13 @@ const qa = [
   },
   {
     keywords: ["why should we hire you", "why hire you", "what value", "what do you bring"],
-    answer: "I bring real work experience, not just coursework. I've already been doing this at scale — supporting 43 school sites, resolving MFA issues, managing Active Directory, and handling help desk tickets in a fast-paced environment. I pick things up quickly, I document my work well, and I show up consistently.",
+    answer: "I bring real work experience, not just coursework. I've already been doing this at scale, supporting 43 school sites, resolving MFA issues, managing Active Directory, and handling help desk tickets in a fast-paced environment. I pick things up quickly, I document my work well, and I show up consistently.",
     link: { text: "See my resume", href: "resume.html" },
     followUps: ["What's your work experience?", "What are your technical skills?", "What are your strengths?"]
   },
   {
     keywords: ["why cybersecurity", "why cyber", "why this field", "passion for security"],
-    answer: "I genuinely enjoy understanding how systems work and how they can be broken. I like the investigation side of it — figuring out what happened, why it happened, and how to stop it from happening again. That curiosity is what keeps me engaged and keeps me learning.",
+    answer: "I genuinely enjoy understanding how systems work and how they can be broken. I like the investigation side of it, figuring out what happened, why it happened, and how to stop it from happening again. That curiosity is what keeps me engaged and keeps me learning.",
     link: null,
     followUps: ["How do you stay current in cybersecurity?", "What labs have you completed?", "What are your career goals?"]
   },
@@ -867,13 +867,13 @@ const qa = [
   },
   {
     keywords: ["tell me about a time", "example of", "give me an example", "walk me through"],
-    answer: "Happy to. Ask me about a specific situation — like troubleshooting a difficult issue, handling a security incident, supporting a user, or working through a challenge in a team setting — and I'll walk you through it.",
+    answer: "Happy to. Ask me about a specific situation, like troubleshooting a difficult issue, handling a security incident, supporting a user, or working through a challenge in a team setting, and I'll walk you through it.",
     link: null,
     followUps: ["How do you handle a security incident?", "Tell me about your troubleshooting approach.", "Tell me about your work experience."]
   },
   {
     keywords: ["how do you stay current", "learning", "keep up with cybersecurity", "stay updated"],
-    answer: "I stay current by working through labs, reading security news, and following up on areas where I feel less confident. I also review real-world attack patterns and case studies to connect what I'm learning to what's actually happening out there.",
+    answer: "I stay current by working through labs, reading security news, and following up on areas where I feel less confident. I also review real world attack patterns and case studies to connect what I'm learning to what's actually happening out there.",
     link: { text: "Browse my labs", href: "catherines-labs/index.html" },
     followUps: ["What labs have you completed?", "What certifications do you have?", "Tell me about your career goals."]
   },
@@ -966,7 +966,7 @@ document.addEventListener("DOMContentLoaded", function () {
     voiceToggle.classList.toggle("active", voiceEnabled);
     updateChatStatus(
       voiceEnabled
-        ? `Voice ON${selectedVoice ? " \u2013 " + selectedVoice.name : ""}. Toggle to turn off.`
+        ? `Voice ON${selectedVoice ? ": " + selectedVoice.name : ""}. Toggle to turn off.`
         : "Voice OFF. Click Listen to enable."
     );
   }
