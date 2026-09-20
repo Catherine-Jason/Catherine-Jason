@@ -69,7 +69,7 @@
         }
 
         const syncWarningState = () => {
-            state.textContent = warning.hasAttribute('open') ? 'Expanded' : 'Collapsed';
+            state.textContent = warning.hasAttribute('open') ? 'Status: Expanded' : 'Status: Collapsed';
         };
 
         warning.addEventListener('toggle', syncWarningState);
