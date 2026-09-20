@@ -12,52 +12,71 @@
     <script src="../assets/site.js" defer></script>
 </head>
 <body id="top" data-home-path="../index.html" data-labs-path="index.html">
-<main class="lab-page">
 
-    <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="../index.html" class="breadcrumb-link">Home</a>
-        <span>•</span>
-        <a href="index.html" class="breadcrumb-link">Catherine's Labs</a>
-        <span>•</span>
-        <span>Automation Lab 3</span>
-    </nav>
+<!-- Hero Header -->
+<header class="hero-header">
+    <div class="hero-container">
+        <div class="hero-content">
+            <h1 class="hero-title">Automation Lab 3</h1>
+            <p class="hero-subtitle">Python Log Parser &amp; Alert Script</p>
+            <p class="hero-description">
+                A Python script that parses log files, detects patterns tied to errors or suspicious activity, and generates a summary report for review.
+            </p>
+            <nav class="hero-nav">
+                <a href="../index.html"><i class="fa-solid fa-house"></i> Home</a>
+                <a href="index.html">Catherine's Labs</a>
+            </nav>
+        </div>
+    </div>
+</header>
 
-    <section class="lab-detail" id="automation-lab3">
-        <h2>Automation Lab 3 - Python Log Parser &amp; Alert Script</h2>
-        <p>This lab shows a Python script that parses log files, detects patterns tied to errors or suspicious activity, and generates a summary report for review.</p>
-    </section>
+<main class="labs-container">
 
-    <section class="case-study-section">
-        <h3>Overview</h3>
-        <p>Manual log review can miss critical signals when data volume grows. This script automates pattern matching, tracks event counts by category, and captures sample lines for quick triage context.</p>
-        <p><strong>Real-world relevance:</strong> Automated log parsing supports SOC workflows by reducing repetitive manual review and improving visibility into recurring error and security events.</p>
-    </section>
+    <section class="labs-section">
+        <a href="index.html#automation" class="gh-back-link">← Back to Automation Scripts</a>
 
-    <section class="case-study-section">
-        <h3>Objective</h3>
-        <ul>
-            <li>Read and process a target log file line by line</li>
-            <li>Search for configurable keyword patterns such as ERROR, FAILED, WARNING, and authentication failure events</li>
-            <li>Count occurrences of each pattern and identify the lines where they appear</li>
-            <li>Output a timestamped summary report to the terminal and a text file</li>
-            <li>Keep the script flexible so patterns and the target log file can be easily updated</li>
-        </ul>
-    </section>
+        <div class="gh-case-study">
+            <div class="gh-case-body">
+                <h3>Automation Lab 3: Python Log Parser &amp; Alert Script</h3>
+                <p class="gh-case-desc">
+                    This lab shows a Python script that parses log files, detects patterns tied to errors or suspicious activity, and generates a summary report for review.
+                </p>
 
-    <section class="case-study-section">
-        <h3>Script Walkthrough</h3>
-        <ol>
-            <li>Defined a named dictionary of event patterns using regex and keyword matches.</li>
-            <li>Opened the target log file and processed each line with buffered reading.</li>
-            <li>Checked each line against all configured patterns and recorded matches with line numbers.</li>
-            <li>Calculated per pattern totals and assembled structured report output.</li>
-            <li>Wrote a timestamped report file and printed a concise terminal summary.</li>
-        </ol>
-    </section>
+                <div class="gh-case-section">
+                    <h4>Overview</h4>
+                    <p class="gh-case-desc">
+                        Manual log review can miss critical signals when data volume grows. This script automates pattern matching, tracks event counts by category, and captures sample lines for quick triage context.
+                    </p>
+                    <p class="gh-case-desc">
+                        <strong>Real world relevance:</strong> Automated log parsing supports SOC workflows by reducing repetitive manual review and improving visibility into recurring error and security events.
+                    </p>
+                </div>
 
-    <section class="case-study-section">
-        <h3>Script Preview</h3>
-        <pre class="code-block"><code>#!/usr/bin/env python3
+                <div class="gh-case-section">
+                    <h4>Objective</h4>
+                    <ul>
+                        <li>Read and process a target log file line by line</li>
+                        <li>Search for configurable keyword patterns such as ERROR, FAILED, WARNING, and authentication failure events</li>
+                        <li>Count occurrences of each pattern and identify the lines where they appear</li>
+                        <li>Output a timestamped summary report to the terminal and a text file</li>
+                        <li>Keep the script flexible so patterns and the target log file can be easily updated</li>
+                    </ul>
+                </div>
+
+                <div class="gh-case-section">
+                    <h4>Script Walkthrough</h4>
+                    <ol class="honey-flow-list">
+                        <li>Defined a named dictionary of event patterns using regex and keyword matches.</li>
+                        <li>Opened the target log file and processed each line with buffered reading.</li>
+                        <li>Checked each line against all configured patterns and recorded matches with line numbers.</li>
+                        <li>Calculated per pattern totals and assembled structured report output.</li>
+                        <li>Wrote a timestamped report file and printed a concise terminal summary.</li>
+                    </ol>
+                </div>
+
+                <div class="gh-case-section">
+                    <h4>Script Preview</h4>
+                    <pre class="code-block"><code>#!/usr/bin/env python3
 """
 Automation Lab 3 - Python Log Parser & Alert Script
 Scans a log file for defined event patterns and generates a summary report.
@@ -108,45 +127,47 @@ print("\nSummary:")
 for name, hits in matches.items():
     print(f"  {name}: {len(hits)} match(es)")
 print(f"\nFull report saved to: {output_file}")</code></pre>
-    </section>
+                </div>
 
-    <section class="lab-tools">
-        <h3>Key Skills Demonstrated</h3>
-        <ul>
-            <li>Python scripting with file handling and regular expressions</li>
-            <li>Log analysis and event pattern detection</li>
-            <li>Structured report output with timestamped artifacts</li>
-            <li>Maintainable design using configurable pattern dictionaries</li>
-        </ul>
-    </section>
+                <div class="gh-case-section">
+                    <h4>Key Skills Demonstrated</h4>
+                    <div class="gh-tags">
+                        <span class="gh-tag">Python</span>
+                        <span class="gh-tag">Regular Expressions</span>
+                        <span class="gh-tag">Log Analysis</span>
+                        <span class="gh-tag">Pattern Detection</span>
+                        <span class="gh-tag">Automated Reporting</span>
+                    </div>
+                </div>
 
-    <section class="lab-tools">
-        <h3>Tools &amp; Technologies</h3>
-        <ul>
-            <li>Python 3.8+</li>
-            <li>Standard library modules including <code>re</code>, <code>datetime</code>, and <code>pathlib</code></li>
-            <li>Linux and application log sources</li>
-            <li>Plain text output for ticket and analyst handoff use</li>
-        </ul>
-    </section>
+                <div class="gh-case-section">
+                    <h4>Tools &amp; Technologies</h4>
+                    <ul>
+                        <li>Python 3.8+</li>
+                        <li>Standard library modules including <code>re</code>, <code>datetime</code>, and <code>pathlib</code></li>
+                        <li>Linux and application log sources</li>
+                        <li>Plain text output for ticket and analyst handoff use</li>
+                    </ul>
+                </div>
 
-    <section class="lab-result">
-        <h3>Results &amp; Outcomes</h3>
-        <ul>
-            <li>Automated repetitive log review steps that are often done manually.</li>
-            <li>Generated categorized reporting that can support incident notes and ticket updates.</li>
-            <li>Improved flexibility by allowing new event types to be added quickly.</li>
-            <li>Prepared the workflow for scheduled execution or on demand triage support.</li>
-        </ul>
-    </section>
+                <div class="gh-case-section">
+                    <h4>Results &amp; Outcomes</h4>
+                    <ul>
+                        <li>Automated repetitive log review steps that are often done manually.</li>
+                        <li>Generated categorized reporting that can support incident notes and ticket updates.</li>
+                        <li>Improved flexibility by allowing new event types to be added quickly.</li>
+                        <li>Prepared the workflow for scheduled execution or on demand triage support.</li>
+                    </ul>
+                </div>
 
-    <div class="lab-nav">
-        <a href="index.html#automation" class="back-link">&#8592; Back to Automation Scripts</a>
-    </div>
+            </div>
+        </div>
+
+    </section>
 
 </main>
 
-<a class="back-to-top" href="#top" aria-label="Back to top">&#8593; Top</a>
+<a class="back-to-top" href="#top" aria-label="Back to top">↑ Top</a>
 
 <footer class="labs-footer">
     <p>&copy; 2026 Catherine Jason | Cybersecurity Labs &amp; Interactive Projects</p>
