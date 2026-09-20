@@ -750,6 +750,25 @@ body {
   margin-top: auto;
 }
 
+.gh-live-warning {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.gh-live-warning summary {
+  list-style: none;
+}
+
+.gh-live-warning summary::-webkit-details-marker {
+  display: none;
+}
+
+.gh-live-warning p {
+  color: var(--text-muted);
+}
+
 .gh-live-card-kicker {
   display: inline-flex;
   align-items: center;
