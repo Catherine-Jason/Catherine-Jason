@@ -62,14 +62,16 @@
     }
 
     document.querySelectorAll('.gh-live-warning').forEach((warning) => {
-        const state = warning.querySelector('[data-live-warning-state]');
+        const label = warning.querySelector('[data-live-warning-label]');
 
-        if (!state) {
+        if (!label) {
             return;
         }
 
         const syncWarningState = () => {
-            state.textContent = warning.hasAttribute('open') ? 'Status: Expanded' : 'Status: Collapsed';
+            label.textContent = warning.hasAttribute('open')
+                ? 'HTTP Warning (Expanded)'
+                : 'HTTP Warning (Collapsed)';
         };
 
         warning.addEventListener('toggle', syncWarningState);
