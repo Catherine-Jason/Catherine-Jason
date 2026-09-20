@@ -180,7 +180,7 @@ FastAPI /chat endpoint
                         <code>http://158.101.103.170:8000</code>.
                     </p>
                     <p class="gh-case-desc">
-                        For visitor safety and GitHub Pages compatibility, I open the HTTP endpoint in a new tab instead of embedding it here. Your browser may show a “Not secure” warning because this host is currently HTTP only.
+                        For visitor safety and GitHub Pages compatibility, I open the HTTP endpoint in a new tab instead of embedding it here. Your browser may show a "Not secure" warning because this host is currently HTTP only.
                     </p>
                     <a href="http://158.101.103.170:8000" target="_blank" rel="noopener noreferrer" class="card-button">
                         <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Live Honey-AI Honeypot
@@ -210,9 +210,9 @@ FastAPI /chat endpoint
                         Because the project is still in a fresh-install state, I am not presenting live incident totals as if they already happened. Right now the report shows zero recorded prompts, so this section is a sample analyst walkthrough based on how the monitoring stack is designed to work once prompts start coming in.
                     </p>
                     <ul>
-                        <li><strong>Prompt override attempts:</strong> I would watch for phrases that try to replace the original tasking, especially language like “ignore previous instructions.”</li>
+                        <li><strong>Prompt override attempts:</strong> I would watch for phrases that try to replace the original tasking, especially language like "ignore previous instructions."</li>
                         <li><strong>System prompt exfiltration:</strong> Requests to reveal hidden instructions would be reviewed as attempts to expose internal control logic.</li>
-                        <li><strong>Safety bypass attempts:</strong> Phrases like “developer mode” would be grouped as attempts to relax normal restrictions.</li>
+                        <li><strong>Safety bypass attempts:</strong> Phrases like "developer mode" would be grouped as attempts to relax normal restrictions.</li>
                         <li><strong>Jailbreak language:</strong> Direct use of jailbreak phrasing would be treated as a strong sign that the user is intentionally testing or bypassing controls.</li>
                     </ul>
                     <p class="gh-case-desc">
