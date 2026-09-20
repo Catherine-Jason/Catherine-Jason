@@ -785,17 +785,6 @@ body {
   gap: 8px;
 }
 
-.gh-live-warning-state::before {
-  content: "Show";
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.gh-live-warning[open] .gh-live-warning-state::before {
-  content: "Hide";
-}
-
 .gh-live-warning p {
   color: var(--text-muted);
 }
