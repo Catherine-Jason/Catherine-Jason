@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Automation Lab 1 - PowerShell User Account Audit | Catherine Jason</title>
+    <title>Automation Lab 1: PowerShell User Account Audit | Catherine Jason</title>
     <meta name="description" content="Automation Lab 1 with a PowerShell workflow for Active Directory account auditing, inactive account identification, and compliance ready reporting.">
     <meta name="robots" content="index, follow">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -17,10 +17,10 @@
 <header class="hero-header">
     <div class="hero-container">
         <div class="hero-content">
-            <h1 class="hero-title">Automation Lab 1</h1>
+            <h1 class="hero-title">Automation Lab 1: PowerShell User Account Audit</h1>
             <p class="hero-subtitle">PowerShell User Account Audit</p>
             <p class="hero-description">
-                A PowerShell workflow that queries Active Directory, flags inactive or non compliant accounts, and exports a clean report for IT and security review.
+                This lab is a PowerShell script that checks Active Directory for old or risky user accounts and saves a CSV report for IT and security to review.
             </p>
             <nav class="hero-nav">
                 <a href="../index.html"><i class="fa-solid fa-house"></i> Home</a>
@@ -39,16 +39,16 @@
             <div class="gh-case-body">
                 <h3>Automation Lab 1: PowerShell User Account Audit</h3>
                 <p class="gh-case-desc">
-                    This lab shows a PowerShell workflow that queries Active Directory, identifies inactive or non compliant user accounts, and exports a structured CSV report for IT and security review.
+                    This lab is a PowerShell script that checks Active Directory for old or risky user accounts and saves a CSV report for IT and security to review.
                 </p>
 
                 <div class="gh-case-section">
                     <h4>Overview</h4>
                     <p class="gh-case-desc">
-                        Manual account audits can become slow and inconsistent as user volume grows. This script automates account review by collecting core identity fields, applying audit checks, and exporting a clean report for follow up.
+                        Checking accounts by hand gets slow and uneven as the number of users grows. This script does the check the same way every time and saves the results in a clean report.
                     </p>
                     <p class="gh-case-desc">
-                        <strong>Real world relevance:</strong> Routine identity audits help reduce risk from stale credentials, weak account hygiene, and policy drift. This process supports least privilege and audit readiness.
+                        <strong>Real world relevance:</strong> Regular account checks help find old accounts and weak password settings before they become a problem. It also supports least privilege.
                     </p>
                 </div>
 
@@ -56,7 +56,7 @@
                     <h4>Objective</h4>
                     <ul>
                         <li>Identify user accounts that have not logged in within the last 90 days</li>
-                        <li>Flag accounts with passwords that have never been set or have expired</li>
+                        <li>Flag accounts where the password is set to never expire, or has already expired</li>
                         <li>Capture account status, last logon date, and password policy flags</li>
                         <li>Export findings to a CSV for IT and compliance team review</li>
                     </ul>
@@ -65,11 +65,11 @@
                 <div class="gh-case-section">
                     <h4>Script Walkthrough</h4>
                     <ol class="honey-flow-list">
-                        <li>Imported the Active Directory PowerShell module and defined a 90 day inactivity threshold.</li>
-                        <li>Queried enabled user accounts with <code>Get-ADUser</code> and requested relevant identity properties.</li>
-                        <li>Calculated days since last logon for each account and compared results against the threshold.</li>
-                        <li>Collected accounts that matched inactivity or password policy exceptions.</li>
-                        <li>Exported results to a timestamped CSV for review, documentation, and remediation tracking.</li>
+                        <li>I loaded the Active Directory module and set the limit to 90 days.</li>
+                        <li>I used Get-ADUser to pull the enabled accounts and the fields I needed.</li>
+                        <li>I compared each last logon date to the limit.</li>
+                        <li>I kept the accounts that were inactive or had a password setting that needed attention.</li>
+                        <li>I saved the results to a CSV named with the date.</li>
                     </ol>
                 </div>
 
@@ -126,10 +126,10 @@ Write-Host "Report saved to: $OutputFile"</code></pre>
                 <div class="gh-case-section">
                     <h4>Results &amp; Outcomes</h4>
                     <ul>
-                        <li>Reduced manual account review time from hours to seconds per audit cycle.</li>
-                        <li>Produced an auditable report that highlights accounts requiring action.</li>
-                        <li>Improved visibility into stale accounts and password policy exceptions.</li>
-                        <li>Prepared the workflow for scheduled recurring audits.</li>
+                        <li>The script turns a manual review into one command.</li>
+                        <li>It saves a report that shows which accounts need action.</li>
+                        <li>It makes old accounts and password exceptions easier to see.</li>
+                        <li>It is ready to run on a schedule.</li>
                     </ul>
                 </div>
 

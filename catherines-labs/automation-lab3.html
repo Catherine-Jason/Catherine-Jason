@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Automation Lab 3 - Python Log Parser &amp; Alert Script | Catherine Jason</title>
+    <title>Automation Lab 3: Python Log Parser and Report | Catherine Jason</title>
     <meta name="description" content="Automation Lab 3 with a Python log parsing workflow that detects event patterns and generates structured summary reporting.">
     <meta name="robots" content="index, follow">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -17,10 +17,10 @@
 <header class="hero-header">
     <div class="hero-container">
         <div class="hero-content">
-            <h1 class="hero-title">Automation Lab 3</h1>
-            <p class="hero-subtitle">Python Log Parser &amp; Alert Script</p>
+            <h1 class="hero-title">Automation Lab 3: Python Log Parser and Report</h1>
+            <p class="hero-subtitle">Python Log Parser and Report</p>
             <p class="hero-description">
-                A Python script that parses log files, detects patterns tied to errors or suspicious activity, and generates a summary report for review.
+                This lab is a Python script that reads a log file, looks for errors and signs of suspicious activity, and writes a summary report.
             </p>
             <nav class="hero-nav">
                 <a href="../index.html"><i class="fa-solid fa-house"></i> Home</a>
@@ -37,18 +37,18 @@
 
         <div class="gh-case-study">
             <div class="gh-case-body">
-                <h3>Automation Lab 3: Python Log Parser &amp; Alert Script</h3>
+                <h3>Automation Lab 3: Python Log Parser and Report</h3>
                 <p class="gh-case-desc">
-                    This lab shows a Python script that parses log files, detects patterns tied to errors or suspicious activity, and generates a summary report for review.
+                    This lab is a Python script that reads a log file, looks for errors and signs of suspicious activity, and writes a summary report.
                 </p>
 
                 <div class="gh-case-section">
                     <h4>Overview</h4>
                     <p class="gh-case-desc">
-                        Manual log review can miss critical signals when data volume grows. This script automates pattern matching, tracks event counts by category, and captures sample lines for quick triage context.
+                        When a log gets big, it is easy to miss the lines that matter. This script counts each type of event and keeps a few example lines so I know where to start looking.
                     </p>
                     <p class="gh-case-desc">
-                        <strong>Real world relevance:</strong> Automated log parsing supports SOC workflows by reducing repetitive manual review and improving visibility into recurring error and security events.
+                        <strong>Real world relevance:</strong> Scanning logs automatically saves time in a SOC and makes repeat errors and security events easier to notice.
                     </p>
                 </div>
 
@@ -66,11 +66,11 @@
                 <div class="gh-case-section">
                     <h4>Script Walkthrough</h4>
                     <ol class="honey-flow-list">
-                        <li>Defined a named dictionary of event patterns using regex and keyword matches.</li>
-                        <li>Opened the target log file and processed each line with buffered reading.</li>
-                        <li>Checked each line against all configured patterns and recorded matches with line numbers.</li>
-                        <li>Calculated per pattern totals and assembled structured report output.</li>
-                        <li>Wrote a timestamped report file and printed a concise terminal summary.</li>
+                        <li>I made a list of patterns to look for, using keywords and regular expressions.</li>
+                        <li>I opened the log file and read it one line at a time.</li>
+                        <li>I checked each line against every pattern and saved the line number of each match.</li>
+                        <li>I counted the matches for each pattern.</li>
+                        <li>I wrote a report with the date and time and printed a short summary in the terminal.</li>
                     </ol>
                 </div>
 
