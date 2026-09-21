@@ -106,11 +106,11 @@
   v
 FastAPI /chat endpoint (500 character limit, rate limit per IP)
   |
-    +--> Ollama /api/generate (llama3.2:1b, Honey support persona)
+  +--> Ollama /api/generate (llama3.2:1b, Honey support persona)
   |
   +--> calculate_risk() + get_risk_level()
   |       |
-    |       +--> response policy (score 50 or higher: reply withheld from visitor)
+  |       +--> response policy (score 50 or higher: reply withheld from visitor)
   |       +--> chat_log.txt
   |       +--> security_events.txt (risk score >= 50)
   |       +--> logs/honey_ai.db
