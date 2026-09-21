@@ -71,7 +71,6 @@
             <div class="gh-case-body">
                 <div class="gh-case-meta">
                     <span class="gh-lang-badge"><i class="fa-solid fa-circle" style="color:#3572A5;"></i> Python</span>
-                    <img src="https://img.shields.io/github/last-commit/Catherine-Jason/Capstone_2026?style=flat-square&color=00d9ff&labelColor=1a1a1a&label=last+commit" alt="Last commit date badge for Capstone_2026" loading="lazy" class="gh-badge" />
                 </div>
                 <h3>Honey-AI: LLM Injection Honeypot</h3>
                 <p class="gh-case-desc">
@@ -173,6 +172,29 @@ FastAPI /chat endpoint
                         <li><strong>Critical:</strong> 75 to 100</li>
                         <li><strong>Security event logging threshold:</strong> prompts scoring 50 or higher are written to <code>security_events.txt</code></li>
                     </ul>
+                </div>
+                <div class="gh-case-section">
+                    <h4>Screenshots</h4>
+                    <div class="honey-screenshots">
+                        <figure class="honey-screenshot">
+                            <a href="img/honey-ai-demo.png" target="_blank" rel="noopener noreferrer">
+                                <img src="img/honey-ai-demo.png" alt="Honey Support chat showing blocked and logged risk prompts" loading="lazy">
+                            </a>
+                            <figcaption>The Honey Support chat. The High risk prompt was blocked, the hidden prompt one was logged as Medium, and the normal question got a normal answer.</figcaption>
+                        </figure>
+                        <figure class="honey-screenshot">
+                            <a href="img/honey-ai-docs.png" target="_blank" rel="noopener noreferrer">
+                                <img src="img/honey-ai-docs.png" alt="Honey-AI API docs page showing endpoint access" loading="lazy">
+                            </a>
+                            <figcaption>The API docs page. The findings review endpoints are locked, and the public ones are open.</figcaption>
+                        </figure>
+                        <figure class="honey-screenshot">
+                            <a href="img/honey-ai-events.png" target="_blank" rel="noopener noreferrer">
+                                <img src="img/honey-ai-events.png" alt="Honey-AI database events with scores and risk levels" loading="lazy">
+                            </a>
+                            <figcaption>The last 10 events logged in the database, with the score and risk level for each one.</figcaption>
+                        </figure>
+                    </div>
                 </div>
                 </div>
 
@@ -314,30 +336,6 @@ FastAPI /chat endpoint
                             <h5>Lessons Learned</h5>
                             <p><!-- TODO: Catherine to add build notes here -->This section is reserved for the practical lessons I want to document about prompt injection review, SOC-style reporting, and tuning lightweight detection logic.</p>
                         </div>
-                    </div>
-                </div>
-
-                <div class="gh-case-section">
-                    <h4>Screenshots</h4>
-                    <div class="honey-screenshots">
-                        <figure class="honey-screenshot">
-                            <a href="img/honey-ai-demo.png" target="_blank" rel="noopener noreferrer">
-                                <img src="img/honey-ai-demo.png" alt="Honey Support chat showing blocked and logged risk prompts" loading="lazy">
-                            </a>
-                            <figcaption>The Honey Support chat. The High risk prompt was blocked, the hidden prompt one was logged as Medium, and the normal question got a normal answer.</figcaption>
-                        </figure>
-                        <figure class="honey-screenshot">
-                            <a href="img/honey-ai-docs.png" target="_blank" rel="noopener noreferrer">
-                                <img src="img/honey-ai-docs.png" alt="Honey-AI API docs page showing endpoint access" loading="lazy">
-                            </a>
-                            <figcaption>The API docs page. The findings review endpoints are locked, and the public ones are open.</figcaption>
-                        </figure>
-                        <figure class="honey-screenshot">
-                            <a href="img/honey-ai-events.png" target="_blank" rel="noopener noreferrer">
-                                <img src="img/honey-ai-events.png" alt="Honey-AI database events with scores and risk levels" loading="lazy">
-                            </a>
-                            <figcaption>The last 10 events logged in the database, with the score and risk level for each one.</figcaption>
-                        </figure>
                     </div>
                 </div>
 
