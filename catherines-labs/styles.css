@@ -470,15 +470,17 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 220px;
+  align-self: start;
   overflow: hidden;
 }
 
 .gh-case-preview img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  max-width: 340px;
   display: block;
+  border: 1px solid var(--accent-teal);
+  border-radius: 8px;
 }
 
 .gh-case-preview-fallback {
@@ -601,7 +603,8 @@ body {
   .labs-container,
   .lab-page { padding: 40px 16px; }
   .gh-case-study { grid-template-columns: 1fr; }
-  .gh-case-preview { min-height: 180px; }
+  .gh-case-preview { align-self: start; }
+  .gh-case-preview img { max-width: 300px; margin: 0 auto; }
   .gh-tabs { gap: 8px; }
   .gh-tab { font-size: 0.82rem; padding: 8px 14px; }
 }
@@ -876,28 +879,34 @@ body {
   margin: 0;
 }
 
-.image-placeholder {
-  min-height: 220px;
-  border-radius: 10px;
-  border: 1px dashed rgba(0, 217, 255, 0.35);
-  background: rgba(0, 0, 0, 0.18);
+.honey-screenshots {
+  display: grid;
+  gap: 22px;
+  margin: 16px 0 22px;
+}
+
+.honey-screenshot {
+  margin: 0;
+}
+
+.honey-screenshot a {
+  display: block;
+}
+
+.honey-screenshot img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--accent-teal);
+  border-radius: 8px;
+}
+
+.honey-screenshot figcaption {
+  margin-top: 8px;
   color: var(--text-muted);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 10px;
-  padding: 20px;
-}
-
-.image-placeholder i {
-  font-size: 2rem;
-  color: rgba(0, 217, 255, 0.55);
-}
-
-.image-placeholder strong {
-  color: var(--text-light);
+  font-size: 0.9rem;
+  line-height: 1.55;
 }
 
 .honey-flow-list {
@@ -940,4 +949,165 @@ body {
   color: var(--accent-blue);
   margin-bottom: 6px;
   font-size: 0.95rem;
+}
+
+/* Honey-AI case study zones */
+.gh-zone {
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(0, 217, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.gh-zone:first-of-type {
+  margin-top: 24px;
+  padding-top: 0;
+  border-top: none;
+}
+
+.gh-zone-label {
+  color: var(--accent-blue);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.gh-zone-intro {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  margin: -12px 0 0;
+}
+
+.gh-zone--live {
+  padding: 22px;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 217, 255, 0.32);
+  background: rgba(17, 17, 17, 0.62);
+  box-shadow: 0 0 26px rgba(0, 217, 255, 0.18);
+}
+
+.gh-try-it-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 22px;
+  align-items: start;
+}
+
+.gh-try-it-col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.gh-try-it-badge {
+  align-self: flex-start;
+  background: rgba(0, 217, 255, 0.12);
+  border: 1px solid rgba(0, 217, 255, 0.4);
+  color: var(--accent-teal);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.gh-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 4px 0 4px;
+}
+
+.gh-stat-tile {
+  padding: 16px 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  background: rgba(17, 17, 17, 0.62);
+}
+
+.gh-stat-tile h5 {
+  margin: 0 0 8px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-blue);
+}
+
+.gh-stat-value {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--text-light);
+  margin: 0;
+}
+
+.gh-risk-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gh-risk-bar-row {
+  display: grid;
+  grid-template-columns: 64px 1fr 26px;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.gh-risk-bar-track {
+  height: 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.gh-risk-bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  background: var(--accent-teal);
+}
+
+.gh-risk-bar-fill.risk-level-low {
+  background: rgba(58, 141, 255, 0.85);
+}
+
+.gh-risk-bar-fill.risk-level-medium {
+  background: rgba(0, 217, 255, 0.85);
+}
+
+.gh-risk-bar-fill.risk-level-high {
+  background: rgba(255, 193, 7, 0.85);
+}
+
+.gh-risk-bar-fill.risk-level-critical {
+  background: rgba(255, 99, 132, 0.85);
+}
+
+.gh-recent-scroll {
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.gh-stats-note {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin: 10px 0 0;
+}
+
+@media (max-width: 768px) {
+  .gh-try-it-grid { grid-template-columns: 1fr; }
+  .gh-zone--live { padding: 16px; }
+  /* Pre-existing grid item auto min-width lets the gh-case-preview image
+     force gh-case-study wider than the viewport; clamp it so the new
+     zones can wrap correctly at phone width. */
+  .gh-case-preview,
+  .gh-case-body {
+    min-width: 0;
+  }
 }
