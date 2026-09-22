@@ -225,7 +225,7 @@ FastAPI /chat endpoint (500 character limit, rate limit per IP)
                             This is the real live Honey-AI environment running on my Oracle server at https://honeyai.catherinejason.com. I split the live access area into two cards so visitors can either review the API documentation first or open the live honeypot directly. Please do not enter personal information, because every message is scored and logged.
                         </p>
                         <p class="gh-case-desc">
-                            For visitor safety and GitHub Pages compatibility, both links open in a new tab. Your browser may show a "Not secure" warning because this host is currently HTTP only.
+                            For visitor safety and GitHub Pages compatibility, both links open in a new tab.
                         </p>
                         <div class="gh-live-zone">
                             <article class="gh-live-card">
@@ -233,40 +233,18 @@ FastAPI /chat endpoint (500 character limit, rate limit per IP)
                                 <p>
                                     Open the live FastAPI documentation first if you want to review the exposed endpoint, request format, and test interface before sending prompts.
                                 </p>
-                                <details class="gh-live-warning">
-                                    <summary class="gh-live-warning-toggle" data-live-warning-toggle aria-expanded="false">
-                                        <span class="gh-live-warning-label">
-                                            <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
-                                            <span data-live-warning-label>HTTP Warning (Collapsed)</span>
-                                        </span>
-                                    </summary>
-                                    <p>
-                                        This live host is HTTP only, so the connection is not encrypted. Open it only if you understand the browser warning and want to continue to the FastAPI docs.
-                                    </p>
-                                    <a href="https://honeyai.catherinejason.com/docs" target="_blank" rel="noopener noreferrer" class="card-button gh-btn-outline">
-                                        <i class="fa-solid fa-book-open"></i> Open API Docs
-                                    </a>
-                                </details>
+                                <a href="https://honeyai.catherinejason.com/docs" target="_blank" rel="noopener noreferrer" class="card-button gh-btn-outline">
+                                    <i class="fa-solid fa-book-open"></i> Open API Docs
+                                </a>
                             </article>
                             <article class="gh-live-card">
                                 <h5>Live Honeypot</h5>
                                 <p>
                                     Open the live Honey-AI honeypot to chat with Honey, a support assistant backed by a local model. Try a normal question first, then try a prompt injection and see how it responds.
                                 </p>
-                                <details class="gh-live-warning">
-                                    <summary class="gh-live-warning-toggle" data-live-warning-toggle aria-expanded="false">
-                                        <span class="gh-live-warning-label">
-                                            <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
-                                            <span data-live-warning-label>HTTP Warning (Collapsed)</span>
-                                        </span>
-                                    </summary>
-                                    <p>
-                                        This live host is HTTP only, so the connection is not encrypted. Open it only if you understand the browser warning and still want to continue to the live Honey-AI honeypot.
-                                    </p>
-                                    <a href="https://honeyai.catherinejason.com/demo" target="_blank" rel="noopener noreferrer" class="card-button">
-                                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Live Honey-AI Honeypot
-                                    </a>
-                                </details>
+                                <a href="https://honeyai.catherinejason.com/demo" target="_blank" rel="noopener noreferrer" class="card-button">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Live Honey-AI Honeypot
+                                </a>
                             </article>
                         </div>
                     </div>
@@ -400,7 +378,7 @@ FastAPI /chat endpoint (500 character limit, rate limit per IP)
                             Controls in place: a 500 character message limit, a rate limit per IP address, an allowed websites list for browser requests, a switch that turns the public chat off without taking the rest of the site down, a switch that hides the API docs, an admin token required to approve submitted findings, and secrets kept out of the repository. The demo page also shows model replies with safe page building methods so a reply cannot run code in a visitor's browser.
                         </p>
                         <p>
-                            Known limits: the API response includes the risk score and matched patterns, which an attacker could use as feedback, and the demo is HTTP only until I add HTTPS.
+                            Known limits: the API response includes the risk score and matched patterns, which an attacker could use as feedback.
                         </p>
                     </div>
                 </div>
