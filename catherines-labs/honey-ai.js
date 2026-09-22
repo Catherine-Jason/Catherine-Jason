@@ -150,49 +150,29 @@
     }
 
     function renderRecentPromptsTable(container, data) {
-        const heading = document.createElement('h5');
-        heading.textContent = 'Recent flagged prompts';
-        container.appendChild(heading);
+        const tbody = document.querySelector('[data-captured-tbody]');
+        if (!tbody) {
+            return;
+        }
 
-        const scrollWrap = document.createElement('div');
-        scrollWrap.className = 'gh-recent-scroll honey-table-wrap';
-
-        const table = document.createElement('table');
-        table.className = 'honey-risk-table';
-
-        const thead = document.createElement('thead');
-        const headRow = document.createElement('tr');
-        ['Time', 'Prompt', 'Score', 'Level'].forEach((label) => {
-            const th = document.createElement('th');
-            th.textContent = label;
-            headRow.appendChild(th);
-        });
-        thead.appendChild(headRow);
-        table.appendChild(thead);
-
-        const tbody = document.createElement('tbody');
         data.recent.forEach((row) => {
             const tr = document.createElement('tr');
 
-            const tdTime = document.createElement('td');
-            tdTime.textContent = row.time;
             const tdPrompt = document.createElement('td');
-            tdPrompt.textContent = row.prompt;
+            tdPrompt.textContent = row.time + ' ' + row.prompt;
             const tdScore = document.createElement('td');
             tdScore.textContent = String(row.score);
             const tdLevel = document.createElement('td');
             tdLevel.textContent = row.level;
+            const tdWhatHappened = document.createElement('td');
+            tdWhatHappened.textContent = 'Live flagged prompt from the honeypot database.';
 
-            tr.appendChild(tdTime);
             tr.appendChild(tdPrompt);
             tr.appendChild(tdScore);
             tr.appendChild(tdLevel);
+            tr.appendChild(tdWhatHappened);
             tbody.appendChild(tr);
         });
-        table.appendChild(tbody);
-
-        scrollWrap.appendChild(table);
-        container.appendChild(scrollWrap);
     }
 
     function renderStats(root, data, isLive) {
@@ -254,8 +234,29 @@
             });
     }
 
+    function initLivePreviewHeight() {
+        const preview = document.querySelector('.gh-case-preview');
+        const liveZone = document.querySelector('.gh-zone--live');
+        if (!preview || !liveZone) {
+            return;
+        }
+
+        const syncHeight = () => {
+            preview.style.height = liveZone.getBoundingClientRect().height + 'px';
+        };
+
+        syncHeight();
+        if ('ResizeObserver' in window) {
+            new ResizeObserver(syncHeight).observe(liveZone);
+        }
+    }
+
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initStatsZone);
+        document.addEventListener('DOMContentLoaded', () => {
+            initLivePreviewHeight();
+            initStatsZone();
+        });
     } else {
+        initLivePreviewHeight();
         initStatsZone();
     }

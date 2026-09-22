@@ -270,7 +270,9 @@ body {
   background: linear-gradient(135deg, rgba(58, 58, 58, 0.95), rgba(43, 43, 43, 0.95));
   border: 1px solid rgba(0, 217, 255, 0.24);
   border-radius: 12px;
-  padding: 24px;
+  width: 100%;
+  min-width: 0;
+  align-self: stretch;
 }
 
 .linkedin-profile-badge i {
@@ -478,6 +480,9 @@ body {
   width: 100%;
   height: auto;
   max-width: 340px;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
   display: block;
   border: 1px solid var(--accent-teal);
   border-radius: 8px;
@@ -729,13 +734,24 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 18px;
+  width: 100%;
+  min-width: 0;
   border-radius: 12px;
   border: 1px solid rgba(58, 141, 255, 0.28);
   background: rgba(17, 17, 17, 0.55);
 }
 
 .gh-live-zone {
+  .gh-zone-stats .honey-risk-table {
+    min-width: 0;
+    table-layout: fixed;
+  }
+  .gh-zone-stats .honey-risk-table th,
+  .gh-zone-stats .honey-risk-table td {
+    padding: 8px 6px;
+    font-size: 0.76rem;
+    overflow-wrap: anywhere;
+  }
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 16px;
@@ -1000,17 +1016,54 @@ body {
   box-shadow: 0 0 26px rgba(0, 217, 255, 0.18);
 }
 
+.gh-zone-case-study,
+.gh-zone-stats,
+.gh-zone-build,
+.gh-zone-screenshots,
+.gh-zone-skills {
+  width: 100%;
+  min-width: 0;
+  align-self: stretch;
+  padding: 22px;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 217, 255, 0.24);
+  background: rgba(17, 17, 17, 0.62);
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.18);
+}
+
+.gh-zone > .gh-case-section {
+  width: 100%;
+  min-width: 0;
+}
+
+.gh-case-body > .gh-zone:not(.gh-zone--live) {
+  width: calc(100% + 340px);
+  margin-left: -340px;
+}
+
 .gh-try-it-grid {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 22px;
-  align-items: start;
+  align-items: stretch;
 }
 
 .gh-try-it-col {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  border-radius: 12px;
+  background: rgba(17, 17, 17, 0.62);
+}
+
+.gh-try-it-col > .gh-case-section {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
 }
 
 .gh-try-it-badge {
@@ -1112,12 +1165,31 @@ body {
 
 @media (max-width: 768px) {
   .gh-try-it-grid { grid-template-columns: 1fr; }
-  .gh-zone--live { padding: 16px; }
+  .gh-zone--live,
+  .gh-zone-case-study,
+  .gh-zone-stats,
+  .gh-zone-build,
+  .gh-zone-screenshots,
+  .gh-zone-skills { padding: 16px; }
   /* Pre-existing grid item auto min-width lets the gh-case-preview image
      force gh-case-study wider than the viewport; clamp it so the new
      zones can wrap correctly at phone width. */
   .gh-case-preview,
   .gh-case-body {
     min-width: 0;
+  }
+  .gh-zone-stats .honey-risk-table {
+    min-width: 0;
+    table-layout: fixed;
+  }
+  .gh-zone-stats .honey-risk-table th,
+  .gh-zone-stats .honey-risk-table td {
+    padding: 8px 6px;
+    font-size: 0.76rem;
+    overflow-wrap: anywhere;
+  }
+  .gh-case-body > .gh-zone:not(.gh-zone--live) {
+    width: 100%;
+    margin-left: 0;
   }
 }
