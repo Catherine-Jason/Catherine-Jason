@@ -1037,9 +1037,17 @@ body {
   min-width: 0;
 }
 
+/* Zones stay in the right column so they never cover the preview image.
+   The preview sticks while scrolling so the left column does not look empty. */
 .gh-case-body > .gh-zone:not(.gh-zone--live) {
-  width: calc(100% + 340px);
-  margin-left: -340px;
+  width: 100%;
+  margin-left: 0;
+}
+@media (min-width: 769px) {
+  .gh-case-preview {
+    position: sticky;
+    top: 20px;
+  }
 }
 
 .gh-try-it-grid {
