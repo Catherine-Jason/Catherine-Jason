@@ -18,7 +18,7 @@
     <div class="hero-container">
         <div class="hero-content">
             <h1 class="hero-title">Automation Lab 3: Python Log Parser and Report</h1>
-            <p class="hero-subtitle">Python Log Parser and Report</p>
+            <p class="hero-subtitle">Pulling security events out of Linux logs</p>
             <p class="hero-description">
                 This lab is a Python script that reads a log file, looks for errors and signs of suspicious activity, and writes a summary report.
             </p>
@@ -39,131 +39,184 @@
         </div>
         <a href="index.html#automation" class="gh-back-link">← Back to Automation Scripts</a>
 
-        <div class="gh-case-study">
+        <div class="gh-case-study" style="grid-template-columns:1fr">
             <div class="gh-case-body">
                 <h3>Automation Lab 3: Python Log Parser and Report</h3>
-                <p class="gh-case-desc">
-                    This lab is a Python script that reads a log file, looks for errors and signs of suspicious activity, and writes a summary report.
-                </p>
-
                 <div class="gh-case-section">
                     <h4>Overview</h4>
-                    <p class="gh-case-desc">
-                        When a log gets big, it is easy to miss the lines that matter. This script counts each type of event and keeps a few example lines so I know where to start looking.
-                    </p>
-                    <p class="gh-case-desc">
-                        <strong>Real world relevance:</strong> Scanning logs automatically saves time in a SOC and makes repeat errors and security events easier to notice.
-                    </p>
+                    <p class="gh-case-desc">When a log gets big, it is easy to miss the lines that matter. This script counts each type of event, keeps a few example lines so I know where to start looking, and lists which IP addresses have the most failed logins.</p>
+                    <p class="gh-case-desc"><strong>Why it matters:</strong> Many failed logins from one IP address is a sign of a brute force or password spraying attack. Finding that quickly is the same thinking I use in Splunk and in my <a href="https://catherine-jason.github.io/soc-alert-triage-demo/" target="_blank" rel="noopener noreferrer" style="color:#00d9ff">SOC Alert Triage</a> game.</p>
                 </div>
-
                 <div class="gh-case-section">
                     <h4>Objective</h4>
                     <ul>
-                        <li>Read and process a target log file line by line</li>
-                        <li>Search for configurable keyword patterns such as ERROR, FAILED, WARNING, and authentication failure events</li>
-                        <li>Count occurrences of each pattern and identify the lines where they appear</li>
-                        <li>Output a timestamped summary report to the terminal and a text file</li>
-                        <li>Keep the script flexible so patterns and the target log file can be easily updated</li>
+                        <li>Read a Linux log file line by line, with the file path given when the script runs</li>
+                        <li>Count failed logins, invalid users, sudo commands, errors and full disk messages</li>
+                        <li>Rank the source IP addresses with the most failed logins</li>
+                        <li>Save a dated report and print a short summary in the terminal</li>
+                        <li>Give a clear message instead of crashing when the file is missing or needs sudo</li>
                     </ul>
                 </div>
-
                 <div class="gh-case-section">
                     <h4>Script Walkthrough</h4>
                     <ol class="honey-flow-list">
-                        <li>I made a list of patterns to look for, using keywords and regular expressions.</li>
-                        <li>I opened the log file and read it one line at a time.</li>
-                        <li>I checked each line against every pattern and saved the line number of each match.</li>
-                        <li>I counted the matches for each pattern.</li>
-                        <li>I wrote a report with the date and time and printed a short summary in the terminal.</li>
+                        <li>I listed the event types I wanted to find as regular expressions.</li>
+                        <li>The script takes the log path from the command line and uses /var/log/auth.log if none is given, because that is where Ubuntu writes login events.</li>
+                        <li>It reads the log one line at a time and checks each line against every pattern.</li>
+                        <li>When it finds a failed password, it pulls out the source IP and adds it to a counter.</li>
+                        <li>It writes a report with counts, example lines and the top IP addresses, and prints a summary.</li>
                     </ol>
                 </div>
-
                 <div class="gh-case-section">
                     <h4>Script Preview</h4>
                     <pre class="code-block"><code>#!/usr/bin/env python3
-"""
-Automation Lab 3 - Python Log Parser & Alert Script
-Scans a log file for defined event patterns and generates a summary report.
-"""
+&quot;&quot;&quot;
+Automation Lab 3: Python Log Parser and Report
+Scans a Linux log for errors and security events, counts failed logins
+by source IP, and saves a summary report.
 
+Usage: python3 log_parser.py /var/log/auth.log
+&quot;&quot;&quot;
 import re
+import sys
+from collections import Counter
 from datetime import datetime
 from pathlib import Path
 
-LOG_FILE   = "/var/log/syslog"   # Change to your target log path
-OUTPUT_DIR = Path("./reports")
-OUTPUT_DIR.mkdir(exist_ok=True)
+LOG_FILE = sys.argv[1] if len(sys.argv) &gt; 1 else &quot;/var/log/auth.log&quot;
+OUTPUT_DIR = Path(&quot;./reports&quot;)
+PREVIEW_LINES = 5   # example lines to show for each event type
+TOP_IPS = 5         # how many source IPs to list
 
 PATTERNS = {
-    "ERROR":                r"\bERROR\b",
-    "WARNING":              r"\bWARNING\b",
-    "CRITICAL":             r"\bCRITICAL\b",
-    "Authentication Failure": r"authentication failure|Failed password",
-    "Segfault":             r"segfault|kernel BUG",
-    "Disk Full":            r"No space left on device",
+    &quot;Failed login&quot;:  re.compile(r&quot;Failed password|authentication failure&quot;, re.I),
+    &quot;Invalid user&quot;:  re.compile(r&quot;\bInvalid user\b&quot;),
+    &quot;Sudo command&quot;:  re.compile(r&quot;sudo:.*COMMAND=&quot;, re.I),
+    &quot;Error&quot;:         re.compile(r&quot;\berror\b&quot;, re.I),
+    &quot;Disk full&quot;:     re.compile(r&quot;No space left on device&quot;, re.I),
 }
-
-timestamp   = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-output_file = OUTPUT_DIR / f"log_report_{timestamp}.txt"
+FAILED_FROM_IP = re.compile(r&quot;Failed password for .* from (\d{1,3}(?:\.\d{1,3}){3})&quot;)
 
 matches = {name: [] for name in PATTERNS}
+failed_ips = Counter()
 
-print(f"Parsing: {LOG_FILE}")
-with open(LOG_FILE, "r", errors="replace") as fh:
-    for line_num, line in enumerate(fh, start=1):
-        for name, pattern in PATTERNS.items():
-            if re.search(pattern, line, re.IGNORECASE):
-                matches[name].append((line_num, line.rstrip()))
+try:
+    with open(LOG_FILE, &quot;r&quot;, errors=&quot;replace&quot;) as fh:
+        for line_num, line in enumerate(fh, start=1):
+            for name, pattern in PATTERNS.items():
+                if pattern.search(line):
+                    matches[name].append((line_num, line.rstrip()))
+            ip = FAILED_FROM_IP.search(line)
+            if ip:
+                failed_ips[ip.group(1)] += 1
+except FileNotFoundError:
+    sys.exit(f&quot;Can&#x27;t find {LOG_FILE}. Check the path. Some systems only keep logs in journalctl.&quot;)
+except PermissionError:
+    sys.exit(f&quot;No permission to read {LOG_FILE}. Try running it with sudo.&quot;)
 
-with open(output_file, "w") as report:
-    report.write(f"Log Parser Report - {timestamp}\n")
-    report.write(f"Source: {LOG_FILE}\n")
-    report.write("=" * 60 + "\n\n")
-    for name, hits in matches.items():
-        report.write(f"[{name}] - {len(hits)} occurrence(s)\n")
-        for line_num, content in hits[:10]:   # cap preview at 10 lines
-            report.write(f"  Line {line_num}: {content}\n")
-        if len(hits) > 10:
-            report.write(f"  ... and {len(hits) - 10} more.\n")
-        report.write("\n")
+timestamp = datetime.now().strftime(&quot;%Y-%m-%d_%H-%M-%S&quot;)
+lines = [f&quot;Log Parser Report  {timestamp}&quot;, f&quot;Source: {LOG_FILE}&quot;, &quot;=&quot; * 60, &quot;&quot;]
 
-print("\nSummary:")
 for name, hits in matches.items():
-    print(f"  {name}: {len(hits)} match(es)")
-print(f"\nFull report saved to: {output_file}")</code></pre>
-                </div>
+    lines.append(f&quot;[{name}] {len(hits)} match(es)&quot;)
+    for line_num, content in hits[:PREVIEW_LINES]:
+        lines.append(f&quot;  Line {line_num}: {content}&quot;)
+    if len(hits) &gt; PREVIEW_LINES:
+        lines.append(f&quot;  ... and {len(hits) - PREVIEW_LINES} more&quot;)
+    lines.append(&quot;&quot;)
 
+lines.append(&quot;Top sources of failed logins:&quot;)
+if failed_ips:
+    for ip, count in failed_ips.most_common(TOP_IPS):
+        lines.append(f&quot;  {ip}  {count} attempt(s)&quot;)
+else:
+    lines.append(&quot;  None found&quot;)
+
+OUTPUT_DIR.mkdir(exist_ok=True)
+output_file = OUTPUT_DIR / f&quot;log_report_{timestamp}.txt&quot;
+output_file.write_text(&quot;\n&quot;.join(lines) + &quot;\n&quot;)
+
+print(&quot;Summary:&quot;)
+for name, hits in matches.items():
+    print(f&quot;  {name:&lt;14} {len(hits)}&quot;)
+print(&quot;\nTop sources of failed logins:&quot;)
+for ip, count in failed_ips.most_common(TOP_IPS):
+    print(f&quot;  {ip:&lt;16} {count}&quot;)
+print(f&quot;\nFull report saved to: {output_file}&quot;)</code></pre>
+                </div>
+                <div class="gh-case-section">
+                    <h4>Sample Output</h4>
+                    <p class="gh-case-desc">This is the output from a test log I made up to show the format. The IP addresses come from ranges set aside for documentation.</p>
+                    <pre class="code-block"><code>$ sudo python3 log_parser.py /var/log/auth.log
+Summary:
+  Failed login   55
+  Invalid user   40
+  Sudo command   1
+  Error          1
+  Disk full      0
+
+Top sources of failed logins:
+  192.0.2.77       40
+  198.51.100.23    12
+  10.10.10.11      3
+
+Full report saved to: reports/log_report_2026-11-15_09-30-00.txt</code></pre>
+                </div>
+                <div class="gh-case-section">
+                    <h4>How to Run It</h4>
+                    <ol class="honey-flow-list">
+                        <li>Save it as <code>log_parser.py</code>.</li>
+                        <li>Run <code>sudo python3 log_parser.py /var/log/auth.log</code>. Sudo is needed because auth.log is protected.</li>
+                        <li>The full report is saved in a <code>reports</code> folder next to the script.</li>
+                    </ol>
+                </div>
+                <div class="gh-case-section">
+                    <h4>Known Limits and Next Steps</h4>
+                    <ul>
+                        <li>Some newer systems keep logs only in journald. On those, run <code>journalctl -u ssh &gt; ssh.log</code> first and point the script at that file.</li>
+                        <li>The IP count only looks at SSH failed password lines.</li>
+                        <li>A next step is flagging any IP over a set number of failures and sending that as an alert.</li>
+                    </ul>
+                </div>
+                <div class="gh-case-section">
+                    <h4>Version 2 Updates</h4>
+                    <p class="gh-case-desc">I reviewed this script with help from AI tools and made these changes:</p>
+                    <ul>
+                        <li>It now reads auth.log by default, because that is where login failures are written on Ubuntu. Reading syslog missed most of them.</li>
+                        <li>Added the top failed login IP addresses, which turns it into a basic brute force check</li>
+                        <li>You can pass any log file when you run it</li>
+                        <li>It explains the problem instead of crashing when the file is missing or needs sudo</li>
+                        <li>Lines are no longer counted twice as both a failed login and an invalid user</li>
+                    </ul>
+                </div>
                 <div class="gh-case-section">
                     <h4>Key Skills Demonstrated</h4>
                     <div class="gh-tags">
                         <span class="gh-tag">Python</span>
                         <span class="gh-tag">Regular Expressions</span>
                         <span class="gh-tag">Log Analysis</span>
-                        <span class="gh-tag">Pattern Detection</span>
+                        <span class="gh-tag">Brute Force Detection</span>
                         <span class="gh-tag">Automated Reporting</span>
                     </div>
                 </div>
-
                 <div class="gh-case-section">
                     <h4>Tools &amp; Technologies</h4>
                     <ul>
                         <li>Python 3.8+</li>
-                        <li>Standard library modules including <code>re</code>, <code>datetime</code>, and <code>pathlib</code></li>
-                        <li>Linux and application log sources</li>
-                        <li>Plain text output for ticket and analyst handoff use</li>
+                        <li>Standard library modules <code>re</code>, <code>collections</code>, <code>datetime</code> and <code>pathlib</code></li>
+                        <li>Linux auth.log and other text logs</li>
+                        <li>Plain text reports for ticket notes</li>
                     </ul>
                 </div>
-
                 <div class="gh-case-section">
-                    <h4>Results &amp; Outcomes</h4>
+                    <h4>Results</h4>
                     <ul>
-                        <li>Automated repetitive log review steps that are often done manually.</li>
-                        <li>Generated categorized reporting that can support incident notes and ticket updates.</li>
-                        <li>Improved flexibility by allowing new event types to be added quickly.</li>
-                        <li>Prepared the workflow for scheduled execution or on demand triage support.</li>
+                        <li>Reviewing a log by hand is now one command.</li>
+                        <li>The report groups events by type, so repeat problems stand out.</li>
+                        <li>The top IP list shows right away if someone is trying to guess passwords.</li>
+                        <li>New event types can be added with one line.</li>
                     </ul>
                 </div>
-
             </div>
         </div>
 

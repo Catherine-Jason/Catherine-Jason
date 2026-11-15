@@ -18,7 +18,7 @@
     <div class="hero-container">
         <div class="hero-content">
                 <h1 class="hero-title">Automation Lab 2: Bash System Health Check</h1>
-            <p class="hero-subtitle">Bash System Health Check</p>
+            <p class="hero-subtitle">Checking the health of a Linux machine in one command</p>
             <p class="hero-description">
                     This lab is a Bash script that checks CPU, memory, disk, and key services on a Linux machine and prints a status report with the time.
             </p>
@@ -39,114 +39,140 @@
         </div>
         <a href="index.html#automation" class="gh-back-link">← Back to Automation Scripts</a>
 
-        <div class="gh-case-study">
+        <div class="gh-case-study" style="grid-template-columns:1fr">
             <div class="gh-case-body">
                 <h3>Automation Lab 2: Bash System Health Check</h3>
-                <p class="gh-case-desc">
-                        This lab is a Bash script that checks CPU, memory, disk, and key services on a Linux machine and prints a status report with the time.
-                </p>
-
                 <div class="gh-case-section">
                     <h4>Overview</h4>
-                    <p class="gh-case-desc">
-                            You need to see quickly whether a machine is under pressure or a service has stopped. This script puts those checks into one command that can be repeated.
-                    </p>
-                    <p class="gh-case-desc">
-                        <strong>Real world relevance:</strong> Spotting a full disk or a stopped service early makes it easier to fix before it causes an outage.
-                    </p>
+                    <p class="gh-case-desc">When something feels slow or broken, you need to see quickly whether the machine is under pressure or a service has stopped. This script puts those checks into one command that gives the same answer every time.</p>
+                    <p class="gh-case-desc"><strong>Why it matters:</strong> Spotting a full disk or a stopped service early makes it easier to fix before it turns into an outage.</p>
                 </div>
-
                 <div class="gh-case-section">
                     <h4>Objective</h4>
                     <ul>
-                        <li>Check CPU usage and flag if it exceeds 80 percent</li>
-                        <li>Check memory usage and flag if used memory exceeds 85 percent</li>
-                        <li>Check disk usage on the root partition and flag if it exceeds 90 percent</li>
-                            <li>Verify that critical services such as SSH and cron are running</li>
-                            <li>Output a clean, timestamped health report to the terminal and an optional log file</li>
+                        <li>Check CPU use and flag it above 80 percent</li>
+                        <li>Check memory use and flag it above 85 percent</li>
+                        <li>Check disk use on the root partition and flag it above 90 percent</li>
+                        <li>Check that key services like SSH and cron are running</li>
+                        <li>Print a colored report, save a plain text copy to a log, and exit with an error when something needs attention</li>
                     </ul>
                 </div>
-
                 <div class="gh-case-section">
                     <h4>Script Walkthrough</h4>
                     <ol class="honey-flow-list">
-                            <li>I set limits for CPU, memory, and disk at the top so they are easy to change.</li>
-                            <li>I used top and awk to get the CPU usage.</li>
-                            <li>I used free to work out the memory percentage.</li>
-                            <li>I used df to get the disk usage on the root partition.</li>
-                            <li>I checked each key service with systemctl is-active and marked it Running or NOT Running.</li>
-                            <li>I printed a colored summary with the date and time.</li>
-                            <li>The script is set up to write to a log file, but right now only the closing line reaches it. Sending the whole report to the log is my next fix.</li>
-                            <li>The service names in the script, ssh and cron, match Debian based systems such as Ubuntu, Kali, and Parrot. On other Linux systems the names can be different.</li>
+                        <li>I set the limits for CPU, memory and disk at the top so they are easy to change.</li>
+                        <li>I wrote a small function that prints each line in color and saves the same line as plain text for the log.</li>
+                        <li>I used vmstat to take two CPU samples one second apart, so the number is current use and not an average since the machine started.</li>
+                        <li>I used free to work out memory use, counting only memory that programs cannot use. Cache does not count as used.</li>
+                        <li>I used df to get the disk use on the root partition.</li>
+                        <li>I checked each service with systemctl is-active.</li>
+                        <li>I saved the whole report to a log in my home folder and made the script exit with 1 if anything was in ALERT.</li>
                     </ol>
                 </div>
-
                 <div class="gh-case-section">
                     <h4>Script Preview</h4>
                     <pre class="code-block"><code>#!/bin/bash
-# Automation Lab 2 - Bash System Health Check
-# Checks CPU, memory, disk, and service status with threshold alerting
-
-TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
-LOG_FILE="/var/log/system_health.log"
+# Automation Lab 2: Bash System Health Check
+# Checks CPU, memory, disk and key services, prints a colored report,
+# saves a plain text copy to a log, and exits with 1 if anything needs attention.
 
 CPU_THRESHOLD=80
 MEM_THRESHOLD=85
 DISK_THRESHOLD=90
+SERVICES=(&quot;ssh&quot; &quot;cron&quot;)              # Debian and Ubuntu names. Fedora uses &quot;sshd&quot; and &quot;crond&quot;.
+LOG_FILE=&quot;$HOME/system_health.log&quot;   # Your home folder, so no sudo is needed
 
-SERVICES=("ssh" "cron")
+GREEN=&#x27;\033[0;32m&#x27;
+RED=&#x27;\033[0;31m&#x27;
+RESET=&#x27;\033[0m&#x27;
+ALERTS=0
+REPORT=&quot;&quot;
 
-GREEN='\033[0;32m'
-RED='\033[0;31m'
-RESET='\033[0m'
+# Print one line in color and save the same line as plain text for the log
+check() {   # $1 = label, $2 = value, $3 = OK or ALERT
+    if [ &quot;$3&quot; = &quot;OK&quot; ]; then COLOR=$GREEN; else COLOR=$RED; ALERTS=$((ALERTS + 1)); fi
+    printf &quot;%-14s ${COLOR}%s  %s${RESET}\n&quot; &quot;$1&quot; &quot;$2&quot; &quot;$3&quot;
+    REPORT+=&quot;$(printf &quot;%-14s %s  %s&quot; &quot;$1&quot; &quot;$2&quot; &quot;$3&quot;)&quot;$&#x27;\n&#x27;
+}
 
-echo "====================================="
-echo " System Health Check - $TIMESTAMP"
-echo "====================================="
+TIMESTAMP=$(date &#x27;+%Y-%m-%d %H:%M:%S&#x27;)
+echo &quot;===== System Health Check: $TIMESTAMP =====&quot;
 
-# CPU Usage
-CPU_IDLE=$(top -bn1 | grep "Cpu(s)" | awk '{print $8}' | tr -d '%')
-CPU_USED=$(echo "100 - $CPU_IDLE" | bc)
-if (( $(echo "$CPU_USED > $CPU_THRESHOLD" | bc -l) )); then
-    echo -e "CPU Usage:    ${RED}${CPU_USED}% - ALERT${RESET}"
-else
-    echo -e "CPU Usage:    ${GREEN}${CPU_USED}% - OK${RESET}"
-fi
+# CPU: two samples one second apart, so this is current use and not an average since boot
+CPU_USED=$(vmstat 1 2 | tail -1 | awk &#x27;{print 100 - $15}&#x27;)
+if [ &quot;$CPU_USED&quot; -gt &quot;$CPU_THRESHOLD&quot; ]; then check &quot;CPU&quot; &quot;${CPU_USED}%&quot; &quot;ALERT&quot;; else check &quot;CPU&quot; &quot;${CPU_USED}%&quot; &quot;OK&quot;; fi
 
-# Memory Usage
-MEM_TOTAL=$(free | awk '/Mem:/ {print $2}')
-MEM_USED=$(free  | awk '/Mem:/ {print $3}')
-MEM_PCT=$(echo "scale=1; $MEM_USED / $MEM_TOTAL * 100" | bc)
-if (( $(echo "$MEM_PCT > $MEM_THRESHOLD" | bc -l) )); then
-    echo -e "Memory Usage: ${RED}${MEM_PCT}% - ALERT${RESET}"
-else
-    echo -e "Memory Usage: ${GREEN}${MEM_PCT}% - OK${RESET}"
-fi
+# Memory: counts memory that is not available to programs (cache is not counted as used)
+MEM_PCT=$(free | awk &#x27;/Mem:/ {printf &quot;%d&quot;, ($2 - $7) / $2 * 100}&#x27;)
+if [ &quot;$MEM_PCT&quot; -gt &quot;$MEM_THRESHOLD&quot; ]; then check &quot;Memory&quot; &quot;${MEM_PCT}%&quot; &quot;ALERT&quot;; else check &quot;Memory&quot; &quot;${MEM_PCT}%&quot; &quot;OK&quot;; fi
 
-# Disk Usage
-DISK_USED=$(df / | awk 'NR==2 {print $5}' | tr -d '%')
-if [ "$DISK_USED" -gt "$DISK_THRESHOLD" ]; then
-    echo -e "Disk Usage:   ${RED}${DISK_USED}% - ALERT${RESET}"
-else
-    echo -e "Disk Usage:   ${GREEN}${DISK_USED}% - OK${RESET}"
-fi
+# Disk: root partition
+DISK_USED=$(df / | awk &#x27;NR==2 {gsub(&quot;%&quot;, &quot;&quot;, $5); print $5}&#x27;)
+if [ &quot;$DISK_USED&quot; -gt &quot;$DISK_THRESHOLD&quot; ]; then check &quot;Disk (/)&quot; &quot;${DISK_USED}%&quot; &quot;ALERT&quot;; else check &quot;Disk (/)&quot; &quot;${DISK_USED}%&quot; &quot;OK&quot;; fi
 
-# Service Checks
-echo ""
-echo "Service Status:"
-for SERVICE in "${SERVICES[@]}"; do
-    STATUS=$(systemctl is-active "$SERVICE" 2>/dev/null)
-    if [ "$STATUS" = "active" ]; then
-        echo -e "  $SERVICE: ${GREEN}Running${RESET}"
+# Services
+for SERVICE in &quot;${SERVICES[@]}&quot;; do
+    if systemctl is-active --quiet &quot;$SERVICE&quot; 2&gt;/dev/null; then
+        check &quot;$SERVICE&quot; &quot;running&quot; &quot;OK&quot;
     else
-        echo -e "  $SERVICE: ${RED}NOT Running - ALERT${RESET}"
+        check &quot;$SERVICE&quot; &quot;stopped&quot; &quot;ALERT&quot;
     fi
 done
 
-echo "=====================================" | tee -a "$LOG_FILE"
-echo "Check complete. See $LOG_FILE for history."</code></pre>
-                </div>
+echo &quot;Alerts: $ALERTS&quot;
 
+# Save a plain text copy (no color codes) to the log
+{
+    echo &quot;===== System Health Check: $TIMESTAMP =====&quot;
+    printf &quot;%s&quot; &quot;$REPORT&quot;
+    echo &quot;Alerts: $ALERTS&quot;
+} &gt;&gt; &quot;$LOG_FILE&quot;
+echo &quot;Saved to $LOG_FILE&quot;
+
+# Exit 1 when something needs attention, so cron or a monitoring tool can act on it
+if [ &quot;$ALERTS&quot; -gt 0 ]; then exit 1; fi
+exit 0</code></pre>
+                </div>
+                <div class="gh-case-section">
+                    <h4>Sample Output</h4>
+                    <p class="gh-case-desc">These are sample results made to show the format. The numbers and the user folder are made up. On screen, OK shows in green and ALERT shows in red.</p>
+                    <pre class="code-block"><code>===== System Health Check: 2026-11-15 09:30:00 =====
+CPU            12%  OK
+Memory         41%  OK
+Disk (/)       93%  ALERT
+ssh            running  OK
+cron           running  OK
+Alerts: 1
+Saved to /home/labuser/system_health.log</code></pre>
+                </div>
+                <div class="gh-case-section">
+                    <h4>How to Run It</h4>
+                    <ol class="honey-flow-list">
+                        <li>Save it as <code>health_check.sh</code> and make it runnable with <code>chmod +x health_check.sh</code>.</li>
+                        <li>Run <code>./health_check.sh</code>. No sudo is needed because the log goes to your home folder.</li>
+                        <li>To run it every 15 minutes, add this line with <code>crontab -e</code>:</li>
+                    </ol>
+                    <pre class="code-block"><code>*/15 * * * * /home/labuser/health_check.sh &gt; /dev/null 2&gt;&amp;1</code></pre>
+                </div>
+                <div class="gh-case-section">
+                    <h4>Known Limits and Next Steps</h4>
+                    <ul>
+                        <li>The service names ssh and cron match Debian based systems like Ubuntu, Kali and Parrot. On Fedora and Red Hat they are sshd and crond.</li>
+                        <li>It only checks the root partition. A next step is checking every mounted disk.</li>
+                        <li>The log keeps growing. A next step is rotating it with logrotate.</li>
+                    </ul>
+                </div>
+                <div class="gh-case-section">
+                    <h4>Version 2 Updates</h4>
+                    <p class="gh-case-desc">I reviewed this script with help from AI tools and made these changes:</p>
+                    <ul>
+                        <li>The whole report now goes to the log, not just the last line</li>
+                        <li>The log is plain text without color codes, and it is saved in the home folder so it works without sudo</li>
+                        <li>CPU now shows current use instead of an average since boot</li>
+                        <li>Removed the need for bc, which is not installed on every system</li>
+                        <li>The script exits with 1 when something is in ALERT, so cron or a monitoring tool can act on it</li>
+                    </ul>
+                </div>
                 <div class="gh-case-section">
                     <h4>Key Skills Demonstrated</h4>
                     <div class="gh-tags">
@@ -155,29 +181,27 @@ echo "Check complete. See $LOG_FILE for history."</code></pre>
                         <span class="gh-tag">Threshold Alerting</span>
                         <span class="gh-tag">systemctl</span>
                         <span class="gh-tag">Log Management</span>
+                        <span class="gh-tag">Cron</span>
                     </div>
                 </div>
-
                 <div class="gh-case-section">
                     <h4>Tools &amp; Technologies</h4>
                     <ul>
-                        <li>Bash shell scripting</li>
-                        <li>GNU utilities including <code>top</code>, <code>free</code>, <code>df</code>, <code>awk</code>, and <code>bc</code></li>
+                        <li>Bash</li>
+                        <li><code>vmstat</code>, <code>free</code>, <code>df</code> and <code>awk</code></li>
                         <li>systemd with <code>systemctl</code></li>
                         <li>Cron scheduling</li>
                     </ul>
                 </div>
-
                 <div class="gh-case-section">
-                    <h4>Results &amp; Outcomes</h4>
+                    <h4>Results</h4>
                     <ul>
-                        <li>Built a repeatable host health check that runs quickly on standard Linux systems.</li>
-                        <li>Created clear output that helps prioritize immediate response actions.</li>
-                        <li>Improved maintainability by separating thresholds from core logic.</li>
-                        <li>Set up to keep a log for tracking trends once the full report is sent to it.</li>
+                        <li>One command shows whether a Linux machine is healthy.</li>
+                        <li>Problems stand out in red, so I know where to look first.</li>
+                        <li>Every run is saved, so I can look back at what changed over time.</li>
+                        <li>It can run on a schedule and signal when something is wrong.</li>
                     </ul>
                 </div>
-
             </div>
         </div>
 

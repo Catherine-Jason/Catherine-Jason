@@ -18,7 +18,7 @@
     <div class="hero-container">
         <div class="hero-content">
             <h1 class="hero-title">Automation Lab 1: PowerShell User Account Audit</h1>
-            <p class="hero-subtitle">PowerShell User Account Audit</p>
+            <p class="hero-subtitle">Finding old and risky accounts in Active Directory</p>
             <p class="hero-description">
                 This lab is a PowerShell script that checks Active Directory for old or risky user accounts and saves a CSV report for IT and security to review.
             </p>
@@ -39,104 +39,147 @@
         </div>
         <a href="index.html#automation" class="gh-back-link">← Back to Automation Scripts</a>
 
-        <div class="gh-case-study">
+        <div class="gh-case-study" style="grid-template-columns:1fr">
             <div class="gh-case-body">
                 <h3>Automation Lab 1: PowerShell User Account Audit</h3>
-                <p class="gh-case-desc">
-                    This lab is a PowerShell script that checks Active Directory for old or risky user accounts and saves a CSV report for IT and security to review.
-                </p>
-
                 <div class="gh-case-section">
                     <h4>Overview</h4>
-                    <p class="gh-case-desc">
-                        Checking accounts by hand gets slow and uneven as the number of users grows. This script does the check the same way every time and saves the results in a clean report.
-                    </p>
-                    <p class="gh-case-desc">
-                        <strong>Real world relevance:</strong> Regular account checks help find old accounts and weak password settings before they become a problem. It also supports least privilege.
-                    </p>
+                    <p class="gh-case-desc">Checking accounts by hand gets slow and uneven as the number of users grows. This script does the check the same way every time and saves the results in a report that says why each account was flagged.</p>
+                    <p class="gh-case-desc"><strong>Why it matters:</strong> Old accounts and weak password settings are an easy way in for attackers. Regular checks catch them early and support least privilege. This is also the check that catches accounts that offboarding missed, which is the problem my <a href="https://catherine-jason.github.io/click-by-click-offboarding/" target="_blank" rel="noopener noreferrer" style="color:#00d9ff">Click by Click Offboarding</a> capstone works on.</p>
                 </div>
-
                 <div class="gh-case-section">
                     <h4>Objective</h4>
                     <ul>
-                        <li>Identify user accounts that have not logged in within the last 90 days</li>
-                        <li>Flag accounts where the password is set to never expire, or has already expired</li>
-                        <li>Capture account status, last logon date, and password policy flags</li>
-                        <li>Export findings to a CSV for IT and compliance team review</li>
+                        <li>Find enabled accounts that have not logged in for 90 days or have never logged in</li>
+                        <li>Flag accounts where the password never expires or has already expired</li>
+                        <li>Add a Reason column so whoever reads the report knows what to fix</li>
+                        <li>Export the results to a dated CSV for IT and security to review</li>
                     </ul>
                 </div>
-
                 <div class="gh-case-section">
                     <h4>Script Walkthrough</h4>
                     <ol class="honey-flow-list">
                         <li>I loaded the Active Directory module and set the limit to 90 days.</li>
                         <li>I used Get-ADUser to pull the enabled accounts and the fields I needed.</li>
-                        <li>I compared each last logon date to the limit.</li>
-                        <li>I kept the accounts that were inactive or had a password setting that needed attention.</li>
-                        <li>I saved the results to a CSV named with the date.</li>
+                        <li>For each account, I checked the last logon date and the password settings and wrote down every reason it needed attention.</li>
+                        <li>I kept only the accounts that had at least one reason.</li>
+                        <li>I sorted them by reason and saved them to a CSV named with the date.</li>
                     </ol>
                 </div>
-
                 <div class="gh-case-section">
                     <h4>Script Preview</h4>
-                    <pre class="code-block"><code># Automation Lab 1 - PowerShell User Account Audit
-# Queries Active Directory for inactive or non-compliant user accounts
+                    <pre class="code-block"><code># Automation Lab 1: PowerShell User Account Audit
+# Finds enabled Active Directory accounts that are inactive or have risky
+# password settings, and saves a CSV report that says why each one was flagged.
 
 Import-Module ActiveDirectory
 
 $DaysInactive = 90
 $CutoffDate   = (Get-Date).AddDays(-$DaysInactive)
-$Timestamp    = Get-Date -Format "yyyy-MM-dd"
-$OutputFile   = ".\UserAuditReport_$Timestamp.csv"
+$Timestamp    = Get-Date -Format &quot;yyyy-MM-dd&quot;
+$OutputFile   = &quot;.\UserAuditReport_$Timestamp.csv&quot;
 
-$Results = Get-ADUser -Filter {Enabled -eq $true} -Properties `
-    DisplayName, SamAccountName, LastLogonDate, `
-    PasswordNeverExpires, PasswordLastSet, PasswordExpired |
-Where-Object {
-    ($_.LastLogonDate -lt $CutoffDate -or $_.LastLogonDate -eq $null) -or
-    $_.PasswordNeverExpires -eq $true -or
-    $_.PasswordExpired -eq $true
-} |
-Select-Object DisplayName, SamAccountName, LastLogonDate,
-    PasswordNeverExpires, PasswordLastSet, PasswordExpired
+$Users = Get-ADUser -Filter &#x27;Enabled -eq $true&#x27; -Properties `
+    DisplayName, LastLogonDate, PasswordNeverExpires, PasswordLastSet, PasswordExpired
 
-$Results | Export-Csv -Path $OutputFile -NoTypeInformation -Encoding UTF8
+$Results = foreach ($User in $Users) {
+    $Reasons = @()
 
-Write-Host "Audit complete. $($Results.Count) accounts flagged."
-Write-Host "Report saved to: $OutputFile"</code></pre>
+    if ($null -eq $User.LastLogonDate) {
+        $Reasons += &quot;Never logged in&quot;
+    }
+    elseif ($User.LastLogonDate -lt $CutoffDate) {
+        $Reasons += &quot;Inactive $DaysInactive+ days&quot;
+    }
+    if ($User.PasswordNeverExpires) { $Reasons += &quot;Password never expires&quot; }
+    if ($User.PasswordExpired)      { $Reasons += &quot;Password expired&quot; }
+
+    if ($Reasons.Count -gt 0) {
+        [PSCustomObject]@{
+            DisplayName          = $User.DisplayName
+            SamAccountName       = $User.SamAccountName
+            LastLogonDate        = $User.LastLogonDate
+            PasswordLastSet      = $User.PasswordLastSet
+            PasswordNeverExpires = $User.PasswordNeverExpires
+            Reason               = $Reasons -join &quot;; &quot;
+        }
+    }
+}
+
+$Results | Sort-Object Reason |
+    Export-Csv -Path $OutputFile -NoTypeInformation -Encoding UTF8
+
+Write-Host &quot;Audit complete. $(@($Results).Count) accounts flagged.&quot;
+Write-Host &quot;Report saved to: $OutputFile&quot;</code></pre>
                 </div>
+                <div class="gh-case-section">
+                    <h4>Sample Output</h4>
+                    <p class="gh-case-desc">These are sample results made to show the format. The accounts are made up.</p>
+                    <pre class="code-block"><code>Audit complete. 4 accounts flagged.
+Report saved to: .\UserAuditReport_2026-11-15.csv
 
+SamAccountName  LastLogonDate  PasswordNeverExpires  Reason
+--------------  -------------  --------------------  ------------------------------------------
+j.smith         2026-06-02     False                 Inactive 90+ days
+temp.volunteer                 False                 Never logged in
+svc_backup      2026-11-14     True                  Password never expires
+m.lee           2026-07-19     True                  Inactive 90+ days; Password never expires</code></pre>
+                </div>
+                <div class="gh-case-section">
+                    <h4>How to Run It</h4>
+                    <ol class="honey-flow-list">
+                        <li>Run it on a machine that has the RSAT Active Directory module, signed in with an account that can read AD.</li>
+                        <li>Run <code>.\UserAudit.ps1</code> from PowerShell. The CSV is saved in the same folder.</li>
+                        <li>To run it every Monday morning, schedule it with Task Scheduler:</li>
+                    </ol>
+                    <pre class="code-block"><code>schtasks /create /tn &quot;AD User Audit&quot; /tr &quot;powershell.exe -NoProfile -File C:\Scripts\UserAudit.ps1&quot; /sc weekly /d MON /st 07:00</code></pre>
+                </div>
+                <div class="gh-case-section">
+                    <h4>Known Limits and Next Steps</h4>
+                    <ul>
+                        <li>LastLogonDate can be up to about 14 days behind, because Active Directory does not copy it between domain controllers on every login. That is fine for a 90 day check, but not for checking yesterday.</li>
+                        <li>Service accounts often have passwords that never expire on purpose. A next step is an exclude list so known service accounts are reviewed separately.</li>
+                        <li>The script only reports. It does not disable anything, so a person still decides what to do with each account.</li>
+                    </ul>
+                </div>
+                <div class="gh-case-section">
+                    <h4>Version 2 Updates</h4>
+                    <p class="gh-case-desc">I reviewed this script with help from AI tools and made these changes:</p>
+                    <ul>
+                        <li>Added the Reason column so the report explains itself</li>
+                        <li>Accounts that never logged in now show up with their own reason</li>
+                        <li>Added the Task Scheduler command and the notes about known limits</li>
+                    </ul>
+                </div>
                 <div class="gh-case-section">
                     <h4>Key Skills Demonstrated</h4>
                     <div class="gh-tags">
                         <span class="gh-tag">Active Directory</span>
                         <span class="gh-tag">PowerShell</span>
                         <span class="gh-tag">Account Auditing</span>
-                        <span class="gh-tag">Access Governance</span>
+                        <span class="gh-tag">Least Privilege</span>
                         <span class="gh-tag">Automated Reporting</span>
                     </div>
                 </div>
-
                 <div class="gh-case-section">
                     <h4>Tools &amp; Technologies</h4>
                     <ul>
                         <li>PowerShell 5.1+</li>
                         <li>Active Directory PowerShell Module (RSAT)</li>
                         <li>Windows Server and Active Directory Domain Services</li>
-                        <li>CSV output for reporting and compliance handoff</li>
+                        <li>Task Scheduler</li>
+                        <li>CSV output for IT and security review</li>
                     </ul>
                 </div>
-
                 <div class="gh-case-section">
-                    <h4>Results &amp; Outcomes</h4>
+                    <h4>Results</h4>
                     <ul>
-                        <li>The script turns a manual review into one command.</li>
-                        <li>It saves a report that shows which accounts need action.</li>
-                        <li>It makes old accounts and password exceptions easier to see.</li>
-                        <li>It is ready to run on a schedule.</li>
+                        <li>A review that used to mean clicking through accounts by hand is now one command.</li>
+                        <li>The report shows which accounts need action and why.</li>
+                        <li>Old accounts and password exceptions are easy to spot.</li>
+                        <li>It can run on a schedule every week.</li>
                     </ul>
                 </div>
-
             </div>
         </div>
 
