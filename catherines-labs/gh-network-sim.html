@@ -31,9 +31,9 @@
     <div class="hero-container">
         <div class="hero-content">
             <h1 class="hero-title">SOC Analyst Labs</h1>
-            <p class="hero-subtitle">A network builder I made in the browser.</p>
+            <p class="hero-subtitle">A network lab I made in the browser.</p>
             <p class="hero-description">
-                You place devices, connect them, and check that the setup works.
+                You build a network, write firewall rules, and watch packets move through each device.
             </p>
             <nav class="hero-nav">
                 <a href="../index.html"><i class="fa-solid fa-house"></i> Home</a>
@@ -84,7 +84,7 @@
             </div>
             <div class="gh-case-body">
                 <div class="gh-case-meta">
-                    <span class="gh-lang-badge"><i class="fa-solid fa-circle" style="color:#f1e05a;"></i> JavaScript</span>
+                    <span class="gh-lang-badge"><i class="fa-solid fa-circle" style="color:#e34c26;"></i> HTML</span>
                     <img src="https://img.shields.io/github/last-commit/Catherine-Jason/network-infrastructure-sim?style=flat-square&color=00d9ff&labelColor=1a1a1a&label=last+commit" alt="Last commit date badge for network-infrastructure-sim" loading="lazy" class="gh-badge" />
                 </div>
                 <h3>Network Infrastructure Simulator</h3>
@@ -92,13 +92,15 @@
                     <p class="gh-zone-label">Case Study</p>
                     <div class="gh-case-section">
                         <h4>Overview / What I Built</h4>
-                        <p class="gh-case-desc">I built this in the browser to practice how networks fit together. You drag routers, switches, and PCs onto a canvas, connect them with cables, set up each device from its own command line, and then test it with a ping.</p>
+                        <p class="gh-case-desc">I built this to show how networks fit together and how security decisions shape where traffic can go. You drag devices onto a canvas, connect them, put them in zones, write firewall rules, and then send traffic to see what gets through and why.</p>
                         <ul>
-                            <li>A drag and drop canvas with a router, a switch, and a PC, plus a cable mode to connect them</li>
-                            <li>A command line on each device with commands like hostname, ip address, gateway, vlan, interface, switchport mode access or trunk, show running config, and ping</li>
-                            <li>A ping test between devices to check that the setup works</li>
-                            <li>A Learning Assistant with step by step hints, a Next Step button, and an Auto Check</li>
-                            <li>Save, load, export, and import so you can keep a network you built</li>
+                            <li>10 devices: Internet, router, firewall, switch, access point, server, web server, workstation, laptop, and an IDS sensor</li>
+                            <li>An info panel for each device with what it does, its OSI layer, common ports, and security tips</li>
+                            <li>Zones for Staff, Guest, and Servers VLANs plus a DMZ, each with its own addresses</li>
+                            <li>Firewall rules that run top to bottom with a default deny at the end</li>
+                            <li>Animated packets with a trace that explains each hop and which OSI layers each device uses</li>
+                            <li>An IDS sensor that raises alerts for the SOC, which ties into my SOC Alert Triage game</li>
+                            <li>5 challenges: a small office, a firewall, a DMZ, a guest VLAN, and network monitoring</li>
                         </ul>
                     </div>
                 </div>
@@ -106,7 +108,7 @@
                     <p class="gh-zone-label">Try It Live</p>
                     <p class="gh-zone-intro">This runs in your browser, so there is nothing to install.</p>
                     <div class="gh-case-section">
-                        <p class="gh-case-desc">Build a small network. Place a router, a switch, and a few PCs, connect them, give each device an IP address, and see if a ping goes through. The Learning Assistant walks you through the first steps.</p>
+                        <p class="gh-case-desc">Start with the example network and use the quick tests on the Traffic tab to see what the firewall allows and blocks. Then open the Challenges tab and build your own.</p>
                         <a href="https://catherine-jason.github.io/network-infrastructure-sim/" target="_blank" rel="noopener noreferrer" class="card-button">
                             <i class="fa-solid fa-play"></i> Open the Live Demo
                         </a>
@@ -118,7 +120,8 @@
                         <h4>What I remember about building it</h4>
                         <div class="honey-build-notes">
                             <div>
-                                <p>This was one of my first projects, so most of my time went into errors and broken code. I kept getting the syntax wrong and putting strings in the wrong place, and I had to fix it one error at a time until it worked. <a href="gh-honey-ai.html">Honey-AI</a>, the newest project on this site, is a better picture of where my skills are now.</p>
+                                <p>The first version was one of my first projects, so most of my time went into errors and broken code. I kept getting the syntax wrong and putting strings in the wrong place, and I had to fix it one error at a time until it worked. It had a command line on each device but no clear goal for visitors.</p>
+                                <p>For version 2, I rebuilt it with help from AI tools around the plan I had from the start: more devices, info panels, firewall rules, zones, packet flow, and challenges. I focused on the networking and security content, like what each device does and which rules a DMZ and a guest VLAN need.</p>
                             </div>
                         </div>
                     </div>
@@ -128,8 +131,11 @@
                             <span class="gh-tag">Network Design</span>
                             <span class="gh-tag">IP Addressing</span>
                             <span class="gh-tag">VLANs</span>
+                            <span class="gh-tag">Firewall Rules</span>
+                            <span class="gh-tag">DMZ Design</span>
+                            <span class="gh-tag">OSI Model</span>
                             <span class="gh-tag">Router and Switch Configuration</span>
-                            <span class="gh-tag">JavaScript</span>
+                            <span class="gh-tag">HTML CSS and JavaScript</span>
                             <span class="gh-tag">GitHub Pages</span>
                         </div>
                     </div>

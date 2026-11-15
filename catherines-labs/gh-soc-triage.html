@@ -31,9 +31,9 @@
     <div class="hero-container">
         <div class="hero-content">
             <h1 class="hero-title">SOC Analyst Labs</h1>
-            <p class="hero-subtitle">A Tier 1 alert practice game I built in the browser.</p>
+            <p class="hero-subtitle">A Tier 1 SOC shift you can play in the browser.</p>
             <p class="hero-description">
-                You get a login alert, look at the evidence, decide what to do, and get feedback on your choice.
+                You work through 5 alerts, gather evidence, make the call, write the ticket, and get a score at the end.
             </p>
             <nav class="hero-nav">
                 <a href="../index.html"><i class="fa-solid fa-house"></i> Home</a>
@@ -87,19 +87,19 @@
                     <span class="gh-lang-badge"><i class="fa-solid fa-circle" style="color:#e34c26;"></i> HTML</span>
                     <img src="https://img.shields.io/github/last-commit/Catherine-Jason/soc-alert-triage-demo?style=flat-square&color=00d9ff&labelColor=1a1a1a&label=last+commit" alt="Last commit date badge for soc-alert-triage-demo" loading="lazy" class="gh-badge" />
                 </div>
-                <h3>SOC Alert Triage Demo</h3>
+                <h3>SOC Alert Triage</h3>
                 <div class="gh-zone gh-zone-case-study">
                     <p class="gh-zone-label">Case Study</p>
                     <div class="gh-case-section">
                         <h4>Overview / What I Built</h4>
-                        <p class="gh-case-desc">I built this in the browser to practice thinking like a Tier 1 SOC analyst. You get one alert, an unusual login for a user called j.doe from Warsaw, Poland at 3:14 in the morning. You look at the evidence, decide what to do, and get feedback on your choice. All of the data in it is made up.</p>
+                        <p class="gh-case-desc">I built this to practice thinking like a Tier 1 SOC analyst. You start a shift with 5 alerts in the queue and work each one the way you would on the job: gather evidence, decide what to do, and write the ticket the next shift will read. Not every alert needs to be escalated, so the right answer depends on what you find. All of the data in it is made up.</p>
                         <ul>
-                            <li>One alert scenario with a user, source IP, location, time, and device</li>
-                            <li>Four actions on the left: view recent login history, compare the geo location, review the device and browser details, or close the alert as benign</li>
-                            <li>An investigation log that fills in as you take each step</li>
-                            <li>Three final decisions: escalate to Incident Response, force a password reset and keep monitoring, or close it as benign</li>
-                            <li>Feedback on each decision that explains whether it was a good call, a reasonable one, or a risky one</li>
-                            <li>A button to run the scenario again</li>
+                            <li>5 alerts: a sign in from a new country, MFA fatigue, a reported phishing email, password spraying on the VPN, and a PowerShell alert that turns out to be approved IT work</li>
+                            <li>Investigation checks that show the Splunk style query, the log output, and what it means</li>
+                            <li>A MITRE ATT&amp;CK technique on every alert</li>
+                            <li>Three decisions per alert, with feedback on whether it was the right call, partly right, or risky</li>
+                            <li>A ticket step where you pick the note that tells the full story</li>
+                            <li>A score out of 500 and a shift report at the end</li>
                         </ul>
                     </div>
                 </div>
@@ -107,7 +107,7 @@
                     <p class="gh-zone-label">Try It Live</p>
                     <p class="gh-zone-intro">This runs in your browser, so there is nothing to install.</p>
                     <div class="gh-case-section">
-                        <p class="gh-case-desc">Play the SOC Alert Triage demo. Check the login history, the location, and the device before you decide. Then try a different decision to see how the feedback changes.</p>
+                        <p class="gh-case-desc">Start the shift and work all 5 alerts. Run a few checks before you decide on each one, then see how your score holds up in the shift report.</p>
                         <a href="https://catherine-jason.github.io/soc-alert-triage-demo/" target="_blank" rel="noopener noreferrer" class="card-button">
                             <i class="fa-solid fa-play"></i> Open the Live Demo
                         </a>
@@ -119,7 +119,8 @@
                         <h4>What I remember about building it</h4>
                         <div class="honey-build-notes">
                             <div>
-                                <p>This was one of my first projects, so most of my time went into errors and broken code. I kept getting the syntax wrong and putting strings in the wrong place, and I had to fix it one error at a time until it worked. <a href="gh-honey-ai.html">Honey-AI</a>, the newest project on this site, is a better picture of where my skills are now.</p>
+                                <p>The first version was one of my first projects, so most of my time went into errors and broken code. I kept getting the syntax wrong and putting strings in the wrong place, and I had to fix it one error at a time until it worked. It only had one alert.</p>
+                                <p>For version 2, I rebuilt it with help from AI tools and focused on the security side: which alerts to include, what evidence matters for each one, when to escalate and when to close, and what a good ticket note looks like.</p>
                             </div>
                         </div>
                     </div>
@@ -129,6 +130,9 @@
                             <span class="gh-tag">SOC Tier 1 Triage</span>
                             <span class="gh-tag">Alert Investigation</span>
                             <span class="gh-tag">Incident Response Decisions</span>
+                            <span class="gh-tag">Splunk SPL</span>
+                            <span class="gh-tag">MITRE ATT&amp;CK</span>
+                            <span class="gh-tag">Ticket Documentation</span>
                             <span class="gh-tag">HTML CSS and JavaScript</span>
                             <span class="gh-tag">GitHub Pages</span>
                         </div>
