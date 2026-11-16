@@ -838,262 +838,1076 @@ function speak(text) {
 
 const qa = [
   {
-    keywords: ["tell me about yourself", "about you", "who are you", "introduction", "background"],
-    answer: "I'm Catherine Jason. I work in IT and cybersecurity and I've been building my skills through hands-on labs and on the job experience. Right now I support technology operations for a 42-school district in Maryland and I'm finishing my AAS in Cybersecurity. My focus areas are security operations, systems administration, and network defense.",
-    link: null,
-    followUps: ["What's your work experience?", "What certifications do you have?", "What are your career goals?"]
+    "keywords": [
+      "tell me about yourself",
+      "about yourself",
+      "about you",
+      "who are you",
+      "introduction",
+      "introduce yourself",
+      "background",
+      "summary",
+      "elevator pitch",
+      "overview"
+    ],
+    "answer": "I'm Catherine Jason, and I'm working toward a SOC analyst role. Right now I'm a Technology Services Specialist for a 42-school district in Maryland, where I manage user accounts and review Microsoft Defender alerts. I hold Security+ and SOC Operations Analyst I, I'm a Cybersecurity Intern with the Cyber Ready Clinic, and I finish my AAS in Cybersecurity this December. Outside of work I build my own security labs and projects.",
+    "link": null,
+    "followUps": [
+      "What SOC experience do you have?",
+      "What have you built?",
+      "Why should we hire you?"
+    ]
   },
   {
-    keywords: ["why should we hire you", "why hire you", "what value", "what do you bring"],
-    answer: "I bring work experience, not just coursework. I've already been doing this at scale, supporting 42 school sites, resolving MFA issues, managing Active Directory, and handling help desk tickets in a fast-paced environment. I pick things up quickly, I document my work well, and I show up consistently.",
-    link: { text: "See my resume", href: "resume.html" },
-    followUps: ["What's your work experience?", "What are your technical skills?", "What are your strengths?"]
+    "keywords": [
+      "soc experience",
+      "security operations",
+      "soc",
+      "blue team",
+      "security experience",
+      "analyst experience",
+      "defender",
+      "microsoft defender",
+      "edr",
+      "endpoint detection",
+      "endpoint security",
+      "alert monitoring",
+      "monitoring"
+    ],
+    "answer": "At work I review Microsoft Defender alerts and logs, manage user accounts and access, and escalate issues that need a deeper look. I also investigate single sign-on failures across Azure AD, Active Directory and Intune. On the training side, I completed the BCR Cyber SOC Operations Analyst I program, I practice in Splunk, and I built a SOC Alert Triage game to sharpen how I work an alert from start to finish.",
+    "link": {
+      "text": "View SOC Analyst training",
+      "href": "soc-analyst.html"
+    },
+    "followUps": [
+      "How do you investigate an alert?",
+      "What SIEM tools have you used?",
+      "Tell me about a time you solved a problem."
+    ]
   },
   {
-    keywords: ["why cybersecurity", "why cyber", "why this field", "passion for security"],
-    answer: "I genuinely enjoy understanding how systems work and how they can be broken. I like the investigation side of it: figuring out what happened, why it happened, and how to stop it from happening again. That curiosity is what keeps me engaged and keeps me learning.",
-    link: null,
-    followUps: ["How do you stay current in cybersecurity?", "What labs have you completed?", "What are your career goals?"]
+    "keywords": [
+      "investigate an alert",
+      "how do you investigate",
+      "triage",
+      "work an alert",
+      "analyze an alert",
+      "false positive",
+      "false positives",
+      "true positive",
+      "escalate",
+      "escalation",
+      "investigation process",
+      "investigation"
+    ],
+    "answer": "When an alert comes in, I start by figuring out what it's telling me and how serious it could be. Then I gather context: the user, the device, the source IP, and what's normal for that account. I check the logs and threat intel to confirm or rule out a compromise, decide if it's a false positive, needs containment or needs to be escalated, and I write it up so the next analyst can see exactly what I checked and why.",
+    "link": {
+      "text": "Try my SOC Alert Triage game",
+      "href": "https://catherine-jason.github.io/soc-alert-triage-demo/"
+    },
+    "followUps": [
+      "What SIEM tools have you used?",
+      "How do you handle a security incident?",
+      "What is threat hunting to you?"
+    ]
   },
   {
-    keywords: ["technical skills", "skills", "tools you know", "what tools"],
-    answer: "I'm comfortable with Linux and Windows administration, Active Directory, networking fundamentals, and SIEM tools like Splunk. I've also worked with Wireshark, Nmap, Nessus, and Burp Suite in lab environments. On the support side, I've used Quick Assist, Remote Desktop, AnyDesk, and TeamViewer to troubleshoot across Windows and macOS systems.",
-    link: { text: "View my labs", href: "catherines-labs/index.html" },
-    followUps: ["Can you tell me about your labs?", "What is your networking experience?", "What is your Linux experience?"]
+    "keywords": [
+      "incident response",
+      "security incident",
+      "handle an incident",
+      "incident",
+      "breach",
+      "compromise",
+      "compromised",
+      "ir process",
+      "containment",
+      "contain"
+    ],
+    "answer": "I follow the incident response steps: identify what happened, contain it so it can't spread, collect evidence, escalate to the right people, and document every action. On a freelance job, a client's computer started showing pop-ups after he clicked something, so I had him turn off Wi-Fi first to contain it, then reset the browser settings that were causing it. Contain first, then fix, is how I approach any incident.",
+    "link": {
+      "text": "View SOC Analyst training",
+      "href": "soc-analyst.html"
+    },
+    "followUps": [
+      "Tell me about a time you solved a problem.",
+      "How do you investigate an alert?",
+      "Tell me about your forensics experience."
+    ]
   },
   {
-    keywords: ["networking", "router", "switch", "vlan", "cisco"],
-    answer: "I have hands-on experience with Cisco routers and switches, VLAN configuration, and traffic analysis using Wireshark. I can isolate connectivity issues, trace where a problem is coming from, and verify the fix before I close out.",
-    link: { text: "View networking labs", href: "catherines-labs/index.html" },
-    followUps: ["What other technical skills do you have?", "Tell me about your Linux experience.", "What SIEM tools have you used?"]
+    "keywords": [
+      "tell me about a time",
+      "give me an example",
+      "example of",
+      "walk me through",
+      "story",
+      "situation",
+      "a time when",
+      "a time you",
+      "solved a problem"
+    ],
+    "answer": "One example from work: a teacher's VoIP phone wouldn't power on. I tested the network drops in the room and none of them were live, so I went to the network closet, traced the drop on the patch panel and patched it into a PoE switch port. The phone powered right up, and I set it up with the user's extension. I like problems like that, where I work through each layer until I find where it breaks, which is the same way I work an alert.",
+    "link": null,
+    "followUps": [
+      "Tell me about a mistake you made.",
+      "How do you handle a security incident?",
+      "How do you handle pressure?"
+    ]
   },
   {
-    keywords: ["linux", "ubuntu", "kali", "parrot", "command line"],
-    answer: "Linux is something I use regularly. I'm comfortable with user management, file permissions, service configuration, and command line troubleshooting. I've worked across Ubuntu, Kali, and Parrot environments in both lab and practical settings.",
-    link: { text: "View my labs", href: "catherines-labs/index.html" },
-    followUps: ["What Windows Server experience do you have?", "Tell me about your penetration testing labs.", "What are your technical skills?"]
+    "keywords": [
+      "mistake",
+      "made a mistake",
+      "error you made",
+      "failure",
+      "went wrong",
+      "messed up",
+      "learn from"
+    ],
+    "answer": "During our summer rollout, I scanned a pallet of reimaged devices into inventory and the scanner beeped like it worked, but it missed about half of them. I caught it when I checked the Excel export against what was on the pallet. I took the boxes down, rescanned the missed ones, and after that I scanned 10 boxes at a time and checked the sheet before moving on. Now I always verify instead of trusting that something worked.",
+    "link": null,
+    "followUps": [
+      "How do you handle pressure?",
+      "What are your strengths?",
+      "Tell me about a time you solved a problem."
+    ]
   },
   {
-    keywords: ["windows server", "active directory", "ad", "group policy"],
-    answer: "I've configured Active Directory, set up users and groups, applied Group Policy, and worked with role-based access controls following least-privilege principles. I also resolved MFA resets and account lockouts in a live environment at Carroll County Public Schools.",
-    link: { text: "View my labs", href: "catherines-labs/index.html" },
-    followUps: ["What is your work experience?", "Tell me about your Linux experience.", "How do you approach troubleshooting?"]
+    "keywords": [
+      "why should we hire you",
+      "why hire you",
+      "hire you",
+      "what value",
+      "what do you bring",
+      "why you",
+      "stand out",
+      "good fit",
+      "qualified",
+      "other candidates",
+      "over other"
+    ],
+    "answer": "I already do security work in a live environment: reviewing Defender alerts, managing access for a 42-school district, and escalating what needs a deeper look. I back that up with Security+, SOC Operations Analyst I and Splunk training, and I keep building labs on my own time because I want to get better at this. If I don't know something, I'll say so, I won't guess on a live system, and I'll make sure I learn it so I know it next time.",
+    "link": {
+      "text": "See my resume",
+      "href": "resume.html"
+    },
+    "followUps": [
+      "What SOC experience do you have?",
+      "What are your technical skills?",
+      "What are your strengths?"
+    ]
   },
   {
-    keywords: ["forensics", "ftk", "osforensics", "digital forensics", "chain of custody"],
-    answer: "I completed structured forensics investigations using FTK Imager and OSForensics. I captured forensic images, reviewed registry artifacts and file metadata, and documented everything according to chain-of-custody standards.",
-    link: { text: "View forensics labs", href: "catherines-labs/index.html" },
-    followUps: ["What SIEM tools have you used?", "Tell me about your penetration testing experience.", "What other labs have you completed?"]
+    "keywords": [
+      "why cybersecurity",
+      "why cyber",
+      "why this field",
+      "passion",
+      "why security",
+      "why soc",
+      "interested in security",
+      "got into",
+      "get into",
+      "career change",
+      "switch careers"
+    ],
+    "answer": "I like the investigation side: figuring out what happened, why it happened, and how to stop it from happening again. I came into IT from other careers, and once I started working with logs and alerts, I knew security operations was where I wanted to be. That curiosity is what keeps me building labs after a long day.",
+    "link": null,
+    "followUps": [
+      "What are your career goals?",
+      "How do you stay current in cybersecurity?",
+      "What have you built?"
+    ]
   },
   {
-    keywords: ["siem", "splunk", "log analysis", "log correlation", "soc analyst"],
-    answer: "I used Splunk to analyze authentication logs, surface suspicious patterns, and work through alert triage. I also completed BCR SOC Operations Analyst training, which gave me structured experience with SIEM workflows and incident response prioritization.",
-    link: { text: "View SOC Analyst certification", href: "soc-analyst.html" },
-    followUps: ["How do you handle a security incident?", "Tell me about your digital forensics experience.", "What certifications do you have?"]
+    "keywords": [
+      "technical skills",
+      "skills",
+      "tools you know",
+      "what tools",
+      "tools",
+      "technologies",
+      "tech stack",
+      "software",
+      "strongest skill",
+      "proficient"
+    ],
+    "answer": "On the security side I use Splunk, Microsoft Defender, Wireshark, SNORT and Nessus, and I map what I find to MITRE ATT&CK. I'm comfortable with Active Directory, Azure AD and Intune, Linux and Windows Server, and Cisco switching and VLANs. In labs I've also worked with Nmap, Burp Suite, Metasploit, Hashcat and Aircrack-ng, and I write scripts in PowerShell, Bash and Python.",
+    "link": {
+      "text": "View my labs",
+      "href": "catherines-labs/index.html"
+    },
+    "followUps": [
+      "What SIEM tools have you used?",
+      "What is your networking experience?",
+      "Tell me about your scripts."
+    ]
   },
   {
-    keywords: ["ethical hacking", "pentest", "penetration testing", "ctf", "vulnerability"],
-    answer: "I completed penetration testing labs that covered the full attack cycle: reconnaissance, scanning, enumeration, and basic exploitation. These labs gave me a stronger sense of how attackers think and what defenses actually matter.",
-    link: { text: "View my labs", href: "catherines-labs/index.html" },
-    followUps: ["What SIEM experience do you have?", "Tell me about your digital forensics work.", "How do you stay current in cybersecurity?"]
+    "keywords": [
+      "siem",
+      "siem tools",
+      "splunk",
+      "log analysis",
+      "logs",
+      "log review",
+      "log correlation",
+      "spl",
+      "event correlation",
+      "event logs"
+    ],
+    "answer": "I use Splunk to search authentication and system logs, put events in order, and spot patterns like many failed logins from one IP. I hold Splunk's Intro to Splunk and Using Fields certifications, and I'm studying for the Splunk Certified Cybersecurity Defense Analyst. At work I review logs and alerts in Microsoft Defender.",
+    "link": {
+      "text": "View my Splunk certification",
+      "href": "splunk.html"
+    },
+    "followUps": [
+      "How do you investigate an alert?",
+      "Tell me about your SOC game.",
+      "What certifications do you have?"
+    ]
   },
   {
-    keywords: ["capstone", "offboarding", "click by click"],
-    answer: "My capstone for the Cyber Ready Clinic internship is Click by Click Offboarding. It's a free web app for small nonprofits. You answer a few questions about who is leaving, and it builds a checklist to shut off their email, shared passwords, devices and keys. If the exit is unplanned, the urgent steps move to the top, and at the end it gives you a dated record for audits.",
-    link: { text: "Try the app", href: "https://catherine-jason.github.io/click-by-click-offboarding/" },
-    followUps: ["Tell me about your internship.", "What else have you built?", "Tell me about your SOC game."]
+    "keywords": [
+      "threat hunting",
+      "threat hunt",
+      "ioc",
+      "indicators of compromise",
+      "mitre",
+      "att&ck",
+      "apt",
+      "threat intel",
+      "threat intelligence",
+      "ttp",
+      "what is threat hunting"
+    ],
+    "answer": "Threat hunting means looking for signs of an attacker before an alert fires. I start with an idea, like logins at odd hours or from new countries, then search the logs to prove or disprove it. I use MITRE ATT&CK to understand the techniques attackers use, and IOCs like IP addresses, domains and file hashes to connect activity across systems.",
+    "link": null,
+    "followUps": [
+      "How do you investigate an alert?",
+      "What SIEM tools have you used?",
+      "Tell me about your SOC game."
+    ]
   },
   {
-    keywords: ["internship", "intern", "cyber ready", "crc", "discover5", "ready5", "assessment"],
-    answer: "I'm a Cybersecurity Intern with the Cyber Ready Clinic, a nonprofit founded by Tenable's co-founders. I learned the Discover5 and Ready5 assessment methods, which look at an organization's business risk and its cyber capabilities like identity, endpoints, email, network and response. I took part in live assessments with nonprofit clients and built my capstone from what I learned.",
-    link: null,
-    followUps: ["Tell me about your capstone.", "What is your work experience?", "What certifications do you have?"]
+    "keywords": [
+      "networking",
+      "router",
+      "switch",
+      "vlan",
+      "cisco",
+      "background in networking",
+      "networking background",
+      "network experience",
+      "nat",
+      "dhcp",
+      "wireshark",
+      "packet capture"
+    ],
+    "answer": "I've configured Cisco routers and switches in a physical lab, including VLANs, NAT and DHCP, and at work I help with Cisco switch issues. I use Wireshark to baseline traffic and spot what doesn't belong. That matters in security, because you can't tell something is wrong on the network until you know what normal looks like.",
+    "link": {
+      "text": "Try my Network Infrastructure Simulator",
+      "href": "https://catherine-jason.github.io/network-infrastructure-sim/"
+    },
+    "followUps": [
+      "What ports do you watch for?",
+      "Tell me about your network simulator.",
+      "What are your technical skills?"
+    ]
   },
   {
-    keywords: ["soc game", "soc alert", "alert triage", "triage game", "mitre"],
-    answer: "I built SOC Alert Triage to practice thinking like a Tier 1 analyst. You work a shift with 5 alerts, like an MFA fatigue attack, a phishing email and password spraying on the VPN. Each check shows the Splunk style query and the log output, every alert is mapped to MITRE ATT&CK, and you write the ticket at the end. Not every alert should be escalated, so you have to follow the evidence.",
-    link: { text: "Play SOC Alert Triage", href: "https://catherine-jason.github.io/soc-alert-triage-demo/" },
-    followUps: ["Tell me about your network simulator.", "What SIEM tools have you used?", "How do you handle a security incident?"]
+    "keywords": [
+      "ports",
+      "common ports",
+      "port numbers",
+      "port",
+      "what ports"
+    ],
+    "answer": "The ones I watch most: 22 SSH, 23 Telnet, 25 SMTP, 53 DNS, 80 HTTP, 443 HTTPS, 445 SMB, 3389 RDP, and 389 and 636 for LDAP. RDP or SMB open to the internet, or traffic on a port that doesn't match the service, is a red flag I'd look into.",
+    "link": null,
+    "followUps": [
+      "What is your networking experience?",
+      "How do you investigate an alert?",
+      "How do you handle phishing?"
+    ]
   },
   {
-    keywords: ["simulator", "network sim", "firewall", "dmz", "packet"],
-    answer: "My Network Infrastructure Simulator is a lab where you place devices, set up VLANs and a DMZ, write firewall rules and send packets to see what gets through and why. The trace explains each hop and which OSI layers each device uses, and an IDS sensor raises alerts for the SOC. It has 5 challenges, from a small office up to network monitoring.",
-    link: { text: "Try the simulator", href: "https://catherine-jason.github.io/network-infrastructure-sim/" },
-    followUps: ["What is your networking experience?", "Tell me about your SOC game.", "What else have you built?"]
+    "keywords": [
+      "phishing",
+      "phish",
+      "suspicious email",
+      "malicious email",
+      "spam",
+      "email security",
+      "bec",
+      "business email compromise",
+      "reported email"
+    ],
+    "answer": "With a reported phishing email I check the headers and the SPF, DKIM and DMARC results, then look at any links or attachments safely. I find out who else got it and whether anyone clicked or entered a password. If someone did, that account gets a password reset and a review of its sign-ins. Then the email gets pulled from every inbox and the sender gets blocked.",
+    "link": {
+      "text": "Try my SOC Alert Triage game",
+      "href": "https://catherine-jason.github.io/soc-alert-triage-demo/"
+    },
+    "followUps": [
+      "How do you investigate an alert?",
+      "How do you handle a security incident?",
+      "What is your identity and access experience?"
+    ]
   },
   {
-    keywords: ["honey-ai", "honey ai", "honeypot", "prompt injection", "llm", "ai security"],
-    answer: "Honey-AI is a honeypot I built to study how people try to manipulate AI chatbots. It scores prompt injection attempts, logs the risky ones and shows how I'd investigate them. It runs on Oracle Cloud using FastAPI and Ollama.",
-    link: { text: "Read the Honey-AI case study", href: "catherines-labs/gh-honey-ai.html" },
-    followUps: ["What else have you built?", "What are your technical skills?", "How do you stay current in cybersecurity?"]
+    "keywords": [
+      "windows server",
+      "active directory",
+      "ad",
+      "group policy",
+      "identity",
+      "access management",
+      "identity and access",
+      "user accounts",
+      "account management",
+      "permissions",
+      "least privilege",
+      "mfa",
+      "password reset",
+      "entra",
+      "azure",
+      "intune",
+      "sso",
+      "single sign-on"
+    ],
+    "answer": "At work I manage user accounts and permissions across Active Directory, Azure AD and Intune, and I verify someone's identity before every password reset so nobody can talk their way into an account. I've also set up Active Directory and Group Policy in labs using least privilege. Access is one of the first things attackers go after, so I treat it as a security job, not just an IT task.",
+    "link": {
+      "text": "See my PowerShell account audit",
+      "href": "catherines-labs/automation-lab1.html"
+    },
+    "followUps": [
+      "Tell me about your scripts.",
+      "What SOC experience do you have?",
+      "How do you approach troubleshooting?"
+    ]
   },
   {
-    keywords: ["script", "scripting", "automation", "powershell", "bash", "python"],
-    answer: "I've written three automation scripts. A PowerShell script finds old and risky Active Directory accounts and says why each one was flagged. A Bash script checks the health of a Linux machine and logs the results. A Python script reads Linux login logs and ranks which IP addresses have the most failed logins, which is a basic brute force check.",
-    link: { text: "See my automation labs", href: "catherines-labs/index.html#automation" },
-    followUps: ["What is your Linux experience?", "What Windows Server experience do you have?", "What else have you built?"]
+    "keywords": [
+      "linux",
+      "ubuntu",
+      "lubuntu",
+      "kali",
+      "parrot",
+      "command line",
+      "bash command",
+      "terminal"
+    ],
+    "answer": "I use Linux regularly, including Ubuntu, Lubuntu, Kali and Parrot Security. I'm comfortable with users and permissions, services and command line troubleshooting, and I wrote a Bash script that checks system health and logs the results. I run Parrot and Lubuntu VMs in VirtualBox for my labs.",
+    "link": {
+      "text": "See my Bash health check",
+      "href": "catherines-labs/automation-lab2.html"
+    },
+    "followUps": [
+      "Tell me about your home lab.",
+      "What Windows Server experience do you have?",
+      "What are your technical skills?"
+    ]
   },
   {
-    keywords: ["home lab", "freelance", "consulting", "side business", "own business"],
-    answer: "On the side I run my own IT and cybersecurity support business, helping small businesses and individual clients troubleshoot and secure their systems. I also keep a home lab where I practice log analysis, network testing and forensics.",
-    link: null,
-    followUps: ["What remote support tools do you use?", "What is your work experience?", "What labs have you completed?"]
+    "keywords": [
+      "forensics",
+      "ftk",
+      "osforensics",
+      "digital forensics",
+      "chain of custody",
+      "evidence",
+      "imaging",
+      "disk image"
+    ],
+    "answer": "I've completed forensics investigations using FTK Imager and OSForensics. I captured forensic images, reviewed registry artifacts and file metadata, and documented everything following chain of custody. At work I've used Event Viewer to help build the timeline of what happened on a device.",
+    "link": {
+      "text": "View my labs",
+      "href": "catherines-labs/index.html"
+    },
+    "followUps": [
+      "Tell me about a time you solved a problem.",
+      "What SIEM tools have you used?",
+      "How do you handle a security incident?"
+    ]
   },
   {
-    keywords: ["github", "repository", "source code", "your code"],
-    answer: "All of my projects are on GitHub at github.com/Catherine-Jason, including my capstone, both games and this portfolio.",
-    link: { text: "Go to my GitHub", href: "https://github.com/Catherine-Jason" },
-    followUps: ["What else have you built?", "Tell me about your capstone.", "How can I contact you?"]
+    "keywords": [
+      "ethical hacking",
+      "pentest",
+      "penetration testing",
+      "ctf",
+      "vulnerability",
+      "vulnerabilities",
+      "red team",
+      "exploit",
+      "metasploit",
+      "burp",
+      "hashcat",
+      "offensive",
+      "attacker",
+      "nessus",
+      "vulnerability scanning"
+    ],
+    "answer": "I've completed penetration testing labs covering reconnaissance, scanning, enumeration and basic exploitation with tools like Nmap, Metasploit, Burp Suite, Hashcat and Aircrack-ng, and I've run vulnerability scans with Nessus. Knowing how attackers think makes me a better defender, because I know what their activity looks like in the logs.",
+    "link": {
+      "text": "View my labs",
+      "href": "catherines-labs/index.html#cybersecurity"
+    },
+    "followUps": [
+      "What is threat hunting to you?",
+      "How do you stay current in cybersecurity?",
+      "Tell me about your home lab."
+    ]
   },
   {
-    keywords: ["are you ai", "are you real", "is this ai", "chatgpt", "who wrote", "how does this chat", "how does this bot"],
-    answer: "I wrote every answer in this chat myself. It matches your question to the closest answer I wrote, so it isn't AI and it won't make anything up. If it can't answer something, reach out to me directly and I'll get back to you.",
-    link: { text: "Contact me", href: "#contact" },
-    followUps: ["Tell me about yourself", "What else have you built?", "How can I contact you?"]
+    "keywords": [
+      "capstone",
+      "offboarding",
+      "click by click"
+    ],
+    "answer": "My capstone for the Cyber Ready Clinic internship is Click by Click Offboarding. It's a free web app for small nonprofits. You answer a few questions about who is leaving, and it builds a checklist to shut off their email, shared passwords, devices and keys. If the exit is unplanned, the urgent steps move to the top, and at the end it gives you a dated record for audits. Old accounts that never get turned off are an easy way in for attackers, and this closes that gap.",
+    "link": {
+      "text": "Try the app",
+      "href": "https://catherine-jason.github.io/click-by-click-offboarding/"
+    },
+    "followUps": [
+      "Tell me about your internship.",
+      "What else have you built?",
+      "Tell me about your SOC game."
+    ]
   },
   {
-    keywords: ["projects", "portfolio", "website", "what have you built", "what else have you built"],
-    answer: "My capstone for the Cyber Ready Clinic is Click by Click Offboarding, a free web app that helps small nonprofits shut off access when staff or volunteers leave. I also built a SOC Alert Triage game with 5 alerts mapped to MITRE ATT&CK, a Network Infrastructure Simulator with firewall rules and VLANs, Honey-AI, a prompt injection honeypot, and automation scripts in PowerShell, Bash and Python. This portfolio and chatbot are mine too.",
-    link: { text: "Explore Catherine's Labs", href: "catherines-labs/index.html" },
-    followUps: ["What labs have you completed?", "Tell me about your technical skills.", "What are your career goals?"]
+    "keywords": [
+      "internship",
+      "intern",
+      "cyber ready",
+      "crc",
+      "discover5",
+      "ready5",
+      "risk assessment",
+      "security assessment"
+    ],
+    "answer": "I'm a Cybersecurity Intern with the Cyber Ready Clinic, a nonprofit founded by Tenable's co-founders. I learned the Discover5 and Ready5 assessment methods, which look at an organization's business risk and its cyber capabilities like identity, endpoints, email, network and response. I took part in live assessments with nonprofit clients and built my capstone from what I learned.",
+    "link": null,
+    "followUps": [
+      "Tell me about your capstone.",
+      "What SOC experience do you have?",
+      "What certifications do you have?"
+    ]
   },
   {
-    keywords: ["labs", "hands on", "hands-on", "practice", "lab work"],
-    answer: "My labs cover networking, Linux, Windows Server, digital forensics, SIEM investigation, security testing and automation scripts. I also built two interactive labs, a SOC Alert Triage game and a Network Infrastructure Simulator. Each one is set up like a situation you'd see on the job, so I could practice and not just read about it.",
-    link: { text: "Browse all labs", href: "catherines-labs/index.html" },
-    followUps: ["What are your technical skills?", "Tell me about your SIEM labs.", "Tell me about your forensics labs."]
+    "keywords": [
+      "soc game",
+      "soc alert",
+      "triage game",
+      "alert game",
+      "soc simulation",
+      "game"
+    ],
+    "answer": "I built SOC Alert Triage to practice thinking like a SOC analyst. You work a shift with 5 alerts, like an MFA fatigue attack, a phishing email and password spraying on the VPN. Each check shows the Splunk style query and the log output, every alert is mapped to MITRE ATT&CK, and you write the ticket at the end. Not every alert should be escalated, so you have to follow the evidence.",
+    "link": {
+      "text": "Play SOC Alert Triage",
+      "href": "https://catherine-jason.github.io/soc-alert-triage-demo/"
+    },
+    "followUps": [
+      "Tell me about your network simulator.",
+      "How do you investigate an alert?",
+      "What is threat hunting to you?"
+    ]
   },
   {
-    keywords: ["troubleshooting", "problem solving", "how do you fix", "approach to problems"],
-    answer: "I keep my troubleshooting process calm and structured. I confirm the issue first, then test one variable at a time, document each step as I go, and verify the fix before I call it done. That approach keeps me from chasing the wrong problem.",
-    link: null,
-    followUps: ["Tell me about your help desk experience.", "What is your incident response process?", "What are your strengths?"]
+    "keywords": [
+      "simulator",
+      "network sim",
+      "firewall",
+      "firewalls",
+      "dmz",
+      "packet",
+      "segmentation"
+    ],
+    "answer": "My Network Infrastructure Simulator is a lab where you place devices, set up VLANs and a DMZ, write firewall rules and send packets to see what gets through and why. The trace explains each hop and which OSI layers each device uses, and an IDS sensor raises alerts for the SOC. It has 5 challenges, from a small office up to network monitoring.",
+    "link": {
+      "text": "Try the simulator",
+      "href": "https://catherine-jason.github.io/network-infrastructure-sim/"
+    },
+    "followUps": [
+      "What is your networking experience?",
+      "Tell me about your SOC game.",
+      "What else have you built?"
+    ]
   },
   {
-    keywords: ["strengths", "good at", "soft skills", "communication", "work style", "what are your strengths"],
-    answer: "My strongest traits are clear communication, consistency, and ownership. I work well on my own and I collaborate well with others. I stay focused when things shift and I don't leave tasks half-finished.",
-    link: { text: "See my resume", href: "resume.html" },
-    followUps: ["What are you working on improving?", "How do you handle pressure?", "How do you work on a team?"]
+    "keywords": [
+      "honey-ai",
+      "honey ai",
+      "honey support",
+      "honeypot",
+      "prompt injection",
+      "llm",
+      "ai security",
+      "jailbreak"
+    ],
+    "answer": "Honey-AI is a honeypot I built that looks like a normal customer support chatbot called Honey Support. When people try to jailbreak it with prompt injection, it scores the attempt, logs it, and shows the trends on a monitoring dashboard. It runs on my own Oracle Cloud server with Ollama, FastAPI and Caddy for HTTPS, and it's live, so you're welcome to try to break it.",
+    "link": {
+      "text": "Read the Honey-AI case study",
+      "href": "catherines-labs/gh-honey-ai.html"
+    },
+    "followUps": [
+      "What else have you built?",
+      "Tell me about your home lab.",
+      "How do you stay current in cybersecurity?"
+    ]
   },
   {
-    keywords: ["weakness", "improve", "growth area", "what are you working on"],
-    answer: "I'm actively working on responding faster under interview pressure. I know the material well, but I want my delivery to match that confidence. I've been doing mock interviews and reviewing my responses to tighten things up.",
-    link: null,
-    followUps: ["What are your strengths?", "How do you handle pressure?", "What are your career goals?"]
+    "keywords": [
+      "script",
+      "scripts",
+      "scripting",
+      "automation",
+      "automate",
+      "powershell",
+      "bash",
+      "python",
+      "coding",
+      "programming",
+      "code"
+    ],
+    "answer": "I've written three automation scripts. A PowerShell script finds old and risky Active Directory accounts and says why each one was flagged. A Bash script checks the health of a Linux machine and logs the results. A Python script reads Linux login logs and ranks which IP addresses have the most failed logins, which is a basic brute force check.",
+    "link": {
+      "text": "See my automation labs",
+      "href": "catherines-labs/index.html#automation"
+    },
+    "followUps": [
+      "What is your Linux experience?",
+      "What is your identity and access experience?",
+      "What else have you built?"
+    ]
   },
   {
-    keywords: ["certification", "degree", "courses", "education", "school"],
-    answer: "I hold CompTIA Security+ SY0-701, earned in August 2026, and SOC Operations Analyst I from the BCR Cyber program. I'm also certified in Splunk's Intro to Splunk and Using Fields, and I'm working toward CompTIA Security AI+. I'm finishing my AAS in Cybersecurity at Carroll Community College this December.",
-    link: { text: "View my certifications", href: "certifications.html" },
-    followUps: ["Tell me about your Security+.", "What is your SOC Analyst background?", "What are your career goals?"]
+    "keywords": [
+      "home lab",
+      "homelab",
+      "lab setup",
+      "virtual machines",
+      "vm",
+      "virtualbox",
+      "opnsense",
+      "freelance",
+      "consulting",
+      "side business",
+      "own business"
+    ],
+    "answer": "I'm building a home SOC lab with an OPNsense firewall and an attacker VM, so I can create my own traffic and practice catching it in Splunk. I've also built a physical Cisco lab with VLANs, NAT and DHCP. On the side, I run my own IT and cybersecurity support business for small business clients, where I've cleaned up a compromised Mac and contained a browser hijack.",
+    "link": null,
+    "followUps": [
+      "What SIEM tools have you used?",
+      "What is your networking experience?",
+      "What labs have you completed?"
+    ]
   },
   {
-    keywords: ["phi theta kappa", "honor society", "honors", "academic achievement"],
-    answer: "I'm a member of the Phi Theta Kappa Honor Society, Alpha Psi Psi Chapter. It's something I'm proud of, since I earned it while working full time.",
-    link: null,
-    followUps: ["What certifications do you have?", "Tell me about yourself.", "What are your career goals?"]
+    "keywords": [
+      "projects",
+      "portfolio",
+      "website",
+      "what have you built",
+      "what else have you built",
+      "built"
+    ],
+    "answer": "My capstone for the Cyber Ready Clinic is Click by Click Offboarding, a free web app that helps small nonprofits shut off access when staff or volunteers leave. I also built a SOC Alert Triage game with 5 alerts mapped to MITRE ATT&CK, a Network Infrastructure Simulator with firewall rules and VLANs, Honey-AI, a prompt injection honeypot, and automation scripts in PowerShell, Bash and Python. This portfolio and chatbot are mine too.",
+    "link": {
+      "text": "Explore Catherine's Labs",
+      "href": "catherines-labs/index.html"
+    },
+    "followUps": [
+      "Tell me about your capstone.",
+      "Tell me about your SOC game.",
+      "Tell me about Honey-AI."
+    ]
   },
   {
-    keywords: ["career goals", "future", "plans", "next role", "where do you see yourself"],
-    answer: "My goal is to move into a security operations or IT support role where I can contribute from day one and keep growing. Long term I want to go deeper into incident response and network defense.",
-    link: { text: "See my resume", href: "resume.html" },
-    followUps: ["Why should we hire you?", "What is your work experience?", "What are your technical skills?"]
+    "keywords": [
+      "labs",
+      "hands on",
+      "hands-on",
+      "practice",
+      "lab work",
+      "tryhackme",
+      "hack the box",
+      "blue team labs"
+    ],
+    "answer": "My labs cover SIEM investigation, digital forensics, security testing, networking, Linux, Windows Server and automation scripts. I also built two interactive labs, a SOC Alert Triage game and a Network Infrastructure Simulator, and I practice on TryHackMe, Hack The Box and Blue Team Labs Online. Each one is set up like a situation you'd see on the job, so I can practice and not just read about it.",
+    "link": {
+      "text": "Browse all labs",
+      "href": "catherines-labs/index.html"
+    },
+    "followUps": [
+      "Tell me about your home lab.",
+      "Tell me about your SOC game.",
+      "Tell me about your forensics experience."
+    ]
   },
   {
-    keywords: ["first 90 days", "first three months", "onboarding", "starting a new job"],
-    answer: "In my first 90 days I focus on learning how the team works, understanding documentation standards, and becoming someone people can rely on. I ask focused questions, I take notes, and I build trust through consistent follow-through.",
-    link: null,
-    followUps: ["What are your strengths?", "How do you work on a team?", "Why should we hire you?"]
+    "keywords": [
+      "github",
+      "repository",
+      "source code",
+      "your code"
+    ],
+    "answer": "All of my projects are on GitHub at github.com/Catherine-Jason, including my capstone, both games and this portfolio.",
+    "link": {
+      "text": "Go to my GitHub",
+      "href": "https://github.com/Catherine-Jason"
+    },
+    "followUps": [
+      "What else have you built?",
+      "Tell me about your capstone.",
+      "How can I contact you?"
+    ]
   },
   {
-    keywords: ["incident response", "security incident", "example incident", "how do you handle an incident"],
-    answer: "When I handle an incident I follow a clear process. Identify the issue, gather evidence, contain the risk, escalate if needed, and document every action taken. I keep it organized so the team has a clear record of what happened and what was done.",
-    link: { text: "View SOC Analyst training", href: "soc-analyst.html" },
-    followUps: ["What SIEM tools have you used?", "Tell me about your forensics experience.", "What is your troubleshooting approach?"]
+    "keywords": [
+      "are you ai",
+      "are you real",
+      "is this ai",
+      "chatgpt",
+      "who wrote",
+      "how does this chat",
+      "how does this bot",
+      "bot",
+      "chatbot"
+    ],
+    "answer": "I wrote every answer in this chat myself. It matches your question to the closest answer I wrote, so it isn't AI and it won't make anything up. If it can't answer something, reach out to me directly and I'll get back to you.",
+    "link": {
+      "text": "Contact me",
+      "href": "#contact"
+    },
+    "followUps": [
+      "Tell me about yourself",
+      "What else have you built?",
+      "How can I contact you?"
+    ]
   },
   {
-    keywords: ["ticketing", "service desk", "help desk", "it support", "ticket queue"],
-    answer: "I have hands-on help desk experience from my time at Carroll County Public Schools, where I worked ticket queues covering MFA resets, account lockouts, password issues, and device support across 42 sites. I keep my notes accurate and my follow-up timely.",
-    link: { text: "See my resume", href: "resume.html" },
-    followUps: ["What remote support tools do you use?", "How do you approach troubleshooting?", "Tell me about your work experience."]
+    "keywords": [
+      "troubleshooting",
+      "troubleshoot",
+      "problem solving",
+      "how do you fix",
+      "approach to problems",
+      "approach problems"
+    ],
+    "answer": "I keep my troubleshooting calm and structured. I confirm the issue first, test one thing at a time, document each step as I go, and verify the fix before I call it done. It's the same way I work an alert: get the facts before deciding anything.",
+    "link": null,
+    "followUps": [
+      "How do you investigate an alert?",
+      "Tell me about your help desk experience.",
+      "What are your strengths?"
+    ]
   },
   {
-    keywords: ["work experience", "job history", "current job", "where do you work", "carroll county"],
-    answer: "I currently work as a Technology Services Specialist at Carroll County Public Schools. I manage user account lifecycle tasks, review Microsoft Defender alerts to support early threat detection, and provide remote support across 42 school sites. Before this role I spent the summer as an IT Deployment Technician, where I imaged and configured over 6,000 student devices and 45 staff systems for the district one-to-one rollout. I also provide part-time freelance IT and cybersecurity support for a small business client in Sykesville, Maryland.",
-    link: { text: "See my full resume", href: "resume.html" },
-    followUps: ["What technical skills do you use in your current role?", "Why should we hire you?", "What are your career goals?"]
+    "keywords": [
+      "strengths",
+      "strength",
+      "good at",
+      "soft skills",
+      "communication",
+      "work style",
+      "what are your strengths",
+      "best qualities"
+    ],
+    "answer": "I'm detail oriented, I document as I go, and I stay calm when things get busy. I'm a get-it-done person who works fast to find the answer and move on, but I don't skip steps. I communicate clearly, so nobody is left guessing where things stand.",
+    "link": {
+      "text": "See my resume",
+      "href": "resume.html"
+    },
+    "followUps": [
+      "What are you working on improving?",
+      "How do you handle pressure?",
+      "How do you work on a team?"
+    ]
   },
   {
-    keywords: ["remote support", "remote access", "anydesk", "teamviewer", "quick assist"],
-    answer: "I regularly support clients remotely using Quick Assist, Windows Remote Desktop, AnyDesk, and TeamViewer. I troubleshoot across both Windows and macOS systems and walk clients through fixes clearly and patiently.",
-    link: { text: "See my resume", href: "resume.html" },
-    followUps: ["Tell me about your help desk experience.", "What technical skills do you have?", "How do you approach troubleshooting?"]
+    "keywords": [
+      "weakness",
+      "weaknesses",
+      "improve",
+      "improving",
+      "growth area",
+      "what are you working on"
+    ],
+    "answer": "I'm still building my technical vocabulary. I know how to do the work, and I'm getting better at explaining it in the right terms. I've been practicing by writing up my labs and doing mock interviews, and when I don't know something, I say so and go learn it.",
+    "link": null,
+    "followUps": [
+      "What are your strengths?",
+      "How do you stay current in cybersecurity?",
+      "What are your career goals?"
+    ]
   },
   {
-    keywords: ["availability", "start date", "schedule", "when can you start"],
-    answer: "I'm open to discussing start timing based on what your team needs. I can plan my schedule to support a smooth onboarding.",
-    link: { text: "Contact me", href: "#contact" },
-    followUps: ["How can I contact you?", "What is your availability for interviews?", "Why should we hire you?"]
+    "keywords": [
+      "certification",
+      "certifications",
+      "degree",
+      "courses",
+      "education",
+      "school",
+      "college",
+      "certs",
+      "credentials",
+      "graduate",
+      "graduation"
+    ],
+    "answer": "I hold CompTIA Security+ SY0-701 and SOC Operations Analyst I from the BCR Cyber program, plus Splunk's Intro to Splunk and Using Fields. I'm studying for the Splunk Certified Cybersecurity Defense Analyst and CompTIA Security AI+, and I finish my AAS in Cybersecurity at Carroll Community College this December.",
+    "link": {
+      "text": "View my certifications",
+      "href": "certifications.html"
+    },
+    "followUps": [
+      "Tell me about your Security+.",
+      "What SIEM tools have you used?",
+      "What are your career goals?"
+    ]
   },
   {
-    keywords: ["salary", "compensation", "pay range", "how much do you make"],
-    answer: "I'm open to a conversation about compensation based on the role, the scope of work, and the market range for entry-level cybersecurity and IT positions.",
-    link: null,
-    followUps: ["What are your career goals?", "Why should we hire you?", "How can I contact you?"]
+    "keywords": [
+      "phi theta kappa",
+      "honor society",
+      "honors",
+      "academic achievement",
+      "gpa"
+    ],
+    "answer": "I'm a member of the Phi Theta Kappa Honor Society, Alpha Psi Psi Chapter. It's something I'm proud of, since I earned it while working full time.",
+    "link": null,
+    "followUps": [
+      "What certifications do you have?",
+      "Tell me about yourself.",
+      "What are your career goals?"
+    ]
   },
   {
-    keywords: ["work authorization", "authorized to work", "sponsorship", "visa"],
-    answer: "I can provide any work authorization information you need during the hiring process.",
-    link: { text: "Contact me", href: "#contact" },
-    followUps: ["How can I contact you?", "What is your availability?", "Why should we hire you?"]
+    "keywords": [
+      "comptia",
+      "security plus",
+      "security+",
+      "sy0-701",
+      "sec+"
+    ],
+    "answer": "I earned CompTIA Security+ SY0-701 in August 2026. It covers threats and attacks, identity and access, cryptography, network security and incident response, which is the base for everything I do in a SOC.",
+    "link": {
+      "text": "View my CompTIA certification",
+      "href": "comptia.html"
+    },
+    "followUps": [
+      "What certifications do you have?",
+      "What SOC experience do you have?",
+      "What are your career goals?"
+    ]
   },
   {
-    keywords: ["conflict", "disagreement", "team conflict", "difficult coworker"],
-    answer: "When there's a disagreement, I focus on understanding the other person's perspective before I push back. I keep it professional and focused on the work, not the person. Most conflicts get resolved pretty quickly when everyone feels heard.",
-    link: null,
-    followUps: ["How do you work on a team?", "What are your strengths?", "How do you handle pressure?"]
+    "keywords": [
+      "career goals",
+      "goals",
+      "future",
+      "plans",
+      "next role",
+      "where do you see yourself",
+      "five years",
+      "long term"
+    ],
+    "answer": "I want to grow in a SOC, moving from alert triage into threat hunting and incident response. Long term I want to lead a security program. After Carroll, I'm continuing on to my bachelor's at UMGC.",
+    "link": {
+      "text": "See my resume",
+      "href": "resume.html"
+    },
+    "followUps": [
+      "Why should we hire you?",
+      "What is threat hunting to you?",
+      "What SOC experience do you have?"
+    ]
   },
   {
-    keywords: ["pressure", "deadline", "stressful", "high pressure", "under pressure"],
-    answer: "I stay calm under pressure by keeping things organized and focusing on what I can control. I prioritize, communicate clearly about where things stand, and work through the problem one step at a time.",
-    link: null,
-    followUps: ["What are your strengths?", "How do you approach troubleshooting?", "Tell me about your work experience."]
+    "keywords": [
+      "first 90 days",
+      "first three months",
+      "onboarding",
+      "starting a new job",
+      "new job"
+    ],
+    "answer": "In my first 90 days I'd learn your tools, your playbooks and what normal looks like in your environment, so I can spot what isn't. I'd ask focused questions, take notes, and build trust by following through every time. I'd also ask what I should be learning at home so I can get up to speed faster.",
+    "link": null,
+    "followUps": [
+      "What are your strengths?",
+      "How do you work on a team?",
+      "Why should we hire you?"
+    ]
   },
   {
-    keywords: ["teamwork", "team player", "collaborate", "working with others", "on a team", "team"],
-    answer: "I work well on teams. I communicate clearly, I don't leave people guessing on where things stand, and I'm willing to step in and help where it's needed. I've done that in both school projects and in actual work environments.",
-    link: null,
-    followUps: ["How do you handle conflict?", "What are your strengths?", "Tell me about your work experience."]
+    "keywords": [
+      "shift",
+      "shifts",
+      "night shift",
+      "nights",
+      "weekends",
+      "overnight",
+      "24/7",
+      "on call",
+      "rotation",
+      "work nights"
+    ],
+    "answer": "Yes, I'm open to shift work, including nights and weekends. SOCs run around the clock and I'm flexible on the rotation.",
+    "link": {
+      "text": "Contact me",
+      "href": "#contact"
+    },
+    "followUps": [
+      "When can you start?",
+      "Why should we hire you?",
+      "How can I contact you?"
+    ]
   },
   {
-    keywords: ["tell me about a time", "example of", "give me an example", "walk me through"],
-    answer: "Happy to. Ask me about a specific situation, like troubleshooting a difficult issue, handling a security incident, supporting a user, or working through a challenge in a team setting, and I'll walk you through it.",
-    link: null,
-    followUps: ["How do you handle a security incident?", "Tell me about your troubleshooting approach.", "Tell me about your work experience."]
+    "keywords": [
+      "availability",
+      "start date",
+      "when can you start",
+      "start",
+      "start soon",
+      "available",
+      "ready to work",
+      "ready to start",
+      "notice"
+    ],
+    "answer": "I can start two weeks after an offer, so I can give my current employer proper notice.",
+    "link": {
+      "text": "Contact me",
+      "href": "#contact"
+    },
+    "followUps": [
+      "Are you open to shift work?",
+      "How can I contact you?",
+      "Why should we hire you?"
+    ]
   },
   {
-    keywords: ["how do you stay current", "learning", "keep up with cybersecurity", "stay updated"],
-    answer: "I stay current by working through labs, reading security news, and following up on areas where I feel less confident. I also review attack patterns and case studies from recent incidents to connect what I'm learning to what's actually happening out there.",
-    link: { text: "Browse my labs", href: "catherines-labs/index.html" },
-    followUps: ["What labs have you completed?", "What certifications do you have?", "Tell me about your career goals."]
+    "keywords": [
+      "salary",
+      "compensation",
+      "pay range",
+      "how much do you make",
+      "pay",
+      "paid"
+    ],
+    "answer": "I'm open to a conversation about compensation based on the role, the scope of work, and the market range for the position.",
+    "link": null,
+    "followUps": [
+      "What are your career goals?",
+      "Why should we hire you?",
+      "How can I contact you?"
+    ]
   },
   {
-    keywords: ["contact", "email", "linkedin", "reach you", "how to contact"],
-    answer: "You can reach me by email at c.jason11@outlook.com or connect with me on LinkedIn at linkedin.com/in/catherine-jason. I'm always open to connecting.",
-    link: { text: "Go to Contact section", href: "#contact" },
-    followUps: ["What is your availability?", "Why should we hire you?", "Tell me about yourself."]
+    "keywords": [
+      "work authorization",
+      "authorized to work",
+      "sponsorship",
+      "visa",
+      "clearance"
+    ],
+    "answer": "I can provide any work authorization information you need during the hiring process.",
+    "link": {
+      "text": "Contact me",
+      "href": "#contact"
+    },
+    "followUps": [
+      "How can I contact you?",
+      "When can you start?",
+      "Why should we hire you?"
+    ]
   },
   {
-    keywords: ["resume", "cv", "download resume"],
-    answer: "My resume covers my work experience at Carroll County Public Schools, my independent IT consulting, certifications, education, and technical skills.",
-    link: { text: "View my resume", href: "resume.html" },
-    followUps: ["What is your work experience?", "What certifications do you have?", "Why should we hire you?"]
+    "keywords": [
+      "conflict",
+      "disagreement",
+      "team conflict",
+      "difficult coworker",
+      "difficult user",
+      "difficult person",
+      "upset user"
+    ],
+    "answer": "When there's a disagreement, I focus on understanding the other person's side before I push back. I keep it professional and about the work, not the person. Most conflicts get resolved quickly when everyone feels heard.",
+    "link": null,
+    "followUps": [
+      "How do you work on a team?",
+      "What are your strengths?",
+      "How do you handle pressure?"
+    ]
   },
   {
-    keywords: ["comptia", "security plus", "security+", "sy0-701", "sec+"],
-    answer: "I earned CompTIA Security+ SY0-701 in August 2026. It covers threat analysis, identity management, cryptography, network security, and incident response. It gave me a solid base for everything I'm doing in security now.",
-    link: { text: "View CompTIA certification", href: "comptia.html" },
-    followUps: ["What certifications do you have?", "What is your SOC Analyst background?", "What are your career goals?"]
+    "keywords": [
+      "pressure",
+      "deadline",
+      "stressful",
+      "stress",
+      "high pressure",
+      "under pressure",
+      "busy",
+      "multitask",
+      "multitasking"
+    ],
+    "answer": "I stay calm under pressure by staying organized and focusing on what I can control. During our summer rollout, our team imaged about 6,000 devices in under four weeks, and I kept up by prepping the next batch while the current one was reimaging, so I was never waiting on one machine. I prioritize, keep people updated, and work through it one step at a time.",
+    "link": null,
+    "followUps": [
+      "Tell me about a mistake you made.",
+      "What are your strengths?",
+      "How do you approach troubleshooting?"
+    ]
+  },
+  {
+    "keywords": [
+      "teamwork",
+      "team player",
+      "collaborate",
+      "working with others",
+      "on a team",
+      "team"
+    ],
+    "answer": "I work well on teams. I communicate clearly, I don't leave people guessing where things stand, and I step in to help where it's needed. In a SOC that matters, because a clean handoff between analysts is what keeps something from slipping through.",
+    "link": null,
+    "followUps": [
+      "How do you handle conflict?",
+      "What are your strengths?",
+      "Tell me about your work experience."
+    ]
+  },
+  {
+    "keywords": [
+      "ticketing",
+      "service desk",
+      "help desk",
+      "helpdesk",
+      "it support",
+      "ticket queue",
+      "tickets"
+    ],
+    "answer": "I work an in-house help desk queue at Carroll County Public Schools: triaging and routing tickets, fixing issues remotely, and escalating what needs another team. I handle MFA and sign-in problems, BitLocker recovery, account access and device support across 42 sites, and I keep my notes complete. That work taught me to triage fast and document clearly, which carries straight into SOC work.",
+    "link": {
+      "text": "See my resume",
+      "href": "resume.html"
+    },
+    "followUps": [
+      "What remote support tools do you use?",
+      "How do you investigate an alert?",
+      "Tell me about your work experience."
+    ]
+  },
+  {
+    "keywords": [
+      "work experience",
+      "job history",
+      "current job",
+      "where do you work",
+      "carroll county",
+      "job",
+      "do for work",
+      "what do you do",
+      "for a living",
+      "employment",
+      "current role"
+    ],
+    "answer": "I'm a Technology Services Specialist at Carroll County Public Schools. I manage user accounts and access, review Microsoft Defender alerts and logs, support Cisco switching, and escalate Tier II issues across 42 schools. Before this role I was an IT Deployment Technician for the summer, imaging about 6,000 student devices and 45 staff systems. I also run my own IT and cybersecurity support business for small business clients.",
+    "link": {
+      "text": "See my full resume",
+      "href": "resume.html"
+    },
+    "followUps": [
+      "What SOC experience do you have?",
+      "Why should we hire you?",
+      "What are your career goals?"
+    ]
+  },
+  {
+    "keywords": [
+      "remote support",
+      "remote access",
+      "anydesk",
+      "teamviewer",
+      "quick assist",
+      "remote desktop",
+      "remote tools"
+    ],
+    "answer": "I support users remotely with Quick Assist, Configuration Manager remote control, Remote Desktop, AnyDesk and TeamViewer, across Windows and macOS. I always verify who I'm talking to before connecting, since remote access is a common way attackers trick people.",
+    "link": {
+      "text": "See my resume",
+      "href": "resume.html"
+    },
+    "followUps": [
+      "Tell me about your help desk experience.",
+      "What is your identity and access experience?",
+      "How do you approach troubleshooting?"
+    ]
+  },
+  {
+    "keywords": [
+      "how do you stay current",
+      "stay current",
+      "learning",
+      "keep up with cybersecurity",
+      "stay updated",
+      "news",
+      "currently learning",
+      "studying",
+      "what are you learning"
+    ],
+    "answer": "I follow security news, work through labs on TryHackMe, Hack The Box and Blue Team Labs Online, and keep building my own projects. Right now I'm studying for the Splunk Certified Cybersecurity Defense Analyst and CompTIA Security AI+, and I review recent attacks to connect what I'm learning to what's happening out there.",
+    "link": {
+      "text": "Browse my labs",
+      "href": "catherines-labs/index.html"
+    },
+    "followUps": [
+      "What labs have you completed?",
+      "What certifications do you have?",
+      "What are your career goals?"
+    ]
+  },
+  {
+    "keywords": [
+      "contact",
+      "email",
+      "linkedin",
+      "reach you",
+      "how to contact",
+      "get in touch",
+      "phone"
+    ],
+    "answer": "You can reach me by email at c.jason11@outlook.com or connect with me on LinkedIn at linkedin.com/in/catherine-jason. My projects are on GitHub at github.com/Catherine-Jason.",
+    "link": {
+      "text": "Go to Contact section",
+      "href": "#contact"
+    },
+    "followUps": [
+      "When can you start?",
+      "Why should we hire you?",
+      "Tell me about yourself."
+    ]
+  },
+  {
+    "keywords": [
+      "resume",
+      "cv",
+      "download resume"
+    ],
+    "answer": "My resume covers my work at Carroll County Public Schools, my IT and cybersecurity support business, my certifications, education and technical skills.",
+    "link": {
+      "text": "View my resume",
+      "href": "resume.html"
+    },
+    "followUps": [
+      "What is your work experience?",
+      "What certifications do you have?",
+      "Why should we hire you?"
+    ]
   }
 ];
 
@@ -1106,22 +1920,28 @@ function handleQuestion(question) {
     return;
   }
 
-  const q = question.toLowerCase().replace(/[\u2018\u2019]/g, "'");
+  const raw = question.toLowerCase().replace(/[\u2018\u2019]/g, "'");
 
   // Only greet when the message is just a greeting, so "when can you start" still gets its answer
-  if (/^\s*(hi|hello|hey|hey there|hi there|good (morning|afternoon|evening))\s*[!.?]*\s*$/.test(q)) {
+  if (/^\s*(hi|hello|hey|hey there|hi there|good (morning|afternoon|evening))\s*[!.?]*\s*$/.test(raw)) {
     showWelcome();
     return;
   }
 
-  // Match whole words only (so "ad" doesn't match "ready"), allow a plural "s",
-  // and score by how much of the question the keywords cover
-  const bestMatch = qa
+  const q = normalizeQuestion(raw);
+
+  // Step 1: phrase match. Whole words only (so "ad" doesn't match "ready"), with an optional plural "s".
+  let bestMatch = qa
     .map((item) => {
       const score = item.keywords.reduce((sum, kw) => sum + (keywordMatches(q, kw) ? kw.length : 0), 0);
       return { item, score };
     })
     .sort((a, b) => b.score - a.score)[0];
+
+  // Step 2: if no phrase matched, look for the topic words instead, allowing small typos
+  if (!bestMatch || bestMatch.score === 0) {
+    bestMatch = topicMatch(q);
+  }
 
   if (bestMatch && bestMatch.score > 0) {
     const entry = bestMatch.item;
@@ -1141,10 +1961,101 @@ function handleQuestion(question) {
   const fallback = "I don't have an answer written for that one yet. Try one of these, or reach out to me directly and I'll get back to you.";
   addMessage("bot", fallback);
   speak(fallback);
-  addChips(["Tell me about yourself", "What have you built?", "What are your technical skills?", "How can I contact you?"]);
+  addChips(["Tell me about yourself", "What SOC experience do you have?", "What have you built?", "How can I contact you?"]);
+}
+
+
+// ============================================
+// QUESTION CLEANUP AND TOPIC MATCHING
+// Lets people ask in their own words: about "Catherine" or "her",
+// with a greeting in front, with filler words, or with small typos.
+// ============================================
+const SYNONYMS = {
+  employer: "employment", worked: "employment", career: "career", paid: "salary", earn: "salary",
+  cert: "certification", certs: "certification", certified: "certification", credential: "certification", credentials: "certification",
+  college: "education", degree: "education", school: "education", studies: "education", studying: "education",
+  build: "built", created: "built", create: "built", developed: "built", project: "projects",
+  hire: "hire", hiring: "hire", recruit: "hire",
+  reach: "contact", email: "contact", phone: "contact", connect: "contact",
+  hobby: "lab", hobbies: "lab", homelab: "lab",
+  goal: "goals", plan: "plans", future: "future",
+  pay: "salary", wage: "salary", money: "salary",
+  sec: "security", secplus: "security+",
+  network: "networking", networks: "networking", cisco: "cisco",
+  weaknesses: "weakness", strength: "strengths",
+  intern: "internship", internships: "internship",
+  ai: "ai", bot: "bot", chatbot: "bot"
+};
+const STOP_WORDS = new Set(["what","whats","is","are","was","were","the","a","an","do","does","did","you","your","yours","yourself","me","my","tell","about","how","can","could","would","should","i","of","in","on","for","to","with","and","or","has","have","had","be","been","it","its","this","that","there","know","any","some","please","more","little","bit","give","show","describe","explain","kind","type","types","sort","much","many","like","so","just","also","really","very","her","she","catherine","jason","does","doing","done","get","got","talk","share","which","who","where","when","why","than","then"]);
+
+function normalizeQuestion(text) {
+  let t = " " + text.replace(/[^a-z0-9+'\s]/g, " ") + " ";
+  t = t.replace(/^\s*(hi|hello|hey|good (morning|afternoon|evening))( there)?\s+/, " ");   // greeting in front of a question
+  t = t.replace(/\b(a little bit|a little|a bit|little bit|briefly|quickly|real quick)\b/g, " ");
+  t = t.replace(/\bwho is (catherine|she)\b/g, "who are you");
+  t = t.replace(/\b(catherine|jason)'?s\b/g, "your");
+  t = t.replace(/\bher\b(?=\s+[a-z])(?!\s+(to|by|at|on|in|for|and|or|if|about)\b)/g, "your");  // "her skills" becomes "your skills"
+  t = t.replace(/\b(catherine jason|catherine|jason|she|her)\b/g, "you");
+  t = t.replace(/\byou is\b/g, "you are").replace(/\byou has\b/g, "you have").replace(/\byou does\b/g, "you do").replace(/\bdoes you\b/g, "do you");
+  return t.replace(/\s+/g, " ").trim();
+}
+
+function stem(word) {
+  if (SYNONYMS[word]) return SYNONYMS[word];
+  let w = word.replace(/'s$/, "");
+  if (w.length > 5 && w.endsWith("ing")) w = w.slice(0, -3);
+  else if (w.length > 4 && w.endsWith("ed")) w = w.slice(0, -2);
+  else if (w.length > 3 && w.endsWith("es")) w = w.slice(0, -2);
+  else if (w.length > 3 && w.endsWith("s") && !w.endsWith("ss")) w = w.slice(0, -1);
+  return SYNONYMS[w] || w;
+}
+
+function topicWords(text) {
+  return text.split(/[^a-z0-9+]+/).filter(w => w && !STOP_WORDS.has(w)).map(stem);
+}
+
+function closeEnough(a, b) {
+  if (a === b) return true;
+  if (a.length < 5 || b.length < 5 || Math.abs(a.length - b.length) > 1) return false;
+  let i = 0, j = 0, edits = 0;
+  while (i < a.length && j < b.length) {
+    if (a[i] === b[j]) { i++; j++; continue; }
+    if (++edits > 1) return false;
+    if (a.length > b.length) i++; else if (b.length > a.length) j++; else { i++; j++; }
+  }
+  return edits + (a.length - i) + (b.length - j) <= 1;
+}
+
+let topicIndex = null;
+function buildTopicIndex() {
+  const docFreq = {};
+  const entries = qa.map(item => {
+    const words = new Set(topicWords(item.keywords.join(" ")));
+    words.forEach(w => { docFreq[w] = (docFreq[w] || 0) + 1; });
+    return { item, words };
+  });
+  topicIndex = { entries, docFreq };
+}
+
+function topicMatch(q) {
+  if (!topicIndex) buildTopicIndex();
+  const words = topicWords(q);
+  if (!words.length) return null;
+  let best = null;
+  topicIndex.entries.forEach(({ item, words: bag }) => {
+    let score = 0;
+    words.forEach(w => {
+      for (const b of bag) {
+        if (closeEnough(w, b)) { score += 1 / topicIndex.docFreq[b]; break; }
+      }
+    });
+    if (score > 0 && (!best || score > best.score)) best = { item, score };
+  });
+  return best;
 }
 
 function keywordMatches(q, kw) {
+  kw = kw.replace(/[^a-z0-9+'\s]/g, " ").replace(/\s+/g, " ").trim();   // clean keywords the same way as questions
   const safe = kw.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   return new RegExp("(^|[^a-z0-9])" + safe + "s?(?=$|[^a-z0-9])").test(q);
 }
@@ -1153,7 +2064,7 @@ function showWelcome() {
   const intro = "Hi, I'm Catherine. I wrote these answers myself so you can learn about my background, projects and experience. What would you like to know?";
   addMessage("bot", intro);
   speak(intro);
-  addChips(["Tell me about yourself", "What have you built?", "Tell me about your capstone.", "Why should we hire you?"]);
+  addChips(["Tell me about yourself", "What SOC experience do you have?", "What have you built?", "Why should we hire you?"]);
 }
 
 function escapeHTML(str) {
