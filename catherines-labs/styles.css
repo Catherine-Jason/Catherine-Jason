@@ -1236,3 +1236,16 @@ body {
     margin-left: 0;
   }
 }
+
+/* links inside case study text, readable on the dark background */
+.gh-case-desc a,
+.gh-case-section li a {
+  color: var(--accent-teal);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.gh-case-desc a:hover,
+.gh-case-section li a:hover {
+  color: #ffffff;
+}

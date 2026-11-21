@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QS4T2WFSF9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QS4T2WFSF9');
+  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click by Click Offboarding | Capstone | Catherine Jason</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Capstone case study: Click by Click Offboarding, a free browser tool built by Catherine Jason for the Cyber Ready Clinic that helps small nonprofits shut off access when someone leaves.">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Click by Click Offboarding | Capstone | Catherine Jason">
+    <meta property="og:description" content="My Cyber Ready Clinic capstone: a free browser tool that helps small nonprofits shut off access when staff and volunteers leave.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.catherinejason.com/catherines-labs/gh-click-by-click.html">
+
+    <!-- Font Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../assets/site.css">
+    <script src="../assets/site.js" defer></script>
+</head>
+
+<body id="top">
+
+<!-- Hero Header -->
+<header class="hero-header">
+    <div class="hero-container">
+        <div class="hero-content">
+            <h1 class="hero-title">Capstone Project</h1>
+            <p class="hero-subtitle">My Cyber Ready Clinic capstone, 2026.</p>
+            <p class="hero-description">
+                A free web app that helps small nonprofits shut off access when someone leaves.
+            </p>
+            <nav class="hero-nav">
+                <a href="../index.html"><i class="fa-solid fa-house"></i> Home</a>
+                <a href="index.html">Catherine's Labs</a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="labs-container">
+
+    <section class="labs-section">
+        <div class="section-header">
+            <i class="fa-solid fa-user-lock section-icon"></i>
+            <h2>Capstone Project</h2>
+        </div>
+
+        <!-- Case Study Tabs -->
+        <div class="gh-tabs">
+            <a href="gh-soc-triage.html" class="gh-tab">
+                <i class="fa-solid fa-shield-halved"></i> SOC Alert Triage
+            </a>
+            <a href="gh-network-sim.html" class="gh-tab">
+                <i class="fa-solid fa-network-wired"></i> Network Infrastructure Simulator
+            </a>
+            <a href="gh-portfolio.html" class="gh-tab">
+                <i class="fa-solid fa-globe"></i> Cybersecurity Portfolio
+            </a>
+            <a href="gh-honey-ai.html" class="gh-tab">
+                <i class="fa-solid fa-robot"></i> Honey-AI Honeypot
+            </a>
+            <a href="gh-click-by-click.html" class="gh-tab active" aria-current="page">
+                <i class="fa-solid fa-user-lock"></i> Click by Click Capstone
+            </a>
+        </div>
+
+        <!-- Case Study: Click by Click Offboarding -->
+        <div class="gh-case-study">
+            <div class="gh-case-preview">
+                <img
+                    src="img/cbc-capstone-preview.png"
+                    alt="Title slide: Click by Click Offboarding, Cyber Ready Clinic Capstone 2026"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                />
+                <div class="gh-case-preview-fallback" style="display:none;">
+                    <i class="fa-brands fa-github"></i>
+                    <span>catherine-jason / click-by-click-offboarding</span>
+                </div>
+            </div>
+            <div class="gh-case-body">
+                <div class="gh-case-meta">
+                    <span class="gh-lang-badge"><i class="fa-solid fa-circle" style="color:#e34c26;"></i> HTML</span>
+                    <img src="https://img.shields.io/github/last-commit/Catherine-Jason/click-by-click-offboarding?style=flat-square&color=00d9ff&labelColor=1a1a1a&label=last+commit" alt="Last commit date badge for click-by-click-offboarding" loading="lazy" class="gh-badge" />
+                </div>
+                <h3>Click by Click Offboarding</h3>
+
+                <div class="gh-zone gh-zone-case-study">
+                    <p class="gh-zone-label">Case Study</p>
+                    <div class="gh-case-section">
+                        <h4>The Problem</h4>
+                        <p class="gh-case-desc">When someone leaves a small nonprofit, their accounts usually stay open. Their email still works, shared passwords don't get changed, and nobody has a list of everything that person could get into. Most of these organizations don't have an IT team, so this lands on the office manager or the director, who already has a full plate. This came up as a common gap in the assessment work we did in the clinic.</p>
+                    </div>
+                    <div class="gh-case-section">
+                        <h4>Why It Matters</h4>
+                        <ul>
+                            <li><strong>Insider:</strong> someone who left, maybe on bad terms, can still log in.</li>
+                            <li><strong>Attacker:</strong> an old account gets taken over, and since nobody uses it anymore, nobody notices.</li>
+                            <li><strong>Data:</strong> email forwarding rules and shared file links keep sending information out after the person is gone.</li>
+                        </ul>
+                        <p class="gh-case-desc">This ties to CIS Controls 5 and 6, which cover managing accounts and access, and to the Identity and Access part of NIST CSF 2.0 (PR.AA).</p>
+                    </div>
+                    <div class="gh-case-section">
+                        <h4>What I Built</h4>
+                        <p class="gh-case-desc">Click by Click Offboarding works in three steps, right in the browser.</p>
+                        <ul>
+                            <li><strong>Intake:</strong> who is leaving, their last day, and what they had access to.</li>
+                            <li><strong>Checklist:</strong> only the steps that apply to that person, grouped by before, on and after the last day.</li>
+                            <li><strong>Record:</strong> a dated record of every step for audits and cyber insurance.</li>
+                        </ul>
+                        <p class="gh-case-desc">If someone is let go or leaves unexpectedly, the urgent steps like removing admin rights move to the top. It's free, and nothing gets saved to a server.</p>
+                    </div>
+                    <div class="gh-case-section">
+                        <h4>What It Changes</h4>
+                        <ul>
+                            <li>Access gets shut off the same day someone leaves.</li>
+                            <li>The most important steps happen first when an exit is unplanned.</li>
+                            <li>The organization has proof it was done if an auditor or insurance company asks.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="gh-zone gh-zone--live">
+                    <p class="gh-zone-label">Try It Live</p>
+                    <p class="gh-zone-intro">This runs in your browser, so there is nothing to install.</p>
+                    <div class="gh-case-section">
+                        <p class="gh-case-desc">An example volunteer is already loaded. Check off a few steps, then go back to the intake and switch to "Unplanned or let go" to watch the urgent steps move to the top. Finish on the Record screen to see the dated record.</p>
+                        <p class="gh-case-desc">I've kept improving the app since the capstone, so the live version has more in it now. The exact version I presented is saved on GitHub as <a href="https://github.com/Catherine-Jason/click-by-click-offboarding/tree/capstone-v1.0" target="_blank" rel="noopener noreferrer">capstone-v1.0</a>.</p>
+                        <a href="https://catherine-jason.github.io/click-by-click-offboarding/" target="_blank" rel="noopener noreferrer" class="card-button">
+                            <i class="fa-solid fa-play"></i> Open the Live App
+                        </a>
+                    </div>
+                </div>
+
+                <div class="gh-zone gh-zone-screenshots">
+                    <p class="gh-zone-label">Screenshots</p>
+                    <div class="gh-case-section">
+                        <h4>The capstone version (v1.0)</h4>
+                        <div class="honey-screenshots">
+                            <figure class="honey-screenshot">
+                                <a href="img/cbc-intake.png" target="_blank" rel="noopener noreferrer">
+                                    <img src="img/cbc-intake.png" alt="Intake screen with role, last day and the systems the person had access to" loading="lazy">
+                                </a>
+                                <figcaption>Intake. Who is leaving, their last day, and what they had access to.</figcaption>
+                            </figure>
+                            <figure class="honey-screenshot">
+                                <a href="img/cbc-checklist.png" target="_blank" rel="noopener noreferrer">
+                                    <img src="img/cbc-checklist.png" alt="Checklist for an unplanned exit with urgent steps at the top" loading="lazy">
+                                </a>
+                                <figcaption>Checklist for an unplanned exit. The urgent steps move to the top, and the access card counts down what is still open.</figcaption>
+                            </figure>
+                            <figure class="honey-screenshot">
+                                <a href="img/cbc-record.png" target="_blank" rel="noopener noreferrer">
+                                    <img src="img/cbc-record.png" alt="Offboarding record showing done, not needed and open steps" loading="lazy">
+                                </a>
+                                <figcaption>Record. A dated list of every step to keep with HR or IT files.</figcaption>
+                            </figure>
+                            <figure class="honey-screenshot">
+                                <a href="img/cbc-slide-why.png" target="_blank" rel="noopener noreferrer">
+                                    <img src="img/cbc-slide-why.png" alt="Capstone slide: open access is a security risk" loading="lazy">
+                                </a>
+                                <figcaption>From my capstone slides: why open access is a security risk.</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gh-zone gh-zone-build">
+                    <p class="gh-zone-label">What Came Next</p>
+                    <div class="gh-case-section">
+                        <h4>Since the capstone</h4>
+                        <p class="gh-case-desc">My last slide listed three ideas for the next version: an onboarding side, a saved access list for each person, and reminders for the 30 day check. I built the first two in <a href="https://catherine-jason.github.io/click-by-click-access/" target="_blank" rel="noopener noreferrer">Click by Click Access</a>, a free and open source version with Onboarding, Offboarding and Inventory tabs that work together.</p>
+                        <p class="gh-case-desc">The offboarding app itself now also has:</p>
+                        <ul>
+                            <li>A device inventory with serial numbers, OS, encryption and patch dates, plus Excel import and export</li>
+                            <li>Steps that change by OS, like turning off Find My on Apple devices before a wipe</li>
+                            <li>Checkboxes for health information, card payments, student records and legal holds</li>
+                            <li>A "Why this matters" note on every step with NIST CSF 2.0, NIST SP 800-88 and CIS Controls references</li>
+                        </ul>
+                    </div>
+                    <div class="gh-case-section">
+                        <h4>Skills Demonstrated</h4>
+                        <div class="gh-tags">
+                            <span class="gh-tag">Identity and Access Management</span>
+                            <span class="gh-tag">Offboarding Process Design</span>
+                            <span class="gh-tag">CIS Controls 5 and 6</span>
+                            <span class="gh-tag">NIST CSF 2.0</span>
+                            <span class="gh-tag">Asset Management</span>
+                            <span class="gh-tag">Security Documentation</span>
+                            <span class="gh-tag">Presenting to Stakeholders</span>
+                            <span class="gh-tag">HTML CSS and JavaScript</span>
+                            <span class="gh-tag">GitHub Pages</span>
+                        </div>
+                    </div>
+                    <div class="gh-case-links">
+                        <a href="https://github.com/Catherine-Jason/click-by-click-offboarding" target="_blank" rel="noopener noreferrer" class="card-button gh-btn-outline">
+                            <i class="fa-brands fa-github"></i> View Repository
+                        </a>
+                        <a href="https://github.com/Catherine-Jason/click-by-click-offboarding/blob/main/capstone-slides.pdf" target="_blank" rel="noopener noreferrer" class="card-button gh-btn-outline">
+                            <i class="fa-solid fa-file-pdf"></i> Capstone Slides
+                        </a>
+                        <a href="https://catherine-jason.github.io/click-by-click-offboarding/" target="_blank" rel="noopener noreferrer" class="card-button">
+                            <i class="fa-solid fa-play"></i> Live App
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+</main>
+
+<a class="back-to-top" href="#top" aria-label="Back to top">↑ Top</a>
+
+<!-- Footer -->
+<footer class="labs-footer">
+    <p>&copy; 2026 Catherine Jason | Cybersecurity Labs & Interactive Projects</p>
+</footer>
+
+</body>
+</html>
